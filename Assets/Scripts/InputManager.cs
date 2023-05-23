@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] private Camera cameraObject;
+    [SerializeField] private GameObject cameraObject;
 
     void Update()
     {
@@ -15,6 +15,7 @@ public class InputManager : MonoBehaviour
             cameraObject.GetComponent<CameraController>().MoveCamera(moveAmount);
         }
 
+        // Camera zoom in/out with scroll.
         if (Input.mouseScrollDelta.y != 0)
         {
             cameraObject.GetComponent<CameraController>().ZoomCamera(-Input.mouseScrollDelta.y);
