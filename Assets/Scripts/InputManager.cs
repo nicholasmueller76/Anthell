@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] private GameObject cameraObject;
+    [SerializeField] private Camera cameraObject;
 
     void Update()
     {
@@ -13,6 +13,11 @@ public class InputManager : MonoBehaviour
         {
             var moveAmount = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
             cameraObject.GetComponent<CameraController>().MoveCamera(moveAmount);
+        }
+
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            cameraObject.GetComponent<CameraController>().ZoomCamera(-Input.mouseScrollDelta.y);
         }
     }
 }
