@@ -16,9 +16,15 @@ public class CameraController : MonoBehaviour
 
     public void ZoomCamera(float zoomAmount)
     {
-        if (GetComponent<Camera>().orthographicSize + zoomAmount >= minZoomIn && GetComponent<Camera>().orthographicSize + zoomAmount <= maxZoomOut) 
+        float newCameraSize = GetComponent<Camera>().orthographicSize + zoomAmount * zoomSpeed * Time.deltaTime;
+        if (newCameraSize < minZoomIn)
         {
-            GetComponent<Camera>().orthographicSize += zoomAmount * zoomSpeed * Time.deltaTime;
+            newCameraSize = minZoomIn;
         }
+        else if (newCameraSize > maxZoomOut)
+        {
+            newCameraSize = maxZoomOut;
+        }
+        GetComponent<Camera>().orthographicSize = newCameraSize;
     }
 }

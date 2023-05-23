@@ -531,8 +531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  zoomSpeed: 80
-  minZoomIn: 0
+  zoomSpeed: 70
+  minZoomIn: 1
   maxZoomOut: 10
 --- !u!1 &532006165
 GameObject:
