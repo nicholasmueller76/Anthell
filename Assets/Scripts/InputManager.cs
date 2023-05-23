@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private GameObject cameraObject;
+    [SerializeField] private Grid grid;
+    [SerializeField] private Tilemap tiles;
+    [SerializeField] private GameObject tileHighlight;
+    private Vector3 mousePosition;
+    private Vector3Int mouseTilePosition;
 
     void Update()
     {
@@ -19,6 +25,18 @@ public class InputManager : MonoBehaviour
         if (Input.mouseScrollDelta.y != 0)
         {
             cameraObject.GetComponent<CameraController>().ZoomCamera(-Input.mouseScrollDelta.y);
+        }
+
+        // Get the coordinates of the tile that the cursor is currently hovering over.
+        // Will show a highlight on the tile that the cursor is on.
+        // Left click and do something
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseTilePosition = tiles.LocalToCell(mousePosition);
+        tileHighlight.transform.position = tiles.GetCellCenterLocal(mouseTilePosition);
+        
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Debug.Log("Clicked on tile at " + mouseTilePosition);
         }
     }
 }
