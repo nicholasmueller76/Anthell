@@ -131,9 +131,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1763083916777654363, guid: 026786df1d461154b975eda65bbfd980, type: 3}
+      propertyPath: strength
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763083916777654363, guid: 026786df1d461154b975eda65bbfd980, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763083916777654363, guid: 026786df1d461154b975eda65bbfd980, type: 3}
+      propertyPath: smoothType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1860477845085238914, guid: 026786df1d461154b975eda65bbfd980, type: 3}
       propertyPath: m_Name
-      value: Entity
+      value: Worker Ant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860477845085238914, guid: 026786df1d461154b975eda65bbfd980, type: 3}
+      propertyPath: m_TagString
+      value: Ant
       objectReference: {fileID: 0}
     - target: {fileID: 7365463681204916906, guid: 026786df1d461154b975eda65bbfd980, type: 3}
       propertyPath: m_RootOrder
@@ -183,7 +199,8 @@ PrefabInstance:
       propertyPath: autoRepath.mode
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1763083916777654363, guid: 026786df1d461154b975eda65bbfd980, type: 3}
     m_RemovedGameObjects:
     - {fileID: 1650896803986322452, guid: 026786df1d461154b975eda65bbfd980, type: 3}
     - {fileID: 3133250250665017098, guid: 026786df1d461154b975eda65bbfd980, type: 3}
@@ -195,6 +212,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1860477845085238914, guid: 026786df1d461154b975eda65bbfd980, type: 3}
       insertIndex: -1
       addedObject: {fileID: 221218984}
+    - targetCorrespondingSourceObject: {fileID: 1860477845085238914, guid: 026786df1d461154b975eda65bbfd980, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 221218989}
   m_SourcePrefab: {fileID: 100100000, guid: 026786df1d461154b975eda65bbfd980, type: 3}
 --- !u!1 &221218982 stripped
 GameObject:
@@ -218,11 +238,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d80fa8f080ef6345b5dee0abd31bb49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityData: {fileID: 0}
-  health: 0
-  range: 0
-  targetQueue: []
+  data: {fileID: 11400000, guid: d16ed732a51c0c64580dd5c4c0936172, type: 2}
+  currentHealth: 0
   target: {fileID: 0}
+--- !u!61 &221218989
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221218982}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &279473747
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +297,7 @@ GameObject:
   - component: {fileID: 279473749}
   - component: {fileID: 279473748}
   m_Layer: 0
-  m_Name: Entity
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -486,7 +549,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
