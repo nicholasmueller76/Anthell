@@ -11,14 +11,14 @@ namespace Anthell
     abstract public class Entity : MonoBehaviour
     {
         [SerializeField]
-        private EntityData data;
+        protected EntityData data;
 
         [SerializeField]
-        private Queue<EntityTask> taskQueue = new();
-        private EntityTask currentTask;
-        private bool currentTaskFinished = false;
+        protected Queue<EntityTask> taskQueue = new();
+        protected EntityTask currentTask;
+        protected bool currentTaskFinished = false;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             currentTaskFinished = true;
             // For testing purposes add 5 idle tasks to the queue.
@@ -37,8 +37,12 @@ namespace Anthell
                 StartCoroutine(PerformTask(currentTask));
             }
         }
-
-        private IEnumerator PerformTask(EntityTask task)
+        /// <summary>
+        /// Performs the task. To be run as a Coroutine.
+        /// </summary>
+        /// <param name="task">The task that is to be performed</param>
+        /// <returns></returns>
+        virtual protected IEnumerator PerformTask(EntityTask task)
         {
             switch (task.taskType)
             {
@@ -47,15 +51,21 @@ namespace Anthell
                     break;
             }
         }
-
-        private IEnumerator Idle()
+        /// <summary>
+        /// An idle task. Sets the current task to finished.
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerator Idle()
         {
             currentTaskFinished = false;
             Debug.Log("Idle task in progress");
             currentTaskFinished = true;
             yield return null;
         }
-
+        /// <summary>
+        /// Adds a task to the task queue.
+        /// </summary>
+        /// <param name="task">The task to be added to the task queue</param>
         public void AddTask(EntityTask task)
         {
             taskQueue.Enqueue(task);
@@ -63,7 +73,9 @@ namespace Anthell
 
         public void EndCurrentTask()
         {
+            StopAllCoroutines(); // name is a bit weird, but it only stops coroutines on this behaviour
             taskQueue.Dequeue();
+            currentTaskFinished = true;
         }
     }
 }
