@@ -3,96 +3,67 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pathfinding
+namespace Anthell
 {
-    public class Entity : MonoBehaviour
+    /// <summary>
+    /// An abstract class to encapsulate entity task queues.
+    /// </summary>
+    abstract public class Entity : MonoBehaviour
     {
         [SerializeField]
         private EntityData data;
 
         [SerializeField]
-        private float currentHealth;
+        private Queue<EntityTask> taskQueue = new();
+        private EntityTask currentTask;
+        private bool currentTaskFinished = false;
 
-        private List<Func<GameObject, IEnumerator>> taskQueue = new();
-
-        private List<GameObject> targetQueue = new();
-
-        private bool nextAction = false;
-
-        [SerializeField]
-        private GameObject target;
-
-        //The script that controls where the ant should pathfind to.
-        private AIDestinationSetter destinationSetter;
-
-        private AILerp aiLerp;
-
-        void Awake()
+        private void Awake()
         {
-            target = new GameObject();
-            target.name = name + " target";
-            
-            destinationSetter = GetComponent<AIDestinationSetter>();
-            destinationSetter.target = target.transform;
-            
-            aiLerp = GetComponent<AILerp>();
-            aiLerp.canMove = false;
-            aiLerp.speed = data.speed;
-
-            currentHealth = data.maxHealth;
-
-            AddTask(Move, target);
-            nextAction = true;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (nextAction && taskQueue.Count > 0)
+            currentTaskFinished = true;
+            // For testing purposes add 5 idle tasks to the queue.
+            for (int i = 0; i < 5; i++)
             {
-                StartCoroutine(taskQueue[0](targetQueue[0]));
-                taskQueue.RemoveAt(0);
-                targetQueue.RemoveAt(0);
-                nextAction = false;
+                var idleStartTask = new EntityTask(EntityTaskTypes.Idle, this.gameObject);
+                taskQueue.Enqueue(idleStartTask);
             }
         }
 
-        //Adds a task with the corresponding target (which should be an Entity or TileEntity).
-        void AddTask(Func<GameObject, IEnumerator> task, GameObject target)
+        private void Update()
         {
-            taskQueue.Add(task);
-            targetQueue.Add(target);
-        }
-
-        //Cancels the current ongoing task.
-        void CancelCurrentTask()
-        {
-            StopAllCoroutines();
-            nextAction = true;
-        }
-
-        //Cancels the task at index.
-        void CancelTask(int index)
-        {
-            taskQueue.RemoveAt(index);
-            targetQueue.RemoveAt(index);
-        }
-
-        //Moves to targetObject until within range.
-        private IEnumerator Move(GameObject targetObject)
-        {
-            aiLerp.canMove = true;
-            Debug.Log("Moving.");
-            while (Vector3.Distance(transform.position, targetObject.transform.position) > data.range)
+            if (currentTaskFinished && taskQueue.Count > 0)
             {
-                target.transform.position = targetObject.transform.position;
-                yield return null;
+                currentTask = taskQueue.Dequeue();
+                StartCoroutine(PerformTask(currentTask));
             }
+        }
 
-            Debug.Log("Reached target.");
+        private IEnumerator PerformTask(EntityTask task)
+        {
+            switch (task.taskType)
+            {
+                case EntityTaskTypes.Idle:
+                    yield return Idle();
+                    break;
+            }
+        }
 
-            aiLerp.canMove = false;
-            nextAction = true;
+        private IEnumerator Idle()
+        {
+            currentTaskFinished = false;
+            Debug.Log("Idle task in progress");
+            currentTaskFinished = true;
+            yield return null;
+        }
+
+        public void AddTask(EntityTask task)
+        {
+            taskQueue.Enqueue(task);
+        }
+
+        public void EndCurrentTask()
+        {
+            taskQueue.Dequeue();
         }
     }
 }
