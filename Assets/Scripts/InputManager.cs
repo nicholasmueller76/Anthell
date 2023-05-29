@@ -10,6 +10,8 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Tilemap tiles;
     [SerializeField] private GameObject tileHighlight;
 
+    [SerializeField] private TilemapManager tilemapManager;
+
     private TaskAssigner taskAssigner;
     private Vector3 mousePosition;
     private Vector3Int mouseTilePosition;
@@ -48,7 +50,7 @@ public class InputManager : MonoBehaviour
             RaycastHit2D mouseHit = Physics2D.Raycast(mousePosition, Vector2.zero);
             if (mouseHit.collider != null && !mouseHit.collider.gameObject.CompareTag("Tilemap"))
             {
-                Debug.Log("Clicked on: " + mouseHit.collider.gameObject.name);
+                // Debug.Log("Clicked on: " + mouseHit.collider.gameObject.name);
                 if (mouseHit.collider.gameObject.CompareTag("Ant"))
                 {
                     // If an ant is clicked on, set it as the selected ant
@@ -64,7 +66,14 @@ public class InputManager : MonoBehaviour
             else
             {
                 // Else click on the tile highlighted
-                Debug.Log("Clicked on tile at " + mouseTilePosition);
+                // Debug.Log("Clicked on tile at " + mouseTilePosition);
+                var tilemapStartingPos = tilemapManager.transform.position;
+                int tileIndexX = (int)(mouseTilePosition.x - tilemapStartingPos.x + 0.5f);
+                int tileIndexY = (int)(mouseTilePosition.y - tilemapStartingPos.y + 0.5f);
+                GameObject tileEntity = tilemapManager.getTileObject(tileIndexX, tileIndexY);
+                taskAssigner.SetNextTaskTarget(tileEntity);
+                taskAssigner.SetNextTaskType(EntityTaskTypes.Move);
+
             }
         }
         else if (Input.GetButtonDown("Fire2"))

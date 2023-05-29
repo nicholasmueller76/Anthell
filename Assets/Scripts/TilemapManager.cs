@@ -15,7 +15,6 @@ public class TilemapManager : MonoBehaviour
     {
         map.CompressBounds();
         BoundsInt bounds = map.cellBounds;
-        Debug.Log((bounds.xMax - bounds.xMin) + "," + (bounds.yMax - bounds.yMin));
         this.transform.position = new Vector2(bounds.xMin + 0.5f, bounds.yMin + 0.5f);
         tiles = new TileBase[bounds.xMax - bounds.xMin, bounds.yMax - bounds.yMin];
         tileEntities = new GameObject[bounds.xMax - bounds.xMin, bounds.yMax - bounds.yMin];
@@ -28,31 +27,27 @@ public class TilemapManager : MonoBehaviour
                 TileBase tile = allTiles[x + y * bounds.size.x];
 
                 GameObject newTileData = new GameObject();
-                newTileData.AddComponent<BoxCollider2D>();
                 newTileData.transform.parent = this.gameObject.transform;
                 // Offset by 1 in the z axis so that the tile entites are behind any object on the map
-                newTileData.transform.localPosition = new Vector3(x, y, 1);
+                newTileData.transform.localPosition = new Vector3(x, y, 0);
                 newTileData.name = "TileData: " + x + ", " + y;
+
                 tileEntities[x, y] = newTileData;
                 tiles[x, y] = tile;
-
-                /*if (tile != null)
-                {
-                    Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
-                }
-                else
-                {
-                    Debug.Log("x:" + x + " y:" + y + " tile: (null)");
-                }*/
 
                 newTileData.AddComponent<TileEntity>().ConstructTileEntity(tiles[x, y]);
             }
         }
     }
 
+
     // Update is called once per frame
     void Update()
     {
 
+    }
+    public GameObject getTileObject(int x, int y)
+    {
+        return tileEntities[x, y];
     }
 }

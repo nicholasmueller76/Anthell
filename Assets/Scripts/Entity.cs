@@ -63,7 +63,7 @@ namespace Anthell
         public void AddTask(EntityTask task)
         {
             taskQueue.Enqueue(task);
-            Debug.Log("Task added to queue.");
+            // Debug.Log("Task added to queue.");
         }
 
         public void EndCurrentTask()
