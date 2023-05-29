@@ -10,8 +10,6 @@ namespace Anthell
         {
             base.Awake();
             currentHealth = data.maxHealth;
-
-            AddTask(new EntityTask(EntityTaskTypes.Move, moveTarget));
         }
 
         protected override IEnumerator PerformTask(EntityTask task)

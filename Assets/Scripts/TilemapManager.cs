@@ -28,8 +28,10 @@ public class TilemapManager : MonoBehaviour
                 TileBase tile = allTiles[x + y * bounds.size.x];
 
                 GameObject newTileData = new GameObject();
+                newTileData.AddComponent<BoxCollider2D>();
                 newTileData.transform.parent = this.gameObject.transform;
-                newTileData.transform.localPosition = new Vector3(x, y, 0);
+                // Offset by 1 in the z axis so that the tile entites are behind any object on the map
+                newTileData.transform.localPosition = new Vector3(x, y, 1);
                 newTileData.name = "TileData: " + x + ", " + y;
                 tileEntities[x, y] = newTileData;
                 tiles[x, y] = tile;
@@ -51,6 +53,6 @@ public class TilemapManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

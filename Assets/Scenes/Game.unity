@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: d16ed732a51c0c64580dd5c4c0936172, type: 2}
-  moveTarget: {fileID: 1118716609}
+  moveTarget: {fileID: 0}
 --- !u!1 &279473747
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,11 +44,10 @@ namespace Anthell
         {
             currentTaskFinished = false;
             aiLerp.canMove = true;
-            destinationSetter.target = moveTarget.transform;
+            destinationSetter.target = targetObject.transform;
             Debug.Log("Moving.");
             while (Vector3.Distance(transform.position, targetObject.transform.position) > data.range)
             {
-                moveTarget.transform.position = targetObject.transform.position;
                 yield return null;
             }
 

@@ -21,12 +21,6 @@ namespace Anthell
         protected virtual void Awake()
         {
             currentTaskFinished = true;
-            // For testing purposes add 5 idle tasks to the queue.
-            for (int i = 0; i < 5; i++)
-            {
-                var idleStartTask = new EntityTask(EntityTaskTypes.Idle, this.gameObject);
-                taskQueue.Enqueue(idleStartTask);
-            }
         }
 
         private void Update()
@@ -69,6 +63,7 @@ namespace Anthell
         public void AddTask(EntityTask task)
         {
             taskQueue.Enqueue(task);
+            Debug.Log("Task added to queue.");
         }
 
         public void EndCurrentTask()
