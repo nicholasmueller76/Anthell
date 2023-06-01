@@ -11,19 +11,19 @@ namespace Anthell
         public void SetNextTaskAnt(Ant ant)
         {
             selectedAnt = ant;
-            // Debug.Log("Selected ant: " + selectedAnt.name);
+            Debug.Log("Selected ant: " + selectedAnt.name);
         }
 
         public void SetNextTaskTarget(GameObject target)
         {
             selectedTarget = target;
-            // Debug.Log("Selected target: " + selectedTarget.name);
+            Debug.Log("Selected target: " + selectedTarget.name);
         }
 
         public void SetNextTaskType(EntityTaskTypes taskType)
         {
             selectedTaskType = taskType;
-            // Debug.Log("Selected task type: " + selectedTaskType);
+            Debug.Log("Selected task type: " + selectedTaskType);
         }
 
         public void AssignNextTask()

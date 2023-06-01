@@ -15,10 +15,13 @@ public class InputManager : MonoBehaviour
     private TaskAssigner taskAssigner;
     private Vector3 mousePosition;
     private Vector3Int mouseTilePosition;
+    private GameObject targetObj;
 
     private void Awake()
     {
         taskAssigner = new TaskAssigner();
+        targetObj = new GameObject();
+        targetObj.name = this.gameObject.name + " target";
     }
 
     private void Update()
@@ -48,7 +51,7 @@ public class InputManager : MonoBehaviour
         {
             // Check if any entities have been clicked on. Note that the entities need a collider to be detected!
             RaycastHit2D mouseHit = Physics2D.Raycast(mousePosition, Vector2.zero);
-            if (mouseHit.collider != null && !mouseHit.collider.gameObject.CompareTag("Tilemap"))
+            if (mouseHit.collider != null)
             {
                 // Debug.Log("Clicked on: " + mouseHit.collider.gameObject.name);
                 if (mouseHit.collider.gameObject.CompareTag("Ant"))
@@ -58,22 +61,22 @@ public class InputManager : MonoBehaviour
                 }
                 else
                 {
-                    // If anything else is clicked on, set it as the selected target
-                    taskAssigner.SetNextTaskTarget(mouseHit.collider.gameObject);
+                    // Else click on the tile highlighted
+                    // Debug.Log("Clicked on tile at " + mouseTilePosition);
+                    var tilemapStartingPos = tilemapManager.transform.position;
+                    int tileIndexX = (int)(mouseTilePosition.x - tilemapStartingPos.x + 0.5f);
+                    int tileIndexY = (int)(mouseTilePosition.y - tilemapStartingPos.y + 0.5f);
+                    GameObject tileEntity = tilemapManager.getTileObject(tileIndexX, tileIndexY);
+                    taskAssigner.SetNextTaskTarget(tileEntity);
                     taskAssigner.SetNextTaskType(EntityTaskTypes.Move);
                 }
             }
             else
             {
-                // Else click on the tile highlighted
-                // Debug.Log("Clicked on tile at " + mouseTilePosition);
-                var tilemapStartingPos = tilemapManager.transform.position;
-                int tileIndexX = (int)(mouseTilePosition.x - tilemapStartingPos.x + 0.5f);
-                int tileIndexY = (int)(mouseTilePosition.y - tilemapStartingPos.y + 0.5f);
-                GameObject tileEntity = tilemapManager.getTileObject(tileIndexX, tileIndexY);
-                taskAssigner.SetNextTaskTarget(tileEntity);
+                // In this case, you clicked on an empty mouse position
+                targetObj.transform.position = new Vector2(mousePosition.x, mousePosition.y);
+                taskAssigner.SetNextTaskTarget(targetObj);
                 taskAssigner.SetNextTaskType(EntityTaskTypes.Move);
-
             }
         }
         else if (Input.GetButtonDown("Fire2"))

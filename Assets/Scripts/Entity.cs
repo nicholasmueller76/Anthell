@@ -16,6 +16,7 @@ namespace Anthell
         [SerializeField]
         protected Queue<EntityTask> taskQueue = new();
         protected EntityTask currentTask;
+        [SerializeField]
         protected bool currentTaskFinished = false;
 
         protected virtual void Awake()

@@ -368,6 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: d16ed732a51c0c64580dd5c4c0936172, type: 2}
+  currentTaskFinished: 0
   moveTarget: {fileID: 0}
 --- !u!1 &279473747
 GameObject:
@@ -4900,7 +4901,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 8
+      m_TileSpriteIndex: 13
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4910,7 +4911,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 8
+      m_TileSpriteIndex: 13
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -7523,8 +7524,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 2
-    m_Data: {fileID: 21300398, guid: 5edb3a5e57537a162fc6042c18ada341, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 8
@@ -7533,8 +7534,8 @@ Tilemap:
     m_Data: {fileID: 21300972, guid: 5edb3a5e57537a162fc6042c18ada341, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300940, guid: 5edb3a5e57537a162fc6042c18ada341, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 2
+    m_Data: {fileID: 21300398, guid: 5edb3a5e57537a162fc6042c18ada341, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300466, guid: 5edb3a5e57537a162fc6042c18ada341, type: 3}
   - m_RefCount: 3
@@ -7863,6 +7864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: d16ed732a51c0c64580dd5c4c0936172, type: 2}
+  currentTaskFinished: 0
   moveTarget: {fileID: 0}
 --- !u!61 &1881246729
 BoxCollider2D:
