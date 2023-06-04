@@ -8,20 +8,54 @@ public class TileEntity : MonoBehaviour
     [SerializeField]
     TileBase thisTile;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    TileBase[] tileFiles = new TileBase[4];
 
+    public float health;
+
+    private TilemapManager tilemapManager;
+
+    public enum TileTypes
+    {
+        Dirt,
+        PackedDirt,
+        Stone,
+        Wood
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public TileTypes tileType;
 
-    public void ConstructTileEntity(TileBase thisTile)
+    public GameObject destroyParticleEffect;
+
+    public void ConstructTileEntity(TileBase thisTile, TileBase[] tileFiles)
     {
         this.thisTile = thisTile;
+        this.tileFiles = tileFiles;
+        health = 100;
+
+        tilemapManager = GetComponentInParent<TilemapManager>();
+
+        for (int i = 0; i < tileFiles.Length; i++)
+        {
+            if (tileFiles[i] == thisTile)
+            {
+                tileType = (TileTypes)i;
+                break;
+            }
+        }
+    }
+
+    public void PlaceTile(TileTypes type)
+    {
+        tilemapManager.SetTileObject((int)transform.localPosition.x, (int)transform.localPosition.y, tileFiles[(int)type]);
+    }
+
+    public void DestroyTile()
+    {
+        tilemapManager.SetTileObject((int)transform.localPosition.x, (int)transform.localPosition.y, null);
+    }
+
+    public void Dig(float damage)
+    {
+        health -= damage;
     }
 }

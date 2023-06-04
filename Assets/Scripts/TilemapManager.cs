@@ -10,6 +10,8 @@ public class TilemapManager : MonoBehaviour
     public TileBase[,] tiles;
     public GameObject[,] tileEntities;
 
+    public TileBase[] tileFiles = new TileBase[4];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +37,7 @@ public class TilemapManager : MonoBehaviour
                 tileEntities[x, y] = newTileData;
                 tiles[x, y] = tile;
 
-                newTileData.AddComponent<TileEntity>().ConstructTileEntity(tiles[x, y]);
+                newTileData.AddComponent<TileEntity>().ConstructTileEntity(tiles[x, y], tileFiles);
             }
         }
     }
@@ -46,6 +48,12 @@ public class TilemapManager : MonoBehaviour
     {
 
     }
+
+    public void SetTileObject(int x, int y, TileBase tile)
+    {
+        map.SetTile(new Vector3Int(x, y), tile);
+    }
+
     public GameObject getTileObject(int x, int y)
     {
         if (x < tileEntities.GetLength(0) && y < tileEntities.GetLength(1)) return tileEntities[x, y];
