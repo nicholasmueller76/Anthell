@@ -17,6 +17,10 @@ public class InputManager : MonoBehaviour
     private Vector3Int mouseTilePosition;
     private GameObject targetObj;
 
+    private Ant nextNextAnt;
+    private GameObject nextNextTarget;
+    private EntityTaskTypes nextNextTask;
+
     private void Awake()
     {
         taskAssigner = new TaskAssigner();
@@ -58,6 +62,7 @@ public class InputManager : MonoBehaviour
                 {
                     // If an ant is clicked on, set it as the selected ant
                     taskAssigner.SetNextTaskAnt(mouseHit.collider.gameObject.GetComponent<Ant>());
+                    nextNextAnt = mouseHit.collider.gameObject.GetComponent<Ant>();
                 }
                 else
                 {
@@ -69,6 +74,8 @@ public class InputManager : MonoBehaviour
                     GameObject tileEntity = tilemapManager.getTileObject(tileIndexX, tileIndexY);
                     taskAssigner.SetNextTaskTarget(tileEntity);
                     taskAssigner.SetNextTaskType(EntityTaskTypes.Move);
+                    nextNextTarget = tileEntity;
+                    nextNextTask = EntityTaskTypes.Dig;
                 }
             }
             else
@@ -77,10 +84,16 @@ public class InputManager : MonoBehaviour
                 targetObj.transform.position = new Vector2(mousePosition.x, mousePosition.y);
                 taskAssigner.SetNextTaskTarget(targetObj);
                 taskAssigner.SetNextTaskType(EntityTaskTypes.Move);
+                nextNextTarget = targetObj;
+                nextNextTask = EntityTaskTypes.Build;
             }
         }
         else if (Input.GetButtonDown("Fire2"))
         {
+            taskAssigner.AssignNextTask();
+            taskAssigner.SetNextTaskAnt(nextNextAnt);
+            taskAssigner.SetNextTaskTarget(nextNextTarget);
+            taskAssigner.SetNextTaskType(nextNextTask);
             taskAssigner.AssignNextTask();
         }
     }

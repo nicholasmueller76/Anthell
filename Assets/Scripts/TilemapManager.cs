@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Pathfinding;
 
 public class TilemapManager : MonoBehaviour
 {
@@ -49,9 +50,12 @@ public class TilemapManager : MonoBehaviour
 
     }
 
-    public void SetTileObject(int x, int y, TileBase tile)
+    public void SetTileObject(Vector3 globalPos, TileBase tile)
     {
-        map.SetTile(new Vector3Int(x, y), tile);
+        map.SetTile(map.WorldToCell(globalPos), tile);
+        map.gameObject.GetComponent<TilemapCollider2D>().ProcessTilemapChanges();
+        var graphToScan = AstarPath.active.data.gridGraph;
+        AstarPath.active.Scan(graphToScan);
     }
 
     public GameObject getTileObject(int x, int y)

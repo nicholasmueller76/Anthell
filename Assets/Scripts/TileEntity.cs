@@ -46,12 +46,12 @@ public class TileEntity : MonoBehaviour
 
     public void PlaceTile(TileTypes type)
     {
-        tilemapManager.SetTileObject((int)transform.localPosition.x, (int)transform.localPosition.y, tileFiles[(int)type]);
+        tilemapManager.SetTileObject(transform.position, tileFiles[(int)type]);
     }
 
     public void DestroyTile()
     {
-        tilemapManager.SetTileObject((int)transform.localPosition.x, (int)transform.localPosition.y, null);
+        tilemapManager.SetTileObject(transform.position, null);
     }
 
     public void Dig(float damage)
