@@ -61,6 +61,7 @@ namespace Anthell
             //Currently flat time for building
             yield return new WaitForSeconds(1f);
 
+            Debug.Log(tileEntity);
 
             tileEntity.PlaceTile(TileEntity.TileTypes.Dirt);
 
