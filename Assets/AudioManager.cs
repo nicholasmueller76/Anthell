@@ -1,5 +1,8 @@
-using UnityEngine.Audio;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using System;
 
 public class AudioManager : MonoBehaviour
 {
@@ -9,14 +12,14 @@ public class AudioManager : MonoBehaviour
         "Introduction to AUDIO in Unity" - Brackeys
     */
 
-    public Sound[] SFXclips, Musicclips; 
+    public Sound[] sfxClips, musicClips; 
 
     public static AudioManager instance;
 
     // Start is called before the first frame update
     void Awake()
     {
-        if(instance == NULL)
+        if(instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -26,7 +29,17 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        foreach(Sound s in sounds)
+        foreach(Sound s in sfxClips)
+        {
+            s.source = gameObject.AddComponent<AudioSource>();
+            s.source.clip = s.clip;
+
+            s.source.volume = s.volume;
+            s.source.pitch = s.pitch;
+            s.source.loop = s.loop;
+        }
+
+        foreach(Sound s in musicClips)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
@@ -39,17 +52,30 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        Play("Theme");
+        //Play("Theme");
     }
 
-    public void Play(string name)
+    public void PlaySFX(string name)
     {
-        Sound s = Array.Find(sounds, sounds => sound.name == name);
-        if(s == NULL)
+        Sound s = Array.Find(sfxClips, x => x.name == name);
+        if(s == null)
         {
-            Debug.LogWarning("Sound \"" + name + "\" not found");
+            Debug.LogWarning("SFX sound \"" + name + "\" not found");
             return;
         }
         s.source.Play();
     }
+
+    public void PlayMusic(string name)
+    {
+        Sound s = Array.Find(musicClips, x => x.name == name);
+        if(s == null)
+        {
+            Debug.LogWarning("Music sound \"" + name + "\" not found");
+            return;
+        }
+        s.source.Play();
+    }
+
+    
 }
