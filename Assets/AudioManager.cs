@@ -10,13 +10,23 @@ public class AudioManager : MonoBehaviour
         Youtube videos referenced:
         "Unity AUDIO MANAGER Tutorial" - Rehope Games
         "Introduction to AUDIO in Unity" - Brackeys
+
+        Also referenced:
+        SoundManager.cs from Assignment1
+
+        Play sfx with FindObjectOfType<AudioManager>().PlaySFX("name");
+        Play music with FindObjectOfType<AudioManager>().PlayMusic("name");
     */
 
     public Sound[] sfxClips, musicClips; 
 
     public static AudioManager instance;
 
-    // Start is called before the first frame update
+    public float sfxVolume;
+    public float musicVolume; 
+
+    private Sound musicPlaying;
+
     void Awake()
     {
         if(instance == null)
@@ -29,14 +39,16 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        sfxVolume = 1;
+        musicVolume = 1;
+
         foreach(Sound s in sfxClips)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
 
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
+            s.source.volume = this.sfxVolume * s.volume;
+            s.source.loop = false;
         }
 
         foreach(Sound s in musicClips)
@@ -44,15 +56,14 @@ public class AudioManager : MonoBehaviour
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
 
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
+            s.source.volume = this.musicVolume * s.volume;
+            s.source.loop = true;
         }
     }
 
     void Start()
     {
-        //Play("Theme");
+        this.PlayMusic("BootCamp");
     }
 
     public void PlaySFX(string name)
@@ -69,13 +80,19 @@ public class AudioManager : MonoBehaviour
     public void PlayMusic(string name)
     {
         Sound s = Array.Find(musicClips, x => x.name == name);
+
         if(s == null)
         {
             Debug.LogWarning("Music sound \"" + name + "\" not found");
             return;
         }
-        s.source.Play();
-    }
 
-    
+        if(this.musicPlaying != null)
+        {
+            this.musicPlaying.source.Stop();
+        }
+
+        s.source.Play();
+        this.musicPlaying = s;
+    } 
 }

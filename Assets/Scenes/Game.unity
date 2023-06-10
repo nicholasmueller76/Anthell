@@ -7782,7 +7782,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7178279beb673aa4c980c8b3ad3f1f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sfxClips: []
+  musicClips:
+  - name: BorderTown
+    clip: {fileID: 8300000, guid: 0f4cd4ee938830848a223e1925679678, type: 3}
+    volume: 1
+    pitch: 0
+    source: {fileID: 0}
+  - name: BootCamp
+    clip: {fileID: 8300000, guid: 091f454449747a5489f680c4366bd76c, type: 3}
+    volume: 1
+    pitch: 0
+    source: {fileID: 0}
+  - name: UltimateAssault1
+    clip: {fileID: 8300000, guid: 0ed6038db6b721847b187fb79c7f100c, type: 3}
+    volume: 1
+    pitch: 0
+    source: {fileID: 0}
+  - name: UltimateAssault2
+    clip: {fileID: 8300000, guid: bc1592b1372e80042af423fb5753cc62, type: 3}
+    volume: 1
+    pitch: 0
+    source: {fileID: 0}
 --- !u!4 &1561991031
 Transform:
   m_ObjectHideFlags: 0
