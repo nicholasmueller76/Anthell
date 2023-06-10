@@ -17,9 +17,9 @@ public class TileEntity : MonoBehaviour
     public enum TileTypes
     {
         Dirt,
-        PackedDirt,
         Stone,
-        Wood
+        Wood,
+        Sulfur
     }
 
     public TileTypes tileType;

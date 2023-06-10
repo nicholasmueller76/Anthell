@@ -8,10 +8,15 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float zoomSpeed;
     [SerializeField] private float minZoomIn;
     [SerializeField] private float maxZoomOut;
+    [SerializeField] private float minX;
+    [SerializeField] private float maxX;
+    [SerializeField] private float minY;
+    [SerializeField] private float maxY;
 
     public void MoveCamera(Vector3 moveAmount)
     {
-        transform.Translate(moveAmount * speed * Time.deltaTime);
+        transform.Translate(speed * Time.deltaTime * moveAmount);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, minX, maxX), Mathf.Clamp(transform.position.y, minY, maxY), transform.position.z);
     }
 
     public void ZoomCamera(float zoomAmount)
