@@ -1,14 +1,19 @@
 using System.Collections;
 using UnityEngine;
+using cakeslice;
 
 namespace Anthell
 {
     class Ant : MoveableEntity
     {
         private float currentHealth;
+        private Outline outline;
+
         protected override void Awake()
         {
             base.Awake();
+            outline = GetComponentInChildren<Outline>();
+            outline.eraseRenderer = true;
             currentHealth = data.maxHealth;
         }
 
@@ -33,41 +38,59 @@ namespace Anthell
 
         protected IEnumerator Dig(GameObject targetObject)
         {
-            TileEntity tileEntity = targetObject.GetComponent<TileEntity>();
-            currentTaskFinished = false;
-            Debug.Log("Digging.");
-            while (tileEntity.health > 0)
+            if (Vector3.Distance(transform.position, targetObject.transform.position) <= data.range)
             {
-                yield return new WaitForSeconds(1f);
-                tileEntity.Dig(data.mineSpeed);
-                
+
+                TileEntity tileEntity = targetObject.GetComponent<TileEntity>();
+                currentTaskFinished = false;
+                Debug.Log("Digging.");
+                while (tileEntity.health > 0)
+                {
+                    yield return new WaitForSeconds(1f);
+                    tileEntity.Dig(data.mineSpeed);
+
+                }
+
+                tileEntity.DestroyTile();
+                Debug.Log("Finished digging");
             }
-
-            tileEntity.DestroyTile();
-
-            Debug.Log("Finished digging");
+            else
+            {
+                Debug.Log("Could not execute dig task (out of range)");
+            }
 
             currentTaskFinished = true;
         }
 
         protected IEnumerator Build(GameObject targetObject)
         {
-            //Will need to add some way to pass the material as a parameter
+            if (Vector3.Distance(transform.position, targetObject.transform.position) <= data.range)
+            {
+                //Will need to add some way to pass the material as a parameter
 
-            TileEntity tileEntity = targetObject.GetComponent<TileEntity>();
-            currentTaskFinished = false;
-            Debug.Log("Building.");
+                TileEntity tileEntity = targetObject.GetComponent<TileEntity>();
+                currentTaskFinished = false;
+                Debug.Log("Building.");
 
-            //Currently flat time for building
-            yield return new WaitForSeconds(1f);
+                //Currently flat time for building
+                yield return new WaitForSeconds(1f);
 
-            Debug.Log(tileEntity);
+                Debug.Log(tileEntity);
 
-            tileEntity.PlaceTile(TileEntity.TileTypes.Dirt);
-
-            Debug.Log("Finished building");
+                tileEntity.PlaceTile(TileEntity.TileTypes.Dirt);
+                Debug.Log("Finished building");
+            }
+            else
+            {
+                Debug.Log("Could not execute build task (out of range)");
+            }
 
             currentTaskFinished = true;
+        }
+
+        public void SetSelected(bool selected)
+        {
+            outline.eraseRenderer = !selected;
         }
     }
 }

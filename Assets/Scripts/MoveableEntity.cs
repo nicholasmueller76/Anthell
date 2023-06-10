@@ -11,11 +11,13 @@ namespace Anthell
         protected AILerp aiLerp;
         // Serialized Field for testing purposes.
         [SerializeField] protected GameObject moveTarget;
+        private Animator anim;
 
         protected override void Awake()
         {
             base.Awake();
             destinationSetter = GetComponent<AIDestinationSetter>();
+            anim = GetComponentInChildren<Animator>();
 
             aiLerp = GetComponent<AILerp>();
             aiLerp.canMove = false;
@@ -45,14 +47,21 @@ namespace Anthell
             currentTaskFinished = false;
             aiLerp.canMove = true;
             destinationSetter.target = targetObject.transform;
+            anim.SetBool("Walking", true);
             Debug.Log("Moving.");
             while (Vector3.Distance(transform.position, targetObject.transform.position) > data.range)
             {
+                if(aiLerp.reachedEndOfPath)
+                {
+                    Debug.Log("Entity is stuck.");
+                    break;
+                }
                 yield return null;
             }
 
             Debug.Log("Reached target.");
 
+            anim.SetBool("Walking", false);
             aiLerp.canMove = false;
             currentTaskFinished = true;
         }

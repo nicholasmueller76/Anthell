@@ -12,20 +12,21 @@ public class InputManager : MonoBehaviour
 
     [SerializeField] private TilemapManager tilemapManager;
 
-    private TaskAssigner taskAssigner;
+    //private TaskAssigner taskAssigner;
     private Vector3 mousePosition;
     private Vector3Int mouseTilePosition;
     private GameObject targetObj;
 
-    private Ant nextNextAnt;
-    private GameObject nextNextTarget;
-    private EntityTaskTypes nextNextTask;
+    private Ant selectedAnt;
+
+    private enum ClickTargetTypes {ant, tile, emptyTile, enemy };
+    private ClickTargetTypes clickedTarget;
 
     private bool entityClicked;
 
     private void Awake()
     {
-        taskAssigner = new TaskAssigner();
+        //taskAssigner = new TaskAssigner();
         targetObj = new GameObject();
         targetObj.name = this.gameObject.name + " target";
     }
@@ -51,13 +52,26 @@ public class InputManager : MonoBehaviour
         mouseTilePosition = tiles.LocalToCell(mousePosition);
         tileHighlight.transform.position = tiles.GetCellCenterLocal(mouseTilePosition);
 
-        // Left click and do something
-        // Will prioritize entities clicked first, then tile
-        if (Input.GetButtonDown("Fire1"))
+        // Reads the target clicked.
+        if(Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2"))
         {
+            RaycastHit2D mouseHit = Physics2D.Raycast(mousePosition, Vector2.zero);
+
             entityClicked = false;
 
-            RaycastHit2D mouseHit = Physics2D.Raycast(mousePosition, Vector2.zero);
+            if (mouseHit.collider != null)
+            {
+                if (mouseHit.collider.gameObject.CompareTag("Ant"))
+                {
+                    clickedTarget = ClickTargetTypes.ant;
+                    entityClicked = true;
+                }
+                else if (mouseHit.collider.gameObject.CompareTag("Enemy"))
+                {
+                    clickedTarget = ClickTargetTypes.enemy;
+                    entityClicked = true;
+                }
+            }
 
             //Get tilemap information at the mouse position.
             var tilemapStartingPos = tilemapManager.transform.position;
@@ -65,62 +79,63 @@ public class InputManager : MonoBehaviour
             int tileIndexY = (int)(mouseTilePosition.y - tilemapStartingPos.y + 0.5f);
             GameObject tileEntity = tilemapManager.getTileObject(tileIndexX, tileIndexY);
 
-            if(mouseHit.collider != null)
-            {
-                if (mouseHit.collider.gameObject.CompareTag("Ant"))
-                {
-                    // If an ant is clicked on, set it as the selected ant.
-                    taskAssigner.SetNextTaskAnt(mouseHit.collider.gameObject.GetComponent<Ant>());
-                    nextNextAnt = mouseHit.collider.gameObject.GetComponent<Ant>();
-                    entityClicked = true;
-                }
-                else if (mouseHit.collider.gameObject.CompareTag("Enemy"))
-                {
-                    //Attack task logic here...
-                    entityClicked = true;
-                }
-            }
-
-            //If there is a tile at the mouse position and an ant was not clicked in this cycle.
             if (tileEntity != null && !entityClicked)
             {
                 if (mouseHit.collider != null && mouseHit.collider.gameObject.CompareTag("Tilemap"))
                 {
-                    // Else click on the tile highlighted
-                    // Debug.Log("Clicked on tile at " + mouseTilePosition);
-                    taskAssigner.SetNextTaskTarget(tileEntity);
-                    taskAssigner.SetNextTaskType(EntityTaskTypes.Move);
-                    nextNextTarget = tileEntity;
-                    nextNextTask = EntityTaskTypes.Dig;
+                    clickedTarget = ClickTargetTypes.tile;
                 }
                 else
                 {
-                    // In this case you clicked on a spot on the tilemap that is empty.
-                    // Debug.Log("Clicked on tile at " + mouseTilePosition)
-                    taskAssigner.SetNextTaskTarget(tileEntity);
-                    taskAssigner.SetNextTaskType(EntityTaskTypes.Move);
-                    nextNextTarget = tileEntity;
-                    nextNextTask = EntityTaskTypes.Build;
+                    clickedTarget = ClickTargetTypes.emptyTile;
                 }
             }
 
             entityClicked = false;
-        }
-        else if (Input.GetButtonDown("Fire2"))
-        {
-            taskAssigner.AssignNextTask();
 
-            //Temporary logic before UI buttons are added
-            if (nextNextAnt != null)
+            // Left click selects an ant (make it the selectedAnt), tile (display tile info), or enemy (display enemy info)
+            if (Input.GetButtonDown("Fire1"))
             {
-                taskAssigner.SetNextTaskAnt(nextNextAnt);
-                taskAssigner.SetNextTaskTarget(nextNextTarget);
-                taskAssigner.SetNextTaskType(nextNextTask);
-                taskAssigner.AssignNextTask();
+                if (clickedTarget == ClickTargetTypes.ant)
+                {
+                    if (selectedAnt != null) selectedAnt.SetSelected(false);
+                    selectedAnt = mouseHit.collider.gameObject.GetComponent<Ant>();
+                    selectedAnt.SetSelected(true);
+                }
+                else if (clickedTarget == ClickTargetTypes.enemy)
+                {
+                    // Enemy info popup
+                }
+                else if (clickedTarget == ClickTargetTypes.tile)
+                {
+                    // Tile info popup
+                }
             }
-            nextNextTarget = null;
-            nextNextTask = EntityTaskTypes.Idle;
-            nextNextAnt = null;
+            // If right click, then execute action on the clicked object
+            else if (Input.GetButtonDown("Fire2") && selectedAnt != null)
+            {
+                if (clickedTarget == ClickTargetTypes.enemy)
+                {
+                    // Attack task
+                }
+                else if (clickedTarget == ClickTargetTypes.tile)
+                {
+                    // Dig task
+                    selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
+                    selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Dig, tileEntity));
+                }
+                else if (clickedTarget == ClickTargetTypes.emptyTile)
+                {
+                    selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
+                    selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Build, tileEntity));
+                }
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            if (selectedAnt != null) selectedAnt.SetSelected(false);
+            selectedAnt = null;
         }
     }
 }
