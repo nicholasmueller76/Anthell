@@ -140,11 +140,14 @@ public class InputManager : MonoBehaviour
                     selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
                     selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Dig, tileEntity));
                 }
-                else if (clickedTarget == ClickTargetTypes.emptyTile && selectedResource != TileEntity.TileTypes.Empty && resourceManager.GetResource(selectedResource) > 0)
+                else if (clickedTarget == ClickTargetTypes.emptyTile && selectedResource != TileEntity.TileTypes.Empty)
                 {
-                    selectedAnt.SetHeldResource(selectedResource);
-                    selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
-                    selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Build, tileEntity));
+                    if (resourceManager.GetResource(selectedResource) > 0)
+                    {
+                        selectedAnt.SetHeldResource(selectedResource);
+                        selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
+                        selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Build, tileEntity));
+                    }
                 }
             }
         }

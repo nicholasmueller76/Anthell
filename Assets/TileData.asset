@@ -9,16 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31c14c1c60c4e9141baabded21cdb642, type: 3}
-  m_Name: Ant_Worker
+  m_Script: {fileID: 11500000, guid: a3a61072112f19941882347909c53c7c, type: 3}
+  m_Name: TileData
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  speed: 2
-  range: 1
-  mineSpeed:
-  - 50
-  - 20
-  - 20
-  - 20
-  buildSpeed: 25
-  damage: 1

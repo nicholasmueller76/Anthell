@@ -6,6 +6,8 @@ using Pathfinding;
 
 public class TilemapManager : MonoBehaviour
 {
+    public Color[] tileColors = new Color[4];
+
     public Tilemap map;
 
     public TileBase[,] tiles;
@@ -50,9 +52,10 @@ public class TilemapManager : MonoBehaviour
 
     }
 
-    public void SetTileObject(Vector3 globalPos, TileBase tile)
+    public void SetTileObject(Vector3 globalPos, TileBase tile, TileEntity.TileTypes type)
     {
         map.SetTile(map.WorldToCell(globalPos), tile);
+        map.SetColor(map.WorldToCell(globalPos), tileColors[(int)type]);
         map.gameObject.GetComponent<TilemapCollider2D>().ProcessTilemapChanges();
         var graphToScan = AstarPath.active.data.gridGraph;
         AstarPath.active.Scan(graphToScan);

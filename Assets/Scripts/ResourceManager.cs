@@ -73,7 +73,8 @@ public class ResourceManager : MonoBehaviour
 
     public int GetResource(TileEntity.TileTypes resource)
     {
-        return resources[(int)resource];
+        if (resource != TileEntity.TileTypes.Empty) return resources[(int)resource];
+        else return (int) TileEntity.TileTypes.Empty;
     }
 
     public void AddCash(int amount)

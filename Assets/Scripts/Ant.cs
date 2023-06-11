@@ -70,7 +70,7 @@ namespace Anthell
 
         protected IEnumerator Build(GameObject targetObject)
         {
-            if (Vector3.Distance(transform.position, targetObject.transform.position) <= data.range || heldResource != TileEntity.TileTypes.Empty)
+            if (Vector3.Distance(transform.position, targetObject.transform.position) <= data.range && heldResource != TileEntity.TileTypes.Empty)
             {
                 TileEntity tileEntity = targetObject.GetComponent<TileEntity>();
                 currentTaskFinished = false;
