@@ -11,13 +11,13 @@ public class ResourceManager : MonoBehaviour
 
     [SerializeField] int[] resources = new int[4];
 
-    //[SerializeField] TMP_Text DirtCounter;
+    [SerializeField] TMP_Text DirtCounter;
 
-    //[SerializeField] TMP_Text StoneCounter;
+    [SerializeField] TMP_Text StoneCounter;
 
-    //[SerializeField] TMP_Text WoodCounter;
+    [SerializeField] TMP_Text WoodCounter;
 
-    //[SerializeField] TMP_Text SulfurCounter;
+    [SerializeField] TMP_Text SulfurCounter;
 
 
     // Start is called before the first frame update
@@ -28,16 +28,16 @@ public class ResourceManager : MonoBehaviour
         //CashCounter.text = CashAmount.ToString();
 
         resources[0] = 0;
-        //DirtCounter.text = resources[0].ToString();
+        DirtCounter.text = resources[0].ToString();
 
         resources[1] = 0;
-        //StoneCounter.text = resources[1].ToString();
+        StoneCounter.text = resources[1].ToString();
 
         resources[2] = 0;
-        //WoodCounter.text = resources[2].ToString();
+        WoodCounter.text = resources[2].ToString();
 
         resources[3] = 0;
-        //SulfurCounter.text = resources[3].ToString();
+        SulfurCounter.text = resources[3].ToString();
     }
 
     // Update is called once per frame
@@ -54,16 +54,16 @@ public class ResourceManager : MonoBehaviour
         switch (resource)
         {
         case TileEntity.TileTypes.Dirt:
-            //DirtCounter.text = resources[0].ToString();
+            DirtCounter.text = resources[0].ToString();
             break;
         case TileEntity.TileTypes.Stone:
-            //StoneCounter.text = resources[1].ToString();
+            StoneCounter.text = resources[1].ToString();
             break;
         case TileEntity.TileTypes.Wood:
-            //WoodCounter.text = resources[2].ToString();
+            WoodCounter.text = resources[2].ToString();
             break;
         case TileEntity.TileTypes.Sulfur:
-            //SulfurCounter.text = resources[3].ToString();
+            SulfurCounter.text = resources[3].ToString();
             break;
         default:
             print ("Invalid Resource.");
