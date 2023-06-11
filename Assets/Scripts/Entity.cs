@@ -24,7 +24,7 @@ namespace Anthell
             currentTaskFinished = true;
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (currentTaskFinished && taskQueue.Count > 0)
             {

@@ -52,6 +52,7 @@ public class TileEntity : MonoBehaviour
     {
         tilemapManager.SetTileObject(transform.position, tileFiles[(int)type], type);
         tileType = type;
+        health = 100;
     }
 
     public void DestroyTile()

@@ -24,6 +24,11 @@ namespace Anthell
             aiLerp.speed = data.speed;
         }
 
+        protected override void Update()
+        {
+            base.Update();
+        }
+
         protected override IEnumerator PerformTask(EntityTask task)
         {
             switch (task.taskType)

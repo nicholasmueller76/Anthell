@@ -10,14 +10,22 @@ namespace Anthell
         private Outline outline;
         private ResourceManager resourceManager;
         private TileEntity.TileTypes heldResource;
+        private SpriteRenderer sprite;
 
         protected override void Awake()
         {
             base.Awake();
             outline = GetComponentInChildren<Outline>();
+            sprite = GetComponentInChildren<SpriteRenderer>();
             outline.eraseRenderer = true;
             currentHealth = data.maxHealth;
             resourceManager = Camera.main.gameObject.GetComponent<ResourceManager>();
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            sprite.flipY = (this.transform.rotation.eulerAngles.z >= 0 && this.transform.rotation.eulerAngles.z <= 180);
         }
 
         protected override IEnumerator PerformTask(EntityTask task)
