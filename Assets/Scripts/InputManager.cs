@@ -21,8 +21,12 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Button woodButton;
     [SerializeField] private Button sulfurButton;
 
+    private bool isDoubleClick = false;
+    private bool checkingClickType = false;
+    private float clickTime = 0;
+    private float clickDelay = 0.2f;
 
-
+    private Vector3 initialTouchPosition;
 
     private ResourceManager resourceManager;
 
@@ -69,6 +73,8 @@ public class InputManager : MonoBehaviour
         // Reads the target clicked.
         if(!EventSystem.current.IsPointerOverGameObject() && (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2")))
         {
+            DetectClickType();
+
             RaycastHit2D mouseHit = Physics2D.Raycast(mousePosition, Vector2.zero);
 
             entityClicked = false;
@@ -110,7 +116,7 @@ public class InputManager : MonoBehaviour
             Debug.Log(clickedTarget);
 
             // Left click selects an ant (make it the selectedAnt), tile (display tile info), or enemy (display enemy info)
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && isDoubleClick == false)
             {
                 if (clickedTarget == ClickTargetTypes.ant)
                 {
@@ -128,7 +134,7 @@ public class InputManager : MonoBehaviour
                 }
             }
             // If right click, then execute action on the clicked object
-            else if (Input.GetButtonDown("Fire2") && selectedAnt != null)
+            else if ((Input.GetButtonDown("Fire2") || isDoubleClick) && selectedAnt != null)
             {
                 if (clickedTarget == ClickTargetTypes.enemy)
                 {
@@ -189,10 +195,29 @@ public class InputManager : MonoBehaviour
         }
 
         ToggleMenu();
+
+        ClickTimer();
     }
 
     private void MoveCamera()
     {
+        // Based on tutorial from https://kylewbanks.com/blog/unity3d-panning-and-pinch-to-zoom-camera-with-touch-and-mouse-input
+        if (Input.touchCount == 1)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                initialTouchPosition = touch.position;
+            }
+            else if (touch.phase == TouchPhase.Moved)
+            {
+                Vector3 offset = Camera.main.ScreenToViewportPoint(initialTouchPosition - (Vector3) touch.position);
+                Vector3 move = new Vector3(offset.x * 10, offset.y * 10, 0);
+                cameraObject.GetComponent<CameraController>().MoveCamera(move);
+            }
+        }
+
+
         // Camera movement (Note: Camera speed is set within CameraController)
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
@@ -246,5 +271,28 @@ public class InputManager : MonoBehaviour
     private void SwitchToSulfur()
     {
         selectedResource = TileEntity.TileTypes.Sulfur;
+    }
+
+    private void DetectClickType()
+    {
+        if (checkingClickType && clickTime < clickDelay)
+        {
+            checkingClickType = false;
+            isDoubleClick = true;
+        }
+        else
+        {
+            isDoubleClick = false;
+            checkingClickType = true;
+            clickTime = 0;
+        }
+    }
+
+    private void ClickTimer()
+    {
+        if (checkingClickType)
+        {
+            clickTime += Time.deltaTime;
+        }
     }
 }
