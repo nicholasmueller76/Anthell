@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Anthell;
+using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private GameObject tileHighlight;
 
     [SerializeField] private TilemapManager tilemapManager;
+    [SerializeField] private GameObject menuBG;
     private ResourceManager resourceManager;
 
     //private TaskAssigner taskAssigner;
@@ -19,6 +21,8 @@ public class InputManager : MonoBehaviour
     private GameObject targetObj;
 
     private Ant selectedAnt;
+
+    private bool menuOpen = true;
 
     private enum ClickTargetTypes {ant, tile, emptyTile, enemy };
     private ClickTargetTypes clickedTarget;
@@ -38,18 +42,7 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        // Camera movement (Note: Camera speed is set within CameraController)
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        {
-            var moveAmount = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
-            cameraObject.GetComponent<CameraController>().MoveCamera(moveAmount);
-        }
-
-        // Camera zoom in/out with scroll.
-        if (Input.mouseScrollDelta.y != 0)
-        {
-            cameraObject.GetComponent<CameraController>().ZoomCamera(-Input.mouseScrollDelta.y);
-        }
+        MoveCamera();
 
         // Get the coordinates of the tile that the cursor is currently hovering over.
         // Will show a highlight on the tile that the cursor is on.
@@ -58,7 +51,7 @@ public class InputManager : MonoBehaviour
         tileHighlight.transform.position = tiles.GetCellCenterLocal(mouseTilePosition);
 
         // Reads the target clicked.
-        if(Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2"))
+        if(!EventSystem.current.IsPointerOverGameObject() && (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2")))
         {
             RaycastHit2D mouseHit = Physics2D.Raycast(mousePosition, Vector2.zero);
 
@@ -97,6 +90,8 @@ public class InputManager : MonoBehaviour
             }
 
             entityClicked = false;
+
+            Debug.Log(clickedTarget);
 
             // Left click selects an ant (make it the selectedAnt), tile (display tile info), or enemy (display enemy info)
             if (Input.GetButtonDown("Fire1"))
@@ -160,6 +155,57 @@ public class InputManager : MonoBehaviour
             if (selectedAnt != null) selectedAnt.SetSelected(false);
             selectedAnt = null;
             selectedResource = TileEntity.TileTypes.Empty;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (menuOpen)
+            {
+                menuOpen = false;
+            }
+            else
+            {
+                menuOpen = true;
+            }
+        }
+
+        ToggleMenu();
+    }
+
+    private void MoveCamera()
+    {
+        // Camera movement (Note: Camera speed is set within CameraController)
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            var moveAmount = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
+            cameraObject.GetComponent<CameraController>().MoveCamera(moveAmount);
+        }
+
+        // Camera zoom in/out with scroll.
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            cameraObject.GetComponent<CameraController>().ZoomCamera(-Input.mouseScrollDelta.y);
+        }
+    }
+
+    private void ToggleMenu()
+    {
+        var menuPosition = menuBG.GetComponent<RectTransform>().anchoredPosition;
+        if (menuOpen)
+        {
+            if (menuPosition.x != 0)
+            {
+                menuPosition = new Vector3(Mathf.Max(0, menuPosition.x - 50), menuPosition.y);
+                menuBG.GetComponent<RectTransform>().anchoredPosition = menuPosition;
+            }
+        }
+        else
+        {
+            if (menuPosition.x != 525)
+            {
+                menuPosition = new Vector3(Mathf.Min(525, menuPosition.x + 50), menuPosition.y);
+                menuBG.GetComponent<RectTransform>().anchoredPosition = menuPosition;
+            }
         }
     }
 }
