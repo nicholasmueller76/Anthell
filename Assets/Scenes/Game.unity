@@ -178,6 +178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f44872fc614e82429ca6a95887dda33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileColors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0.49411768, g: 0.35686275, b: 0, a: 1}
+  - {r: 0.56147856, g: 0.5660378, b: 0.023495883, a: 1}
   map: {fileID: 1284094774}
   tileFiles:
   - {fileID: 11400000, guid: 5127a499e00ce162af75e72d9f3ac00c, type: 2}
