@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9045642716972913436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1417018781509175366}
+  - component: {fileID: 5174039956999126179}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1417018781509175366
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9045642716972913436}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.79848695, y: 0.45913598, z: 0.025194002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5174039956999126179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9045642716972913436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7178279beb673aa4c980c8b3ad3f1f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxClips: []
+  musicClips:
+  - name: BorderTown
+    clip: {fileID: 8300000, guid: 0f4cd4ee938830848a223e1925679678, type: 3}
+    volume: 1
+    source: {fileID: 0}
+  - name: BootCamp
+    clip: {fileID: 8300000, guid: 091f454449747a5489f680c4366bd76c, type: 3}
+    volume: 1
+    source: {fileID: 0}
+  - name: UltimateAssault1
+    clip: {fileID: 8300000, guid: 0ed6038db6b721847b187fb79c7f100c, type: 3}
+    volume: 1
+    source: {fileID: 0}
+  - name: UltimateAssault2
+    clip: {fileID: 8300000, guid: bc1592b1372e80042af423fb5753cc62, type: 3}
+    volume: 1
+    source: {fileID: 0}
+  sfxVolume: 0
+  musicVolume: 0
