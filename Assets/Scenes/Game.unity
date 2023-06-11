@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &195064114 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5525614913115796742, guid: 77064b94677a02046a6ad0567498585e, type: 3}
+  m_PrefabInstance: {fileID: 842290026}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &298878404
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,6 +681,17 @@ MonoBehaviour:
   StoneCounter: {fileID: 842290029}
   WoodCounter: {fileID: 842290028}
   SulfurCounter: {fileID: 842290027}
+--- !u!114 &647660470 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2911030320984899624, guid: 77064b94677a02046a6ad0567498585e, type: 3}
+  m_PrefabInstance: {fileID: 842290026}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &822943985
 GameObject:
   m_ObjectHideFlags: 0
@@ -1009,6 +1031,10 @@ MonoBehaviour:
   tileHighlight: {fileID: 1555015278}
   tilemapManager: {fileID: 298878406}
   menuBG: {fileID: 980636949}
+  dirtButton: {fileID: 1591936064}
+  stoneButton: {fileID: 195064114}
+  woodButton: {fileID: 647660470}
+  sulfurButton: {fileID: 1823153699}
   selectedResource: 0
 --- !u!4 &1095762607
 Transform:
@@ -51224,6 +51250,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1591936064 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3116447886993574347, guid: 77064b94677a02046a6ad0567498585e, type: 3}
+  m_PrefabInstance: {fileID: 842290026}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1625051246
 GameObject:
   m_ObjectHideFlags: 0
@@ -51308,6 +51345,17 @@ Transform:
   m_Father: {fileID: 822943986}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1823153699 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1958580291086633671, guid: 77064b94677a02046a6ad0567498585e, type: 3}
+  m_PrefabInstance: {fileID: 842290026}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1941896852
 GameObject:
   m_ObjectHideFlags: 0
