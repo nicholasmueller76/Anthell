@@ -6,20 +6,18 @@ using TMPro;
 public class ResourceManager : MonoBehaviour
 {
 
-    [SerializeField] TMP_Text CashCounter;
+    //[SerializeField] TMP_Text CashCounter;
     [SerializeField] int CashAmount;
-    
-    [SerializeField] TMP_Text DirtCounter;
-    [SerializeField] int DirtAmount;
 
-    [SerializeField] TMP_Text StoneCounter;
-    [SerializeField] int StoneAmount;
+    [SerializeField] int[] resources = new int[4];
 
-    [SerializeField] TMP_Text WoodCounter;
-    [SerializeField] int WoodAmount;
+    //[SerializeField] TMP_Text DirtCounter;
 
-    [SerializeField] TMP_Text SulfurCounter;
-    [SerializeField] int SulfurAmount;
+    //[SerializeField] TMP_Text StoneCounter;
+
+    //[SerializeField] TMP_Text WoodCounter;
+
+    //[SerializeField] TMP_Text SulfurCounter;
 
 
     // Start is called before the first frame update
@@ -27,19 +25,19 @@ public class ResourceManager : MonoBehaviour
     {
         // Initialize resource amount
         CashAmount = 0;
-        CashCounter.text = CashAmount.ToString();
-        
-        DirtAmount = 0;
-        DirtCounter.text = DirtAmount.ToString();
+        //CashCounter.text = CashAmount.ToString();
 
-        StoneAmount = 0;
-        StoneCounter.text = StoneAmount.ToString();
+        resources[0] = 0;
+        //DirtCounter.text = resources[0].ToString();
 
-        WoodAmount = 0;
-        WoodCounter.text = WoodAmount.ToString();
+        resources[1] = 0;
+        //StoneCounter.text = resources[1].ToString();
 
-        SulfurAmount = 0;
-        SulfurCounter.text = SulfurAmount.ToString();
+        resources[2] = 0;
+        //WoodCounter.text = resources[2].ToString();
+
+        resources[3] = 0;
+        //SulfurCounter.text = resources[3].ToString();
     }
 
     // Update is called once per frame
@@ -49,30 +47,23 @@ public class ResourceManager : MonoBehaviour
     }
 
     // Adds or subtracts from a resource's amount
-    public void UpdateAmount(int x, int amount)
+    public void AddResource(TileEntity.TileTypes resource, int amount)
     {
-        
-        switch (x)
+        resources[(int)resource] += amount;
+
+        switch (resource)
         {
-        case 1:
-            CashAmount += amount;
-            CashCounter.text = CashAmount.ToString();
+        case TileEntity.TileTypes.Dirt:
+            //DirtCounter.text = resources[0].ToString();
             break;
-        case 2:
-            DirtAmount += amount;
-            DirtCounter.text = DirtAmount.ToString();
+        case TileEntity.TileTypes.Stone:
+            //StoneCounter.text = resources[1].ToString();
             break;
-        case 3:
-            StoneAmount += amount;
-            StoneCounter.text = StoneAmount.ToString();
+        case TileEntity.TileTypes.Wood:
+            //WoodCounter.text = resources[2].ToString();
             break;
-        case 4:
-            WoodAmount += amount;
-            WoodCounter.text = WoodAmount.ToString();
-            break;
-        case 5:
-            SulfurAmount += amount;
-            SulfurCounter.text = SulfurAmount.ToString();
+        case TileEntity.TileTypes.Sulfur:
+            //SulfurCounter.text = resources[3].ToString();
             break;
         default:
             print ("Invalid Resource.");
@@ -80,4 +71,14 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
+    public int GetResource(TileEntity.TileTypes resource)
+    {
+        return resources[(int)resource];
+    }
+
+    public void AddCash(int amount)
+    {
+        CashAmount += amount;
+        //CashCounter.text = CashAmount.ToString();
+    }
 }

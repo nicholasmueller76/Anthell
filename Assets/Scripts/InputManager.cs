@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private GameObject tileHighlight;
 
     [SerializeField] private TilemapManager tilemapManager;
+    private ResourceManager resourceManager;
 
     //private TaskAssigner taskAssigner;
     private Vector3 mousePosition;
@@ -24,11 +25,15 @@ public class InputManager : MonoBehaviour
 
     private bool entityClicked;
 
+    [SerializeField] private TileEntity.TileTypes selectedResource;
+
     private void Awake()
     {
         //taskAssigner = new TaskAssigner();
+        resourceManager = cameraObject.GetComponent<ResourceManager>();
         targetObj = new GameObject();
         targetObj.name = this.gameObject.name + " target";
+        selectedResource = TileEntity.TileTypes.Empty;
     }
 
     private void Update()
@@ -124,18 +129,37 @@ public class InputManager : MonoBehaviour
                     selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
                     selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Dig, tileEntity));
                 }
-                else if (clickedTarget == ClickTargetTypes.emptyTile)
+                else if (clickedTarget == ClickTargetTypes.emptyTile && selectedResource != TileEntity.TileTypes.Empty && resourceManager.GetResource(selectedResource) > 0)
                 {
+                    selectedAnt.SetHeldResource(selectedResource);
                     selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
                     selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Build, tileEntity));
                 }
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            selectedResource = TileEntity.TileTypes.Dirt;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            selectedResource = TileEntity.TileTypes.Stone;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            selectedResource = TileEntity.TileTypes.Wood;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            selectedResource = TileEntity.TileTypes.Sulfur;
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
         {
             if (selectedAnt != null) selectedAnt.SetSelected(false);
             selectedAnt = null;
+            selectedResource = TileEntity.TileTypes.Empty;
         }
     }
 }

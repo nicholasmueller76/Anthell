@@ -8,6 +8,8 @@ namespace Anthell
     {
         private float currentHealth;
         private Outline outline;
+        private ResourceManager resourceManager;
+        private TileEntity.TileTypes heldResource;
 
         protected override void Awake()
         {
@@ -15,6 +17,7 @@ namespace Anthell
             outline = GetComponentInChildren<Outline>();
             outline.eraseRenderer = true;
             currentHealth = data.maxHealth;
+            resourceManager = Camera.main.gameObject.GetComponent<ResourceManager>();
         }
 
         protected override IEnumerator PerformTask(EntityTask task)
@@ -47,9 +50,12 @@ namespace Anthell
                 while (tileEntity.health > 0)
                 {
                     yield return new WaitForSeconds(1f);
-                    tileEntity.Dig(data.mineSpeed);
+                    tileEntity.Dig(data.mineSpeed[(int)tileEntity.GetTileType()]);
 
                 }
+
+                Debug.Log("Adding resource: " + tileEntity.GetTileType());
+                resourceManager.AddResource(tileEntity.GetTileType(), 1);
 
                 tileEntity.DestroyTile();
                 Debug.Log("Finished digging");
@@ -64,25 +70,29 @@ namespace Anthell
 
         protected IEnumerator Build(GameObject targetObject)
         {
-            if (Vector3.Distance(transform.position, targetObject.transform.position) <= data.range)
+            if (Vector3.Distance(transform.position, targetObject.transform.position) <= data.range || heldResource != TileEntity.TileTypes.Empty)
             {
-                //Will need to add some way to pass the material as a parameter
-
                 TileEntity tileEntity = targetObject.GetComponent<TileEntity>();
                 currentTaskFinished = false;
                 Debug.Log("Building.");
 
-                //Currently flat time for building
-                yield return new WaitForSeconds(1f);
+                float buildPercent = 0;
+                while (buildPercent < 100)
+                {
+                    yield return new WaitForSeconds(1f);
+                    buildPercent += data.buildSpeed;
+                }
 
                 Debug.Log(tileEntity);
 
-                tileEntity.PlaceTile(TileEntity.TileTypes.Dirt);
+                tileEntity.PlaceTile(heldResource);
+                resourceManager.AddResource(heldResource, -1);
+                heldResource = TileEntity.TileTypes.Empty;
                 Debug.Log("Finished building");
             }
             else
             {
-                Debug.Log("Could not execute build task (out of range)");
+                Debug.Log("Could not execute build task (out of range or missing resource)");
             }
 
             currentTaskFinished = true;
@@ -91,6 +101,11 @@ namespace Anthell
         public void SetSelected(bool selected)
         {
             outline.eraseRenderer = !selected;
+        }
+
+        public void SetHeldResource(TileEntity.TileTypes resource)
+        {
+            heldResource = resource;
         }
     }
 }

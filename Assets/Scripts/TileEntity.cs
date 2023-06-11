@@ -5,9 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class TileEntity : MonoBehaviour
 {
-    [SerializeField]
-    TileBase thisTile;
-
     TileBase[] tileFiles = new TileBase[4];
 
     public float health;
@@ -16,6 +13,7 @@ public class TileEntity : MonoBehaviour
 
     public enum TileTypes
     {
+        Empty = -1,
         Dirt,
         Stone,
         Wood,
@@ -28,18 +26,24 @@ public class TileEntity : MonoBehaviour
 
     public void ConstructTileEntity(TileBase thisTile, TileBase[] tileFiles)
     {
-        this.thisTile = thisTile;
         this.tileFiles = tileFiles;
         health = 100;
 
         tilemapManager = GetComponentInParent<TilemapManager>();
 
-        for (int i = 0; i < tileFiles.Length; i++)
+        if (thisTile == null)
         {
-            if (tileFiles[i] == thisTile)
+            tileType = TileTypes.Empty;
+        }
+        else
+        {
+            for (int i = 0; i < tileFiles.Length; i++)
             {
-                tileType = (TileTypes)i;
-                break;
+                if (tileFiles[i] == thisTile)
+                {
+                    tileType = (TileTypes)i;
+                    break;
+                }
             }
         }
     }
@@ -47,15 +51,22 @@ public class TileEntity : MonoBehaviour
     public void PlaceTile(TileTypes type)
     {
         tilemapManager.SetTileObject(transform.position, tileFiles[(int)type]);
+        tileType = type;
     }
 
     public void DestroyTile()
     {
         tilemapManager.SetTileObject(transform.position, null);
+        tileType = TileTypes.Empty;
     }
 
     public void Dig(float damage)
     {
         health -= damage;
+    }
+
+    public TileTypes GetTileType()
+    {
+        return tileType;
     }
 }

@@ -15,7 +15,10 @@ public class EntityData : ScriptableObject
     public float range;
 
     //What percent of a block is mined each second.
-    public float mineSpeed;
+    public float[] mineSpeed = new float[4];
+
+    //What percent of a block is built each second.
+    public float buildSpeed;
 
     //Damage per second.
     public float damage;

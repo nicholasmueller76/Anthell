@@ -15,5 +15,10 @@ MonoBehaviour:
   maxHealth: 100
   speed: 2
   range: 1
-  mineSpeed: 50
+  mineSpeed:
+  - 25
+  - 10
+  - 10
+  - 20
+  buildSpeed: 10
   damage: 1
