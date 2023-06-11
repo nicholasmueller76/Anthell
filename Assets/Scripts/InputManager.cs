@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Anthell;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
@@ -13,6 +14,16 @@ public class InputManager : MonoBehaviour
 
     [SerializeField] private TilemapManager tilemapManager;
     [SerializeField] private GameObject menuBG;
+
+
+    [SerializeField] private Button dirtButton;
+    [SerializeField] private Button stoneButton;
+    [SerializeField] private Button woodButton;
+    [SerializeField] private Button sulfurButton;
+
+
+
+
     private ResourceManager resourceManager;
 
     //private TaskAssigner taskAssigner;
@@ -38,6 +49,11 @@ public class InputManager : MonoBehaviour
         targetObj = new GameObject();
         targetObj.name = this.gameObject.name + " target";
         selectedResource = TileEntity.TileTypes.Empty;
+
+        dirtButton.onClick.AddListener(SwitchToDirt);
+        stoneButton.onClick.AddListener(SwitchToStone);
+        woodButton.onClick.AddListener(SwitchToWood);
+        sulfurButton.onClick.AddListener (SwitchToSulfur);
     }
 
     private void Update()
@@ -207,5 +223,25 @@ public class InputManager : MonoBehaviour
                 menuBG.GetComponent<RectTransform>().anchoredPosition = menuPosition;
             }
         }
+    }
+
+    private void SwitchToDirt()
+    {
+        selectedResource = TileEntity.TileTypes.Dirt;
+    }
+
+    private void SwitchToStone()
+    {
+        selectedResource = TileEntity.TileTypes.Stone;
+    }
+
+    private void SwitchToWood()
+    {
+        selectedResource = TileEntity.TileTypes.Wood;
+    }
+
+    private void SwitchToSulfur()
+    {
+        selectedResource = TileEntity.TileTypes.Sulfur;
     }
 }
