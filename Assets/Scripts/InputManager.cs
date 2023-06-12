@@ -26,7 +26,10 @@ public class InputManager : MonoBehaviour
     private float clickTime = 0;
     private float clickDelay = 0.2f;
 
-    private Vector3 initialTouchPosition;
+    private Vector2 initialTouchPosition = Vector2.zero;
+    private Vector2 initialTouchPosition2 = Vector2.zero;
+    private float previousTouchDistance = -1;
+    private Vector2 previousTouchPosition = Vector2.zero;
 
     private ResourceManager resourceManager;
 
@@ -210,23 +213,19 @@ public class InputManager : MonoBehaviour
 
     private void MoveCamera()
     {
-        // Based on tutorial from https://kylewbanks.com/blog/unity3d-panning-and-pinch-to-zoom-camera-with-touch-and-mouse-input
+        // Touch controls for camera
+        // Move camera in direction that finger is moving from initial touch position
         if (Input.touchCount == 1)
         {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
-            {
-                initialTouchPosition = touch.position;
-            }
-            else if (touch.phase == TouchPhase.Moved)
-            {
-                Vector3 offset = Camera.main.ScreenToViewportPoint(initialTouchPosition - (Vector3)touch.position);
-                Vector3 move = new Vector3(offset.x * 10, offset.y * 10, 0);
-                cameraObject.GetComponent<CameraController>().MoveCamera(move);
-            }
+            TouchMoveCamera();
+        }
+        // Zoom camera by pinching
+        else if (Input.touchCount == 2)
+        {
+            TouchZoomCamera();
         }
 
-
+        // Mouse + Keyboard controls for camera
         // Camera movement (Note: Camera speed is set within CameraController)
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
@@ -238,6 +237,73 @@ public class InputManager : MonoBehaviour
         if (Input.mouseScrollDelta.y != 0)
         {
             cameraObject.GetComponent<CameraController>().ZoomCamera(-Input.mouseScrollDelta.y);
+        }
+    }
+
+    private void TouchMoveCamera()
+    {
+        Touch touch = Input.GetTouch(0);
+        switch (touch.phase)
+        {
+            case TouchPhase.Began:
+                initialTouchPosition = touch.position;
+                break;
+            case TouchPhase.Moved:
+                Vector3 positionDifference = initialTouchPosition - touch.position;
+                // If finger moved more than threshold, then move camera
+                if (Vector2.Distance(initialTouchPosition, touch.position) > 20.0f)
+                {
+                    cameraObject.GetComponent<CameraController>().MoveCamera(-positionDifference * 0.01f);
+                }
+                break;
+            case TouchPhase.Stationary:
+                Vector3 positionDifference2 = initialTouchPosition - touch.position;
+                // If finger moved more than threshold, then move camera
+                if (Vector2.Distance(initialTouchPosition, touch.position) > 20.0f)
+                {
+                    cameraObject.GetComponent<CameraController>().MoveCamera(-positionDifference2 * 0.01f);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void TouchZoomCamera()
+    {
+        Touch touch1 = Input.GetTouch(0);
+        Touch touch2 = Input.GetTouch(1);
+
+        // Get initial positions of fingers
+        if (touch1.phase == TouchPhase.Began)
+        {
+            initialTouchPosition = touch1.position;
+        }
+        if (touch2.phase == TouchPhase.Began)
+        {
+            initialTouchPosition2 = touch2.position;
+        }
+
+        // If distance between fingers not initialized, then set it to distance between initial positions
+        if (previousTouchDistance == -1)
+        {
+            previousTouchDistance = Vector2.Distance(initialTouchPosition, initialTouchPosition2);
+        }
+
+        // When fingers are moving, calculate the new distance between fingers and compare them with previous.
+        // Zoom based on that difference.
+        if (touch1.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved)
+        {
+            float newDistance = Vector2.Distance(touch1.position, touch2.position);
+            float difference = newDistance - previousTouchDistance;
+            cameraObject.GetComponent<CameraController>().ZoomCamera(-difference * 0.1f);
+            previousTouchDistance = newDistance;
+        }
+
+        // When either finger lifted, reset the initial touch distance.
+        if (touch1.phase == TouchPhase.Ended || touch2.phase == TouchPhase.Ended)
+        {
+            previousTouchDistance = -1;
         }
     }
 
