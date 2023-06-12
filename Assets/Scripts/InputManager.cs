@@ -39,7 +39,7 @@ public class InputManager : MonoBehaviour
 
     private bool menuOpen = true;
 
-    private enum ClickTargetTypes {ant, tile, emptyTile, enemy };
+    private enum ClickTargetTypes { ant, tile, emptyTile, enemy };
     private ClickTargetTypes clickedTarget;
 
     private bool entityClicked;
@@ -57,7 +57,7 @@ public class InputManager : MonoBehaviour
         dirtButton.onClick.AddListener(SwitchToDirt);
         stoneButton.onClick.AddListener(SwitchToStone);
         woodButton.onClick.AddListener(SwitchToWood);
-        sulfurButton.onClick.AddListener (SwitchToSulfur);
+        sulfurButton.onClick.AddListener(SwitchToSulfur);
     }
 
     private void Update()
@@ -71,7 +71,7 @@ public class InputManager : MonoBehaviour
         tileHighlight.transform.position = tiles.GetCellCenterLocal(mouseTilePosition);
 
         // Reads the target clicked.
-        if(!EventSystem.current.IsPointerOverGameObject() && (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2")))
+        if (!EventSystem.current.IsPointerOverGameObject() && (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2")))
         {
             DetectClickType();
 
@@ -220,7 +220,7 @@ public class InputManager : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Moved)
             {
-                Vector3 offset = Camera.main.ScreenToViewportPoint(initialTouchPosition - (Vector3) touch.position);
+                Vector3 offset = Camera.main.ScreenToViewportPoint(initialTouchPosition - (Vector3)touch.position);
                 Vector3 move = new Vector3(offset.x * 10, offset.y * 10, 0);
                 cameraObject.GetComponent<CameraController>().MoveCamera(move);
             }

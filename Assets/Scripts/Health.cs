@@ -1,13 +1,15 @@
 using UnityEngine;
 namespace Anthell
 {
-    public class Health : MonoBehaviour {
-        [SerializeField]private float currentHealth;
-        [SerializeField]private float maxHealth;
+    public class Health : MonoBehaviour
+    {
+        [SerializeField] private float currentHealth;
+        [SerializeField] private float maxHealth;
         private bool healthBarEnabled = false;
         private Vector3 healthBarPosition;
-    
-        private void Update() {
+
+        private void Update()
+        {
             if (healthBarEnabled)
             {
                 // Code to update health bar

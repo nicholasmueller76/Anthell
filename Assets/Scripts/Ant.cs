@@ -6,7 +6,7 @@ namespace Anthell
 {
     class Ant : MoveableEntity
     {
-        [SerializeField]private Health health;
+        [SerializeField] private Health health;
         private Outline outline;
         private ResourceManager resourceManager;
         private TileEntity.TileTypes heldResource;
@@ -113,29 +113,24 @@ namespace Anthell
 
         protected IEnumerator Attack(GameObject targetObject)
         {
-            if (Vector3.Distance(transform.position, targetObject.transform.position) <= data.range)
+            Enemy enemy = targetObject.GetComponent<Enemy>();
+            if (enemy == null)
             {
-                Enemy enemy = targetObject.GetComponent<Enemy>();
-                if(enemy == null)
-                {
-                    Debug.Log("Could not execute attack task (target is not an enemy)");
-                    yield break;
-                }
-                currentTaskFinished = false;
-                Debug.Log("Attacking.");
-                while (enemy.health.getHealth() > 0)
-                {
-                    yield return new WaitForSeconds(data.attackCooldown);
-                    enemy.health.TakeDamage(data.attackDamage);
-                }
-
-                Debug.Log("Finished attacking");
+                Debug.Log("Could not execute attack task (target is not an enemy)");
+                yield break;
             }
-            else
+            currentTaskFinished = false;
+            Debug.Log("Attacking.");
+            while (enemy.health.getHealth() > 0)
             {
-                Debug.Log("Could not execute attack task (out of range)");
-                // TODO: Move to target
+                while (Vector3.Distance(transform.position, targetObject.transform.position) > data.range)
+                {
+                    yield return this.Move(targetObject, true);
+                }
+                yield return new WaitForSeconds(data.attackCooldown);
+                enemy.health.TakeDamage(data.attackDamage);
             }
+            Debug.Log("Finished attacking");
 
             currentTaskFinished = true;
         }
