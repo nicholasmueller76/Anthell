@@ -47,16 +47,19 @@ namespace Anthell
         /// </summary>
         /// <param name="targetObject">location or object the entity needs to move to</param>
         /// <returns></returns>
-        protected IEnumerator Move(GameObject targetObject)
+        protected IEnumerator Move(GameObject targetObject, bool subTask = false)
         {
-            currentTaskFinished = false;
+            if (!subTask)
+            {
+                currentTaskFinished = false;
+            }
             aiLerp.canMove = true;
             destinationSetter.target = targetObject.transform;
             anim.SetBool("Walking", true);
             Debug.Log("Moving.");
             while (Vector3.Distance(transform.position, targetObject.transform.position) > data.range)
             {
-                if(aiLerp.reachedEndOfPath)
+                if (aiLerp.reachedEndOfPath)
                 {
                     Debug.Log("Entity is stuck.");
                     break;
@@ -68,7 +71,10 @@ namespace Anthell
 
             anim.SetBool("Walking", false);
             aiLerp.canMove = false;
-            currentTaskFinished = true;
+            if (!subTask)
+            {
+                currentTaskFinished = true;
+            }
         }
     }
 }

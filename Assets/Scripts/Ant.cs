@@ -6,7 +6,7 @@ namespace Anthell
 {
     class Ant : MoveableEntity
     {
-        private float currentHealth;
+        [SerializeField] private Health health;
         private Outline outline;
         private ResourceManager resourceManager;
         private TileEntity.TileTypes heldResource;
@@ -18,7 +18,9 @@ namespace Anthell
             outline = GetComponentInChildren<Outline>();
             sprite = GetComponentInChildren<SpriteRenderer>();
             outline.eraseRenderer = true;
-            currentHealth = data.maxHealth;
+            health = gameObject.AddComponent<Health>();
+            health.SetHealth(data.maxHealth);
+            health.SetMaxHealth(data.maxHealth);
             resourceManager = Camera.main.gameObject.GetComponent<ResourceManager>();
         }
 
@@ -50,6 +52,9 @@ namespace Anthell
                     break;
                 case EntityTaskTypes.Build:
                     yield return Build(task.target);
+                    break;
+                case EntityTaskTypes.Attack:
+                    yield return Attack(task.target);
                     break;
             }
         }
@@ -109,6 +114,30 @@ namespace Anthell
             {
                 Debug.Log("Could not execute build task (out of range or missing resource)");
             }
+
+            currentTaskFinished = true;
+        }
+
+        protected IEnumerator Attack(GameObject targetObject)
+        {
+            Enemy enemy = targetObject.GetComponent<Enemy>();
+            if (enemy == null)
+            {
+                Debug.Log("Could not execute attack task (target is not an enemy)");
+                yield break;
+            }
+            currentTaskFinished = false;
+            Debug.Log("Attacking.");
+            while (enemy.health.getHealth() > 0)
+            {
+                while (Vector3.Distance(transform.position, targetObject.transform.position) > data.range)
+                {
+                    yield return this.Move(targetObject, true);
+                }
+                yield return new WaitForSeconds(data.attackCooldown);
+                enemy.health.TakeDamage(data.attackDamage);
+            }
+            Debug.Log("Finished attacking");
 
             currentTaskFinished = true;
         }
