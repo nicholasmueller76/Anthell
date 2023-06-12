@@ -6,7 +6,7 @@ namespace Anthell
 {
     class Ant : MoveableEntity
     {
-        private float currentHealth;
+        [SerializeField]private Health health;
         private Outline outline;
         private ResourceManager resourceManager;
         private TileEntity.TileTypes heldResource;
@@ -18,7 +18,9 @@ namespace Anthell
             outline = GetComponentInChildren<Outline>();
             sprite = GetComponentInChildren<SpriteRenderer>();
             outline.eraseRenderer = true;
-            currentHealth = data.maxHealth;
+            health = gameObject.AddComponent<Health>();
+            health.SetHealth(data.maxHealth);
+            health.SetMaxHealth(data.maxHealth);
             resourceManager = Camera.main.gameObject.GetComponent<ResourceManager>();
         }
 
@@ -43,6 +45,9 @@ namespace Anthell
                     break;
                 case EntityTaskTypes.Build:
                     yield return Build(task.target);
+                    break;
+                case EntityTaskTypes.Attack:
+                    yield return Attack(task.target);
                     break;
             }
         }
@@ -101,6 +106,35 @@ namespace Anthell
             else
             {
                 Debug.Log("Could not execute build task (out of range or missing resource)");
+            }
+
+            currentTaskFinished = true;
+        }
+
+        protected IEnumerator Attack(GameObject targetObject)
+        {
+            if (Vector3.Distance(transform.position, targetObject.transform.position) <= data.range)
+            {
+                Enemy enemy = targetObject.GetComponent<Enemy>();
+                if(enemy == null)
+                {
+                    Debug.Log("Could not execute attack task (target is not an enemy)");
+                    yield break;
+                }
+                currentTaskFinished = false;
+                Debug.Log("Attacking.");
+                while (enemy.health.getHealth() > 0)
+                {
+                    yield return new WaitForSeconds(data.attackCooldown);
+                    enemy.health.TakeDamage(data.attackDamage);
+                }
+
+                Debug.Log("Finished attacking");
+            }
+            else
+            {
+                Debug.Log("Could not execute attack task (out of range)");
+                // TODO: Move to target
             }
 
             currentTaskFinished = true;

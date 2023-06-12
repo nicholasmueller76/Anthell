@@ -5,21 +5,38 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/EntityData", order = 1)]
 public class EntityData : ScriptableObject
 {
-    //The ant's maximum health.
+    /// <summary>
+    /// The ant's maximum health.
+    /// </summary>
     public float maxHealth;
 
-    //How fast the ant moves.
+    /// <summary>
+    /// How fast the ant moves.
+    /// </summary>
     public float speed;
 
-    //How far away the ant has to be to attack/mine.
+    /// <summary>
+    /// How far away the ant has to be to attack/mine.
+    /// </summary>
     public float range;
 
-    //What percent of a block is mined each second.
+    /// <summary>
+    /// What percent of a block is mined each second.
+    /// </summary>
     public float[] mineSpeed = new float[4];
 
-    //What percent of a block is built each second.
+    /// <summary>
+    /// What percent of a block is built each second.
+    /// </summary>
     public float buildSpeed;
 
-    //Damage per second.
-    public float damage;
+    /// <summary>
+    /// How much damage the ant does per attack.
+    /// </summary>
+    public float attackDamage;
+
+    /// <summary>
+    /// Time between concesecutive attacks.
+    /// </summary>
+    public float attackCooldown;
 }

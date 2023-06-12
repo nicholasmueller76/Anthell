@@ -139,6 +139,8 @@ public class InputManager : MonoBehaviour
                 if (clickedTarget == ClickTargetTypes.enemy)
                 {
                     // Attack task
+                    selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, mouseHit.collider.gameObject));
+                    selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Attack, mouseHit.collider.gameObject));
                 }
                 else if (clickedTarget == ClickTargetTypes.tile)
                 {
