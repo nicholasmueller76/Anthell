@@ -29,6 +29,7 @@ public class InputManager : MonoBehaviour
     private Vector2 initialTouchPosition = Vector2.zero;
     private Vector2 initialTouchPosition2 = Vector2.zero;
     private float previousTouchDistance = -1;
+    private Vector2 initialRightTouchPosition = Vector2.zero;
 
     private bool uiClicked = false;
 
@@ -224,6 +225,10 @@ public class InputManager : MonoBehaviour
         {
             menuOpen = !menuOpen;
         }
+        else if (Input.touchCount == 1)
+        {
+            TouchOpenCloseMenu();
+        }
 
         ToggleMenu();
 
@@ -259,6 +264,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    // Move camera by touching left side of screen and moving finger in direction to move camera.
     private void TouchMoveCamera()
     {
         Touch touch = Input.GetTouch(0);
@@ -268,19 +274,29 @@ public class InputManager : MonoBehaviour
                 initialTouchPosition = touch.position;
                 break;
             case TouchPhase.Moved:
-                Vector3 positionDifference = initialTouchPosition - touch.position;
-                // If finger moved more than threshold, then move camera
-                if (Vector2.Distance(initialTouchPosition, touch.position) > 20.0f)
+                if (initialTouchPosition.x < Screen.width / 2)
                 {
-                    cameraObject.GetComponent<CameraController>().MoveCamera(-positionDifference * 0.01f);
+                    Vector2 initialTouchWorldPosition = Camera.main.ScreenToWorldPoint(initialTouchPosition);
+                    Vector2 touchWorldPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                    Vector3 positionDifference = initialTouchWorldPosition - touchWorldPosition;
+                    // If finger moved more than threshold, then move camera
+                    if (Vector2.Distance(initialTouchWorldPosition, touchWorldPosition) > 0.3f)
+                    {
+                        cameraObject.GetComponent<CameraController>().MoveCamera(-positionDifference * 0.75f);
+                    }
                 }
                 break;
             case TouchPhase.Stationary:
-                Vector3 positionDifference2 = initialTouchPosition - touch.position;
-                // If finger moved more than threshold, then move camera
-                if (Vector2.Distance(initialTouchPosition, touch.position) > 20.0f)
+                if (initialTouchPosition.x < Screen.width / 2)
                 {
-                    cameraObject.GetComponent<CameraController>().MoveCamera(-positionDifference2 * 0.01f);
+                    Vector2 initialTouchWorldPosition = Camera.main.ScreenToWorldPoint(initialTouchPosition);
+                    Vector2 touchWorldPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                    Vector3 positionDifference = initialTouchWorldPosition - touchWorldPosition;
+                    // If finger moved more than threshold, then move camera
+                    if (Vector2.Distance(initialTouchWorldPosition, touchWorldPosition) > 0.3f)
+                    {
+                        cameraObject.GetComponent<CameraController>().MoveCamera(-positionDifference * 0.75f);
+                    }
                 }
                 break;
             default:
@@ -288,6 +304,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    // Zoom camera by pinching.
     private void TouchZoomCamera()
     {
         Touch touch1 = Input.GetTouch(0);
@@ -303,7 +320,7 @@ public class InputManager : MonoBehaviour
             initialTouchPosition2 = touch2.position;
         }
 
-        // If distance between fingers not initialized, then set it to distance between initial positions
+        // If distance between fingers not initialized, then set it to distance between initial positions.
         if (previousTouchDistance == -1)
         {
             previousTouchDistance = Vector2.Distance(initialTouchPosition, initialTouchPosition2);
@@ -323,6 +340,36 @@ public class InputManager : MonoBehaviour
         if (touch1.phase == TouchPhase.Ended || touch2.phase == TouchPhase.Ended)
         {
             previousTouchDistance = -1;
+        }
+    }
+
+    // Swipe left on right side of the screen to open menu.
+    // Swipe right on right side of the screen to close menu.
+    private void TouchOpenCloseMenu()
+    {
+        Touch touch = Input.GetTouch(0);
+        if (touch.position.x > Screen.width / 2)
+        {
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    initialRightTouchPosition = touch.position;
+                    break;
+                case TouchPhase.Ended:
+                    float touchPositionX = Camera.main.ScreenToWorldPoint(touch.position).x;
+                    float initialTouchPositionX = Camera.main.ScreenToWorldPoint(initialRightTouchPosition).x;
+                    if (touchPositionX > initialTouchPositionX + 1.0f)
+                    {
+                        menuOpen = false;
+                    }
+                    else if (touchPositionX < initialTouchPositionX - 1.0f)
+                    {
+                        menuOpen = true;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
