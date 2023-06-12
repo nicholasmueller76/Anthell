@@ -27,7 +27,14 @@ namespace Anthell
         protected override void Update()
         {
             base.Update();
-            sprite.flipY = (this.transform.rotation.eulerAngles.z >= 0 && this.transform.rotation.eulerAngles.z <= 180);
+            if (this.transform.rotation.eulerAngles.z >= 0 && this.transform.rotation.eulerAngles.z <= 180)
+            {
+                sprite.gameObject.transform.localScale = new Vector3(1, -1, 1);
+            }
+            else
+            {
+                sprite.gameObject.transform.localScale = new Vector3(1, 1, 1);
+            }
         }
 
         protected override IEnumerator PerformTask(EntityTask task)

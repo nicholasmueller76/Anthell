@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31c14c1c60c4e9141baabded21cdb642, type: 3}
-  m_Name: Ant_Worker
+  m_Name: Ant_Carpenter
   m_EditorClassIdentifier: 
   maxHealth: 100
   speed: 2
@@ -18,8 +18,7 @@ MonoBehaviour:
   mineSpeed:
   - 50
   - 20
+  - 50
   - 20
-  - 20
-  buildSpeed: 25
-  attackDamage: 20
-  attackCooldown: 0.75
+  buildSpeed: 50
+  damage: 20
