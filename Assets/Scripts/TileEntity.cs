@@ -70,4 +70,21 @@ public class TileEntity : MonoBehaviour
     {
         return tileType;
     }
+
+    public string GetTileName()
+    {
+        switch(this.tileType)
+        {
+            case TileTypes.Dirt:
+                return "Dirt";
+            case TileTypes.Stone:
+                return "Stone";
+            case TileTypes.Wood:
+                return "Wood";
+            case TileTypes.Sulfur:
+                return "Sulfur";
+            default:
+                return "Empty";
+        }
+    }
 }

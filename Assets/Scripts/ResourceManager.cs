@@ -6,7 +6,7 @@ using TMPro;
 public class ResourceManager : MonoBehaviour
 {
 
-    //[SerializeField] TMP_Text CashCounter;
+    [SerializeField] TMP_Text CashCounter;
     [SerializeField] int CashAmount;
 
     [SerializeField] int[] resources = new int[4];
@@ -97,6 +97,11 @@ public class ResourceManager : MonoBehaviour
     public void AddCash(int amount)
     {
         CashAmount += amount;
-        //CashCounter.text = CashAmount.ToString();
+        CashCounter.text = CashAmount.ToString();
+    }
+
+    public int GetCash()
+    {
+        return CashAmount;
     }
 }

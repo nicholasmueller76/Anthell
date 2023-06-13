@@ -22,9 +22,10 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Button sulfurButton;
 
     private bool isDoubleClick = false;
-    private bool checkingClickType = false;
-    private float clickTime = 0;
-    private float clickDelay = 0.2f;
+
+    private float previousClickTime;
+    private float currentClickTime;
+    private float clickDelay = 0.5f;
 
     private Vector2 initialTouchPosition = Vector2.zero;
     private Vector2 initialTouchPosition2 = Vector2.zero;
@@ -40,14 +41,14 @@ public class InputManager : MonoBehaviour
     private Vector3Int mouseTilePosition;
     private GameObject targetObj;
 
-    private Ant selectedAnt;
+    [SerializeField] private Ant selectedAnt;
 
     private bool menuOpen = true;
 
-    private enum ClickTargetTypes { ant, tile, emptyTile, enemy };
-    private ClickTargetTypes clickedTarget;
+    private bool entityHovered = false;
 
-    private bool entityClicked;
+    private enum MouseTargetTypes { none = -1, ant, tile, emptyTile, enemy };
+    [SerializeField] private MouseTargetTypes mouseTarget;
 
     [SerializeField] private TileEntity.TileTypes selectedResource;
 
@@ -57,12 +58,16 @@ public class InputManager : MonoBehaviour
         resourceManager = cameraObject.GetComponent<ResourceManager>();
         targetObj = new GameObject();
         targetObj.name = this.gameObject.name + " target";
-        selectedResource = TileEntity.TileTypes.Empty;
+        selectedResource = TileEntity.TileTypes.Dirt;
+        mouseTarget = MouseTargetTypes.none;
 
         dirtButton.onClick.AddListener(SwitchToDirt);
         stoneButton.onClick.AddListener(SwitchToStone);
         woodButton.onClick.AddListener(SwitchToWood);
         sulfurButton.onClick.AddListener(SwitchToSulfur);
+
+        previousClickTime = Time.time;
+        currentClickTime = Time.time;
     }
 
     private void Update()
@@ -91,6 +96,56 @@ public class InputManager : MonoBehaviour
 
         if (!uiClicked)
         {
+            RaycastHit2D mouseHit = Physics2D.Raycast(mousePosition, Vector2.zero);
+
+            //Get tilemap information at the mouse position.
+            var tilemapStartingPos = tilemapManager.transform.position;
+            int tileIndexX = (int)(mouseTilePosition.x - tilemapStartingPos.x + 0.5f);
+            int tileIndexY = (int)(mouseTilePosition.y - tilemapStartingPos.y + 0.5f);
+            GameObject tileEntity = tilemapManager.getTileObject(tileIndexX, tileIndexY);
+
+            if (mouseHit.collider != null)
+            {
+                if (mouseHit.collider.gameObject.CompareTag("Ant"))
+                {
+                    TooltipScreenSpaceUI.ShowTooltip_Static("Select " + mouseHit.collider.gameObject.name);
+                    mouseTarget = MouseTargetTypes.ant;
+                    entityHovered = true;
+                }
+                else if (mouseHit.collider.gameObject.CompareTag("Enemy"))
+                {
+                    if(selectedAnt != null) TooltipScreenSpaceUI.ShowTooltip_Static("Attack " + mouseHit.collider.gameObject.name);
+                    else TooltipScreenSpaceUI.ShowTooltip_Static(mouseHit.collider.gameObject.name);
+                    mouseTarget = MouseTargetTypes.enemy;
+                    entityHovered = true;
+                }
+            }
+            else if (tileEntity == null)
+            {
+                TooltipScreenSpaceUI.HideTooltip_Static();
+                mouseTarget = MouseTargetTypes.none;
+            }
+
+            if (tileEntity != null && !entityHovered)
+            {
+                if (mouseHit.collider != null && mouseHit.collider.gameObject.CompareTag("Tilemap"))
+                {
+                    if (selectedAnt != null) TooltipScreenSpaceUI.ShowTooltip_Static("Dig " + tileEntity.GetComponent<TileEntity>().GetTileType());
+                    else TooltipScreenSpaceUI.ShowTooltip_Static(tileEntity.GetComponent<TileEntity>().GetTileType().ToString());
+                    mouseTarget = MouseTargetTypes.tile;
+                }
+                else
+                {
+                    if (selectedAnt != null && selectedResource != TileEntity.TileTypes.Empty) TooltipScreenSpaceUI.ShowTooltip_Static("Build " + selectedResource);
+                    else if(selectedAnt != null && selectedResource == TileEntity.TileTypes.Empty) TooltipScreenSpaceUI.ShowTooltip_Static("Move "  + selectedAnt.gameObject.name + " here");
+                    else TooltipScreenSpaceUI.HideTooltip_Static();
+                    mouseTarget = MouseTargetTypes.emptyTile;
+                }
+            }
+
+            entityHovered = false;
+
+
             // Get the coordinates of the tile that the cursor is currently hovering over.
             // Will show a highlight on the tile that the cursor is on.
             mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -102,60 +157,24 @@ public class InputManager : MonoBehaviour
             {
                 DetectClickType();
 
-                RaycastHit2D mouseHit = Physics2D.Raycast(mousePosition, Vector2.zero);
-
-                entityClicked = false;
-
-                if (mouseHit.collider != null)
-                {
-                    if (mouseHit.collider.gameObject.CompareTag("Ant"))
-                    {
-                        clickedTarget = ClickTargetTypes.ant;
-                        entityClicked = true;
-                    }
-                    else if (mouseHit.collider.gameObject.CompareTag("Enemy"))
-                    {
-                        clickedTarget = ClickTargetTypes.enemy;
-                        entityClicked = true;
-                    }
-                }
-
-                //Get tilemap information at the mouse position.
-                var tilemapStartingPos = tilemapManager.transform.position;
-                int tileIndexX = (int)(mouseTilePosition.x - tilemapStartingPos.x + 0.5f);
-                int tileIndexY = (int)(mouseTilePosition.y - tilemapStartingPos.y + 0.5f);
-                GameObject tileEntity = tilemapManager.getTileObject(tileIndexX, tileIndexY);
-
-                if (tileEntity != null && !entityClicked)
-                {
-                    if (mouseHit.collider != null && mouseHit.collider.gameObject.CompareTag("Tilemap"))
-                    {
-                        clickedTarget = ClickTargetTypes.tile;
-                    }
-                    else
-                    {
-                        clickedTarget = ClickTargetTypes.emptyTile;
-                    }
-                }
-
-                entityClicked = false;
-
-                Debug.Log(clickedTarget);
+                //Debug.Log(mouseTarget);
 
                 // Left click selects an ant (make it the selectedAnt), tile (display tile info), or enemy (display enemy info)
                 if (Input.GetButtonDown("Fire1") && isDoubleClick == false)
                 {
-                    if (clickedTarget == ClickTargetTypes.ant)
+                    if (mouseTarget == MouseTargetTypes.ant)
                     {
+                        Debug.Log(mouseTarget);
+
                         if (selectedAnt != null) selectedAnt.SetSelected(false);
                         selectedAnt = mouseHit.collider.gameObject.GetComponent<Ant>();
                         selectedAnt.SetSelected(true);
                     }
-                    else if (clickedTarget == ClickTargetTypes.enemy)
+                    else if (mouseTarget == MouseTargetTypes.enemy)
                     {
                         // Enemy info popup
                     }
-                    else if (clickedTarget == ClickTargetTypes.tile)
+                    else if (mouseTarget == MouseTargetTypes.tile)
                     {
                         // Tile info popup
                     }
@@ -163,19 +182,19 @@ public class InputManager : MonoBehaviour
                 // If right click, then execute action on the clicked object
                 else if ((Input.GetButtonDown("Fire2") || isDoubleClick) && selectedAnt != null)
                 {
-                    if (clickedTarget == ClickTargetTypes.enemy)
+                    if (mouseTarget == MouseTargetTypes.enemy)
                     {
                         // Attack task
                         selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, mouseHit.collider.gameObject));
                         selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Attack, mouseHit.collider.gameObject));
                     }
-                    else if (clickedTarget == ClickTargetTypes.tile)
+                    else if (mouseTarget == MouseTargetTypes.tile)
                     {
                         // Dig task
                         selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
                         selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Dig, tileEntity));
                     }
-                    else if (clickedTarget == ClickTargetTypes.emptyTile)
+                    else if (mouseTarget == MouseTargetTypes.emptyTile)
                     {
                         if (selectedResource != TileEntity.TileTypes.Empty)
                         {
@@ -213,12 +232,12 @@ public class InputManager : MonoBehaviour
             selectedResource = TileEntity.TileTypes.Sulfur;
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        /*if (Input.GetKeyDown(KeyCode.X))
         {
             if (selectedAnt != null) selectedAnt.SetSelected(false);
             selectedAnt = null;
             selectedResource = TileEntity.TileTypes.Empty;
-        }
+        }*/
 
         // Open/Close Menu
         if (Input.GetKeyDown(KeyCode.E))
@@ -231,8 +250,6 @@ public class InputManager : MonoBehaviour
         }
 
         ToggleMenu();
-
-        ClickTimer();
     }
 
     private void MoveCamera()
@@ -332,7 +349,7 @@ public class InputManager : MonoBehaviour
         {
             float newDistance = Vector2.Distance(touch1.position, touch2.position);
             float difference = newDistance - previousTouchDistance;
-            cameraObject.GetComponent<CameraController>().ZoomCamera(-difference * 0.1f);
+            cameraObject.GetComponent<CameraController>().ZoomCamera(-difference * 0.05f);
             previousTouchDistance = newDistance;
         }
 
@@ -416,24 +433,18 @@ public class InputManager : MonoBehaviour
 
     private void DetectClickType()
     {
-        if (checkingClickType && clickTime < clickDelay)
+        if (Input.touchCount < 2)
         {
-            checkingClickType = false;
-            isDoubleClick = true;
-        }
-        else
-        {
-            isDoubleClick = false;
-            checkingClickType = true;
-            clickTime = 0;
-        }
-    }
-
-    private void ClickTimer()
-    {
-        if (checkingClickType)
-        {
-            clickTime += Time.deltaTime;
+            previousClickTime = currentClickTime;
+            currentClickTime = Time.time;
+            if (currentClickTime - previousClickTime < clickDelay)
+            {
+                isDoubleClick = true;
+            }
+            else
+            {
+                isDoubleClick = false;
+            }
         }
     }
 }
