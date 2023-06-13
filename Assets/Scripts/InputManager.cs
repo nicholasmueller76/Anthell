@@ -15,7 +15,6 @@ public class InputManager : MonoBehaviour
     [SerializeField] private TilemapManager tilemapManager;
     [SerializeField] private GameObject menuBG;
 
-
     [SerializeField] private Button dirtButton;
     [SerializeField] private Button stoneButton;
     [SerializeField] private Button woodButton;
@@ -55,7 +54,7 @@ public class InputManager : MonoBehaviour
     private void Awake()
     {
         //taskAssigner = new TaskAssigner();
-        resourceManager = cameraObject.GetComponent<ResourceManager>();
+        resourceManager = ResourceManager.instance;
         targetObj = new GameObject();
         targetObj.name = this.gameObject.name + " target";
         selectedResource = TileEntity.TileTypes.Dirt;
