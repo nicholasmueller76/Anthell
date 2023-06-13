@@ -30,11 +30,25 @@ You should replay any **bold text** with your relevant information. Liberally us
 
 ## User Interface
 
+Responsibilities:
+My responsibilites as user interface was to create the main menu and in game menus that allow the player to interact with several game mechanics. 
+This included:
+- Main Menu
+- Buy Menu
+- Resource Counters
+
+Successes:
+Some successes I found while creating the UI was mapping all the buttons to their corresponding function. This was done in two ways, the first was the transition buttons, that switched the menu from one menu/information to another, this was done in the scene with the easy to use button events. The other way was through a menu manager script that held all the relevant functions the buttons would do, such as buying player assets or starting the game.
+
+Obstacles:
+There was a few obstacles at first when I was creating the game. The first obstacle was designing the layout of the UI buttons and texts, where they are placed on the screen, what they would display, and what it would allow the player to do. After trial and error and more insight with the game mechanics, I was able to decided on a layout that would be usefull to the player. Another obstacle was the ui elements not staying in the same positions relative to eachother when the game screen was resized. I had to learn to prevent the misposition of ui elements by comforming them to specific positions that changed with the screen size.
+
 *Resource Counters/Buttons* - The game has different materials that are collected and can be used to build or buy other assets for the player. Five buttons at the bottom of the screen also keep track of how many of each resource the player has, updating when the player gains or uses one of the resources. The resource counters are buttons allowing the player to choose what material they want to build with. This is similar to exercise 1 with keeping track of resource amounts via the ResourceManager script. [ResourceManager Script](https://github.com/nicholasmueller76/Anthell/blob/0f09204b09511f045fd55f54c5f90419fcba61a1/Assets/Scripts/ResourceManager.cs#LL6C18-L6C18).
 
 *Buy Menu* - The game features a buy menu that allows the player to buy different assets in the game, as well as offers an information button for each asset that switches the menu to text showing stats and descriptions of each available asset. Each buy button is mapped to a corresponding buy function in the Shopenu script. I made the script as a framework for easy implementation of all relevant game functions. [ShopMenu Script](https://github.com/nicholasmueller76/Anthell/blob/0f09204b09511f045fd55f54c5f90419fcba61a1/Assets/Scripts/ShopMenu.cs#L5).
 
 *Main Menu* - The game features an interactive Main Menu screen that has multiple different menus, such as how to play screen with information about different aspects of the screen, and a credits screen. This interface uses buttons to switch between each menu and is also able to start and exit the game via the MainMenu script. [MainMenu Script](https://github.com/nicholasmueller76/Anthell/blob/0f09204b09511f045fd55f54c5f90419fcba61a1/Assets/Scripts/MenuManager.cs#LL6C24-L6C24). [Ant Descriptions](https://github.com/nicholasmueller76/Anthell/blob/0f09204b09511f045fd55f54c5f90419fcba61a1/Assets/Scenes/MainMenu.unity#LL4518C12-L4518C12)
+
 
 
 ## Movement/Physics
