@@ -48,10 +48,17 @@ You should replay any **bold text** with your relevant information. Liberally us
 **Describe how your work intersects with game feel, graphic design, and world-building. Include your visual style guide if one exists.**
 
 ## Input
+Two different input types are supported. The first input type is mouse and keyboard. The second input type is touch controls.
 
-**Describe the default input configuration.**
+*Camera Movement* - The camera can be moved using WASD or arrow keys if using mouse and keyboard. With touch controls, the camera is moved by touching the left side of the screen, then moving your finger in the direction you want the camera to move in. It basically works like a virtual thumbstick. The further you move your finger, the faster the camera moves. To prevent movement when the player is tapping the screen, there is a deadzone where the player must move their finger greater than that area to move the camera. Since there is no player character to follow, the camera is directly moved with player input. The camera’s position is limited to stay within the game’s map.
 
-**Add an entry for each platform or input style your project supports.**
+*Camera Zooming* - The player can zoom the camera in and out by using the mouse’s scroll wheel. Scrolling up zooms in the camera, scrolling down zooms out the camera. With touch controls, the camera can be zoomed in/out by pinching the screen. There is a maximum distance that the camera can zoom in/out.
+
+*Perform Action* - The player can have an ant perform an action by left clicking on the ant to select it, then right clicking on the mouse or double clicking on a target to perform the action. With touch controls, the player taps on an ant, then double taps on the target. The gameobject that the player is clicking on is detected using raycasts to retrieve the gameobject and then comparing tags.
+
+*Switch Item* - The player can switch the item that they have selected by clicking on the buttons at the bottom of the screen. This action is the same for touch controls. The observer pattern is used here as there is a listener that will call the callback function when the button is clicked.
+
+*Toggle Shop Menu* - The shop menu can be toggled by pressing E on the keyboard. With touch controls, the shop menu can be closed by swiping right on the right side of the screen. It can be opened by swiping left on the right side of the screen. This is implemented by getting the initial touch position, then getting the position when the player lifts their finger and seeing if that position is to the left or right of the initial position.
 
 ## Game Logic
 
@@ -60,8 +67,11 @@ You should replay any **bold text** with your relevant information. Liberally us
 # Sub-Roles
 
 ## Cross-Platform
+The platform that was our main focus for the game was PC. Then I decided to add mobile support to the game. 
 
-**Describe the platforms you targeted for your game release. For each, describe the process and unique actions taken for each platform. What obstacles did you overcome? What was easier than expected?**
+*Mobile Port* - Initially, I had problems trying to create a mobile port as I was getting errors in Unity regarding a part of the directory involving Gradle dependency-locks being missing when trying to export the game to Android. I tried multiple ways to troubleshoot this issue including reinstalling the editor with the Android module. However, I was still getting the same error message about the missing directory. While I wasn’t able to get an Android port working, I figured out another way to create a mobile port by exporting the project as a WebGL app then putting it on itch.io which then allows the game to be played on mobile. I found that it worked using Chrome for Android, though I was not able to test this on iOS devices. This may also work on tablets that run Windows, but I also was not able to test this. However, since I was unable to get an Android build working, this made debugging the touch controls difficult as I couldn’t see the console for any logs.
+
+*Touch Controls* - A challenging part of this sub role was trying to manage the different controls used in the game. As the game progressed further in development, more controls were added which meant that I needed to figure out an equivalent way to perform the same action with touch controls. For example, players on PC can have the ants perform an action by using right click. However, since mobile players wouldn’t have a mouse to perform this action, I had to come up with an alternative to right clicking. My solution was to detect for double clicks so that mobile players can double tap on a target to execute an action. Luckily, some of the controls were easy to port to mobile as they required little to no changes. For example, the action of left clicking with the mouse is interpreted the same as a tap on touch controls, so I did not have to remap the controls for anything that used left click.
 
 ## Audio
 

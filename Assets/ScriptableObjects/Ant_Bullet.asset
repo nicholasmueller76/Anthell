@@ -21,4 +21,5 @@ MonoBehaviour:
   - 10
   - 10
   buildSpeed: 20
-  damage: 50
+  attackDamage: 10
+  attackCooldown: 2
