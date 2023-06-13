@@ -39,4 +39,10 @@ public class EntityData : ScriptableObject
     /// Time between concesecutive attacks.
     /// </summary>
     public float attackCooldown;
+
+    public int cashCost;
+    public int dirtCost;
+    public int stoneCost;
+    public int woodCost;
+    public int sulfurCost;
 }

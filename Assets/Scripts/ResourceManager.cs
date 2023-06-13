@@ -99,4 +99,9 @@ public class ResourceManager : MonoBehaviour
         CashAmount += amount;
         CashCounter.text = CashAmount.ToString();
     }
+
+    public int GetCash()
+    {
+        return CashAmount;
+    }
 }

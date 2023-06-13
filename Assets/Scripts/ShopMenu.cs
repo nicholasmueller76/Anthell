@@ -5,6 +5,15 @@ using static TileEntity;
 
 public class ShopMenu : MonoBehaviour
 {
+    [SerializeField]
+    private EntityData workerAntData;
+    [SerializeField]
+    private EntityData carpenterAntData;
+    [SerializeField]
+    private EntityData warriorAntData;
+    [SerializeField]
+    private EntityData bulletAntData;
+
     private ResourceManager resourceManager;
     [SerializeField]
     private GameObject workerAnt;
@@ -15,6 +24,7 @@ public class ShopMenu : MonoBehaviour
     [SerializeField]
     private GameObject bulletAnt;
 
+    [SerializeField] private GameObject queenAnt;
 
     public void Awake()
     {
@@ -23,20 +33,20 @@ public class ShopMenu : MonoBehaviour
 
     public void BuyWorker()
     {
-        if(resourceManager.GetResource(TileTypes.Dirt) >= 1) 
+        if (CanAfford(workerAntData))
         {
-            Instantiate(workerAnt, new Vector3(4, 2, 0), Quaternion.Euler(0, 0, -90));
-            resourceManager.RemoveResources(TileTypes.Dirt, 1);
+            Instantiate(workerAnt, queenAnt.transform.position, Quaternion.Euler(0, 0, -90));
+            Buy(workerAntData);
             Debug.Log("Buy Worker");
         }
     }
 
     public void BuyCarpenter()
     {
-        if(resourceManager.GetResource(TileTypes.Dirt) >= 1) 
+        if(CanAfford(carpenterAntData)) 
         {
-            Instantiate(carpenterAnt, new Vector3(4, 2, 0), Quaternion.Euler(0, 0, -90));
-            resourceManager.RemoveResources(TileTypes.Dirt, 1);
+            Instantiate(carpenterAnt, queenAnt.transform.position, Quaternion.Euler(0, 0, -90));
+            Buy(carpenterAntData);
             Debug.Log("Buy Carpenter");
         }
         
@@ -44,20 +54,20 @@ public class ShopMenu : MonoBehaviour
 
     public void BuyWarrior()
     {
-        if(resourceManager.GetResource(TileTypes.Dirt) >= 1) 
+        if (CanAfford(carpenterAntData))
         {
-            Instantiate(warriorAnt, new Vector3(4, 2, 0), Quaternion.Euler(0, 0, -90));
-            resourceManager.RemoveResources(TileTypes.Dirt, 1);
+            Instantiate(warriorAnt, queenAnt.transform.position, Quaternion.Euler(0, 0, -90));
+            Buy(warriorAntData);
             Debug.Log("Buy Warrior");
         }
     }
 
     public void BuyBullet()
     {
-        if(resourceManager.GetResource(TileTypes.Dirt) >= 1) 
+        if (CanAfford(bulletAntData))
         {
-            Instantiate(bulletAnt, new Vector3(4, 2, 0), Quaternion.Euler(0, 0, -90));
-            resourceManager.RemoveResources(TileTypes.Dirt, 1);
+            Instantiate(bulletAnt, queenAnt.transform.position, Quaternion.Euler(0, 0, -90));
+            Buy(bulletAntData);
             Debug.Log("Buy Bullet");
         }
     }
@@ -72,6 +82,22 @@ public class ShopMenu : MonoBehaviour
         Debug.Log("Buy Mine");
     }
     
+    public bool CanAfford(EntityData data)
+    {
+        if (data.cashCost > resourceManager.GetCash()) return false;
+        if (data.dirtCost > resourceManager.GetResource(TileTypes.Dirt)) return false;
+        if (data.stoneCost > resourceManager.GetResource(TileTypes.Stone)) return false;
+        if (data.woodCost > resourceManager.GetResource(TileTypes.Wood)) return false;
+        if (data.sulfurCost > resourceManager.GetResource(TileTypes.Sulfur)) return false;
+        return true;
+    }
 
-
+    public void Buy(EntityData data)
+    {
+        resourceManager.AddCash(-data.cashCost);
+        resourceManager.AddResource(TileTypes.Dirt, -data.dirtCost);
+        resourceManager.AddResource(TileTypes.Stone, -data.stoneCost);
+        resourceManager.AddResource(TileTypes.Wood, -data.woodCost);
+        resourceManager.AddResource(TileTypes.Sulfur, -data.sulfurCost);
+    }
 }
