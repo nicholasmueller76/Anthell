@@ -5,7 +5,6 @@ namespace Anthell
 {
     class Bettle : Enemy
     {
-        [SerializeField] private GameObject queenAnt;
         protected override void Awake()
         {
             base.Awake();
@@ -57,6 +56,7 @@ namespace Anthell
                 {
                     Debug.Log("Attacking ant");
                     nearestAnt.health.TakeDamage(entityData.attackDamage);
+                    anim.SetTrigger("Attack");
                     //delay for animation
                     yield return new WaitForSeconds(1f);
                 }

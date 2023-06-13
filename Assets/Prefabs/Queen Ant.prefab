@@ -97,10 +97,10 @@ GameObject:
   - component: {fileID: 2451112814045358879}
   - component: {fileID: 7162596517936948144}
   - component: {fileID: 490769290905550338}
-  - component: {fileID: 1681117865503939442}
+  - component: {fileID: 5131473970007554307}
   m_Layer: 0
   m_Name: Queen Ant
-  m_TagString: Untagged
+  m_TagString: Ant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,7 +119,7 @@ Transform:
   m_Children:
   - {fileID: 9016386230311206521}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!114 &589920531253659176
 MonoBehaviour:
@@ -237,7 +237,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1681117865503939442
+--- !u!114 &5131473970007554307
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -246,11 +246,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3497735423249449481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc51c7c073a8f4a0b9d0f754ef153b55, type: 3}
+  m_Script: {fileID: 11500000, guid: 2af498df26ec4408e83ed4a4491468a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 200
-  maxHealth: 200
+  entityData: {fileID: 11400000, guid: 6907f3d2c20e070428b526492f7a5e8f, type: 2}
+  currentTaskFinished: 0
+  moveTarget: {fileID: 0}
+  anim: {fileID: 5584006084961357612}
+  health: {fileID: 0}
 --- !u!1 &3783516673244553142
 GameObject:
   m_ObjectHideFlags: 0

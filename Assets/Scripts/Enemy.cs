@@ -5,8 +5,10 @@ namespace Anthell
 {
     abstract class Enemy : MoveableEntity
     {
-        public Health health;
+        [HideInInspector] public Health health;
         private SpriteRenderer sprite;
+
+        public GameObject queenAnt;
 
         protected override void Awake()
         {
@@ -20,7 +22,17 @@ namespace Anthell
         protected override void Update()
         {
             base.Update();
-            sprite.flipY = (this.transform.rotation.eulerAngles.z >= 0 && this.transform.rotation.eulerAngles.z <= 180);
+            sprite.transform.eulerAngles = new Vector3(0, 0, 0);
+
+            if (this.transform.rotation.eulerAngles.z >= 0 && this.transform.rotation.eulerAngles.z <= 180)
+            {
+                sprite.flipX = true;
+            }
+            else
+            {
+                sprite.flipX = false;
+            }
+            
         }
 
         protected override IEnumerator PerformTask(EntityTask task)

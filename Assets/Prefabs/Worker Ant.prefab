@@ -241,7 +241,7 @@ Transform:
   m_Children:
   - {fileID: 5282362281741135443}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!114 &8256172458156288714
 MonoBehaviour:
@@ -374,4 +374,5 @@ MonoBehaviour:
   entityData: {fileID: 11400000, guid: d16ed732a51c0c64580dd5c4c0936172, type: 2}
   currentTaskFinished: 0
   moveTarget: {fileID: 0}
+  anim: {fileID: 0}
   health: {fileID: 0}

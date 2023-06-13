@@ -157,7 +157,7 @@ Transform:
   m_Children:
   - {fileID: 5228091616195999735}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!114 &2619576615596269376
 MonoBehaviour:
@@ -290,6 +290,7 @@ MonoBehaviour:
   entityData: {fileID: 11400000, guid: 79c1170b5ed6d9940a0bd55b71fa498d, type: 2}
   currentTaskFinished: 0
   moveTarget: {fileID: 0}
+  anim: {fileID: 0}
   health: {fileID: 0}
 --- !u!1 &4763652040125978136
 GameObject:

@@ -11,7 +11,7 @@ namespace Anthell
         protected AILerp aiLerp;
         // Serialized Field for testing purposes.
         [SerializeField] protected GameObject moveTarget;
-        private Animator anim;
+        [HideInInspector] public Animator anim;
 
         protected override void Awake()
         {
@@ -58,7 +58,7 @@ namespace Anthell
             }
             aiLerp.canMove = true;
             destinationSetter.target = targetObject.transform;
-            anim?.SetBool("Walking", true);
+            anim.SetBool("Walking", true);
             Debug.Log("Moving.");
             while (Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range)
             {
@@ -80,7 +80,7 @@ namespace Anthell
             }
 
             Debug.Log("Reached target.");
-            anim?.SetBool("Walking", false);
+            anim.SetBool("Walking", false);
             aiLerp.canMove = false;
             if (!subTask)
             {

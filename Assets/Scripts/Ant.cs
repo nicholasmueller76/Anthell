@@ -6,7 +6,7 @@ namespace Anthell
 {
     class Ant : MoveableEntity
     {
-        [SerializeField] public Health health;
+        [HideInInspector] public Health health;
         private Outline outline;
         private ResourceManager resourceManager;
         private TileEntity.TileTypes heldResource;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c14c1c60c4e9141baabded21cdb642, type: 3}
   m_Name: Ant_Carpenter
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 200
   speed: 2
   range: 1
   mineSpeed:
@@ -21,4 +21,10 @@ MonoBehaviour:
   - 50
   - 20
   buildSpeed: 50
-  damage: 20
+  attackDamage: 20
+  attackCooldown: 1
+  cashCost: 0
+  dirtCost: 0
+  stoneCost: 0
+  woodCost: 0
+  sulfurCost: 0
