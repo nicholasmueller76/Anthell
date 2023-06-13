@@ -37,6 +37,7 @@ public class ShopMenu : MonoBehaviour
         {
             Instantiate(workerAnt, queenAnt.transform.position, Quaternion.Euler(0, 0, -90));
             Buy(workerAntData);
+            FindObjectOfType<AudioManager>().PlaySFX("SummonWorker");
             Debug.Log("Buy Worker");
         }
     }
@@ -47,6 +48,7 @@ public class ShopMenu : MonoBehaviour
         {
             Instantiate(carpenterAnt, queenAnt.transform.position, Quaternion.Euler(0, 0, -90));
             Buy(carpenterAntData);
+            FindObjectOfType<AudioManager>().PlaySFX("SummonCarpenter");
             Debug.Log("Buy Carpenter");
         }
         
@@ -54,10 +56,11 @@ public class ShopMenu : MonoBehaviour
 
     public void BuyWarrior()
     {
-        if (CanAfford(carpenterAntData))
+        if (CanAfford(warriorAntData))
         {
             Instantiate(warriorAnt, queenAnt.transform.position, Quaternion.Euler(0, 0, -90));
             Buy(warriorAntData);
+            FindObjectOfType<AudioManager>().PlaySFX("SummonWarrior");
             Debug.Log("Buy Warrior");
         }
     }
@@ -68,6 +71,7 @@ public class ShopMenu : MonoBehaviour
         {
             Instantiate(bulletAnt, queenAnt.transform.position, Quaternion.Euler(0, 0, -90));
             Buy(bulletAntData);
+            FindObjectOfType<AudioManager>().PlaySFX("SummonBullet");
             Debug.Log("Buy Bullet");
         }
     }
@@ -99,5 +103,6 @@ public class ShopMenu : MonoBehaviour
         resourceManager.AddResource(TileTypes.Stone, -data.stoneCost);
         resourceManager.AddResource(TileTypes.Wood, -data.woodCost);
         resourceManager.AddResource(TileTypes.Sulfur, -data.sulfurCost);
+        FindObjectOfType<AudioManager>().PlaySFX("Coins");
     }
 }

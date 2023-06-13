@@ -98,6 +98,7 @@ public class ResourceManager : MonoBehaviour
     {
         CashAmount += amount;
         CashCounter.text = CashAmount.ToString();
+        FindObjectOfType<AudioManager>().PlaySFX("Coins");
     }
 
     public int GetCash()
