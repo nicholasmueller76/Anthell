@@ -103,6 +103,10 @@ The platform that was our main focus for the game was PC. Then I decided to add 
 
 ## Narrative Design
 
+Responsibilities: To create descriptions for various game assets and integrate it with the UI elements. Provide information to the player both game mechanic related and fun lore.  [My Small Narrative Design Document](https://docs.google.com/document/d/1w1O95kbdPgVgMTn8Z7oiCaZbns_CrKMR95AAKDEnuiU/edit).
+
+I found it straightforward in creating descriptions for the various assets that made it fit into the game, as well as providing the player with more information on what the specific asset does/is used for and how it fit into the game.
+
 I couldn't find good references to my narrative descriptions because they are found in the secene files
 
 *Description for Player Assets* - Descriptions for each ant the player can buy/spawn. A description that gives a little narrative of the ant and its role in the colony. It also has a description of its stats that is related to the gameplay such as what is its health and damage, or what type of task is it good at. 
