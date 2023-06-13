@@ -28,7 +28,7 @@ public class ShopMenu : MonoBehaviour
 
     public void Awake()
     {
-        resourceManager = Camera.main.gameObject.GetComponent<ResourceManager>();
+        resourceManager = ResourceManager.instance;
     }
 
     public void BuyWorker()

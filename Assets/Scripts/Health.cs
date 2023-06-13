@@ -53,6 +53,11 @@ namespace Anthell
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
+                if(GetComponent<Enemy>() != null)
+                {
+                    ResourceManager.instance.AddCash(GetComponent<Enemy>().GetData().cashCost);
+                }
+                Destroy(gameObject);
             }
         }
 

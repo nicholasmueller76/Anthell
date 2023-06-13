@@ -62,6 +62,8 @@ namespace Anthell
             Debug.Log("Moving.");
             while (Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range)
             {
+                if (targetObject == null) break;
+
                 if (aiLerp.reachedEndOfPath)
                 {
                     Debug.Log("Entity is stuck.");

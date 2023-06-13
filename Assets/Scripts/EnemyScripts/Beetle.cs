@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Anthell
 {
-    class Bettle : Enemy
+    class Beetle : Enemy
     {
         protected override void Awake()
         {
@@ -57,6 +57,7 @@ namespace Anthell
                     Debug.Log("Attacking ant");
                     nearestAnt.health.TakeDamage(entityData.attackDamage);
                     anim.SetTrigger("Attack");
+                    AudioManager.instance.PlaySFX("Bite", false);
                     //delay for animation
                     yield return new WaitForSeconds(1f);
                 }

@@ -57,6 +57,7 @@ namespace Anthell
                     Debug.Log("Attacking ant");
                     nearestAnt.health.TakeDamage(entityData.attackDamage);
                     anim.SetTrigger("Attack");
+                    AudioManager.instance.PlaySFX("Whoosh", false);
                     //delay for animation
                     yield return new WaitForSeconds(1f);
                 }

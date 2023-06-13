@@ -19,10 +19,14 @@ public class ResourceManager : MonoBehaviour
 
     [SerializeField] TMP_Text SulfurCounter;
 
+    public static ResourceManager instance;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
+
         // Initialize resource amount
         CashAmount = 0;
         //CashCounter.text = CashAmount.ToString();

@@ -73,5 +73,10 @@ namespace Anthell
             taskQueue.Dequeue();
             currentTaskFinished = true;
         }
+
+        public EntityData GetData()
+        {
+            return entityData;
+        }
     }
 }

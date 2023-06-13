@@ -12,6 +12,8 @@ namespace Anthell
         private TileEntity.TileTypes heldResource;
         private SpriteRenderer sprite;
 
+        [SerializeField] string attackSfxName;
+
         protected override void Awake()
         {
             base.Awake();
@@ -132,14 +134,15 @@ namespace Anthell
             }
             currentTaskFinished = false;
             Debug.Log("Attacking.");
-            while (enemy.health.getHealth() > 0)
+            while (enemy != null && enemy.health.getHealth() > 0)
             {
                 if (Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range)
                 {
                     yield return this.Move(targetObject, true);
                 }
                 yield return new WaitForSeconds(entityData.attackCooldown);
-                enemy.health.TakeDamage(entityData.attackDamage);
+                AudioManager.instance.PlaySFX(attackSfxName, false);
+                if(enemy != null) enemy.health.TakeDamage(entityData.attackDamage);
             }
             Debug.Log("Finished attacking");
 
