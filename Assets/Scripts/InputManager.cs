@@ -22,9 +22,10 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Button sulfurButton;
 
     private bool isDoubleClick = false;
-    private bool checkingClickType = false;
-    private float clickTime = 0;
-    private float clickDelay = 0.2f;
+
+    private float previousClickTime;
+    private float currentClickTime;
+    private float clickDelay = 0.5f;
 
     private Vector2 initialTouchPosition = Vector2.zero;
     private Vector2 initialTouchPosition2 = Vector2.zero;
@@ -63,6 +64,9 @@ public class InputManager : MonoBehaviour
         stoneButton.onClick.AddListener(SwitchToStone);
         woodButton.onClick.AddListener(SwitchToWood);
         sulfurButton.onClick.AddListener(SwitchToSulfur);
+
+        previousClickTime = Time.time;
+        currentClickTime = Time.time;
     }
 
     private void Update()
@@ -231,8 +235,6 @@ public class InputManager : MonoBehaviour
         }
 
         ToggleMenu();
-
-        ClickTimer();
     }
 
     private void MoveCamera()
@@ -332,7 +334,7 @@ public class InputManager : MonoBehaviour
         {
             float newDistance = Vector2.Distance(touch1.position, touch2.position);
             float difference = newDistance - previousTouchDistance;
-            cameraObject.GetComponent<CameraController>().ZoomCamera(-difference * 0.1f);
+            cameraObject.GetComponent<CameraController>().ZoomCamera(-difference * 0.05f);
             previousTouchDistance = newDistance;
         }
 
@@ -416,24 +418,18 @@ public class InputManager : MonoBehaviour
 
     private void DetectClickType()
     {
-        if (checkingClickType && clickTime < clickDelay)
+        if (Input.touchCount < 2)
         {
-            checkingClickType = false;
-            isDoubleClick = true;
-        }
-        else
-        {
-            isDoubleClick = false;
-            checkingClickType = true;
-            clickTime = 0;
-        }
-    }
-
-    private void ClickTimer()
-    {
-        if (checkingClickType)
-        {
-            clickTime += Time.deltaTime;
+            previousClickTime = currentClickTime;
+            currentClickTime = Time.time;
+            if (currentClickTime - previousClickTime < clickDelay)
+            {
+                isDoubleClick = true;
+            }
+            else
+            {
+                isDoubleClick = false;
+            }
         }
     }
 }
