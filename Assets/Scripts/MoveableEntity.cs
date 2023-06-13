@@ -21,7 +21,7 @@ namespace Anthell
 
             aiLerp = GetComponent<AILerp>();
             aiLerp.canMove = false;
-            aiLerp.speed = data.speed;
+            aiLerp.speed = entityData.speed;
         }
 
         protected override void Update()
@@ -46,9 +46,12 @@ namespace Anthell
         /// Moves to targetObject until within range.
         /// </summary>
         /// <param name="targetObject">location or object the entity needs to move to</param>
+        /// <param name="subTask">whether or not this is a subtask</param>
+        /// <param name="duration">how long the task should take in seconds, 0 means until the entity reaches the target</param>
         /// <returns></returns>
-        protected IEnumerator Move(GameObject targetObject, bool subTask = false)
+        protected IEnumerator Move(GameObject targetObject, bool subTask = false, float duration = 0)
         {
+            float timer = duration;
             if (!subTask)
             {
                 currentTaskFinished = false;
@@ -57,12 +60,21 @@ namespace Anthell
             destinationSetter.target = targetObject.transform;
             anim.SetBool("Walking", true);
             Debug.Log("Moving.");
-            while (Vector3.Distance(transform.position, targetObject.transform.position) > data.range)
+            while (Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range)
             {
                 if (aiLerp.reachedEndOfPath)
                 {
                     Debug.Log("Entity is stuck.");
                     break;
+                }
+
+                if (duration > 0)
+                {
+                    timer -= Time.deltaTime;
+                    if (timer <= 0)
+                    {
+                        break;
+                    }
                 }
                 yield return null;
             }

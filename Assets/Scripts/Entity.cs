@@ -11,7 +11,7 @@ namespace Anthell
     abstract public class Entity : MonoBehaviour
     {
         [SerializeField]
-        protected EntityData data;
+        protected EntityData entityData;
 
         [SerializeField]
         protected Queue<EntityTask> taskQueue = new();

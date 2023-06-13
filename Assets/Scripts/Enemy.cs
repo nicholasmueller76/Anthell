@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Anthell
 {
-    class Enemy : MoveableEntity
+    abstract class Enemy : MoveableEntity
     {
         public Health health;
         private SpriteRenderer sprite;
@@ -12,8 +12,8 @@ namespace Anthell
         {
             base.Awake();
             health = gameObject.AddComponent<Health>();
-            health.SetHealth(data.maxHealth);
-            health.SetMaxHealth(data.maxHealth);
+            health.SetHealth(entityData.maxHealth);
+            health.SetMaxHealth(entityData.maxHealth);
             sprite = GetComponentInChildren<SpriteRenderer>();
         }
 
@@ -33,12 +33,50 @@ namespace Anthell
                 case EntityTaskTypes.Move:
                     yield return Move(task.target);
                     break;
+                case EntityTaskTypes.Attack:
+                    yield return AttackSequence(task.target);
+                    break;
             }
         }
 
+        /// <summary>
+        /// Move towards the target object until within range,
+        /// attack enemies within range every data.attackCooldown seconds.
+        /// </summary>
+        /// <param name="targetObject"></param>
+        /// <returns></returns>
+        protected IEnumerator AttackSequence(GameObject targetObject)
+        {
+            Ant queenAnt = targetObject.GetComponent<Ant>();
+            if (queenAnt == null)
+            {
+                Debug.Log("Could not execute attack task (target is not an enemy)");
+                yield break;
+            }
+            currentTaskFinished = false;
+            Debug.Log("Attacking.");
+            while (queenAnt.health.getHealth() > 0)
+            {
+                if (Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range)
+                {
+                    yield return this.Move(targetObject, true, entityData.attackCooldown);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(entityData.attackCooldown);
+                }
+                yield return Attack();
+            }
+            Debug.Log("Finished attacking");
+
+            currentTaskFinished = true;
+        }
+
+        abstract protected IEnumerator Attack();
+
         public void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.CompareTag("Ant"))
+            if (other.CompareTag("Ant"))
             {
                 //Attack logic.
             }
