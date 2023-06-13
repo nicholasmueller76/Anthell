@@ -96,6 +96,11 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
+    public void PlaySFX(string[] names)
+    {
+        PlaySFX(names[UnityEngine.Random.Range(0, names.Length)]);
+    }
+
     public void PlayMusic(string name)
     {
         Sound s = Array.Find(musicClips, x => x.name == name);
