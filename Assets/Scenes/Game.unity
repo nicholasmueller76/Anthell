@@ -51654,7 +51654,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
       propertyPath: sfxClips.Array.size
-      value: 4
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
       propertyPath: sfxClips.Array.data[0].clip
@@ -51689,12 +51689,148 @@ PrefabInstance:
       value: BreakSulfur
       objectReference: {fileID: 0}
     - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 550e525577098014496e5c2e282984d2, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[4].name
+      value: Sword1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[5].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: e9a2c9198a1c7114dac4f3b9ef165fc4, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[5].name
+      value: Sword2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[6].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: dae5ae741b069a24a9217892e22d2cba, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[6].name
+      value: Sword3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[7].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: a0312d44f0020f847ac4a38a665faf6a, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[7].name
+      value: AntDamage1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[8].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: c97f94ba7d8e36f428f6b468bbfb6f55, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[8].name
+      value: AntDamage2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[9].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: e5bfb931f0f0fb8498d380aeb27c19ea, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[9].name
+      value: AntDamage3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
       propertyPath: sfxClips.Array.data[0].pitch
       value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[10].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: a16ccab076fd4304b8dd50eee0890cbf, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[10].name
+      value: Gunshot1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[11].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 988057f7011be8642a0c1a62e7411200, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[11].name
+      value: Gunshot2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[12].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 120f02812ebfbf4499b23517586350c6, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[12].name
+      value: Gunshot3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[13].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: f15d27ce1fe43a042a887ac499869723, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[13].name
+      value: EnemyDamage1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[14].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 029afb66e228776419cd447a2b8f15de, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[14].name
+      value: EnemyDamage2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[15].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c176e55e7dcd35419e5e1400c280083, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[15].name
+      value: EnemyDamage3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[16].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 729d0fd577d5b3b43947ce0fe20e5158, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[16].name
+      value: Chainsaw
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[17].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 79cf9cbe3f4c49746b07d3a9950fa83b, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[17].name
+      value: SummonWorker
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[18].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 56ebc3dbef2665640bee97051fa62c67, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[18].name
+      value: SummonCarpenter
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[19].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 93bd222a44780c146969ea426570e29f, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[19].name
+      value: SummonWarrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
       propertyPath: sfxClips.Array.data[1].pitch
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[20].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8b6238096c55cfc4082eac72ed29dd65, type: 3}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[20].name
+      value: SummonBullet
       objectReference: {fileID: 0}
     - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
       propertyPath: sfxClips.Array.data[2].pitch
@@ -51705,11 +51841,79 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[4].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[5].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[6].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[7].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[8].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[9].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
       propertyPath: sfxClips.Array.data[0].volume
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[10].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[11].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[12].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[13].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[14].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[15].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[16].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[17].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[18].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[19].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
       propertyPath: sfxClips.Array.data[1].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[20].pitch
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
@@ -51718,6 +51922,74 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
       propertyPath: sfxClips.Array.data[3].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[4].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[5].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[6].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[7].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[8].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[9].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[10].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[11].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[12].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[13].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[14].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[15].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[16].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[17].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[18].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[19].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174039956999126179, guid: c4b261588946c3647915224fbbdb351c, type: 3}
+      propertyPath: sfxClips.Array.data[20].volume
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9045642716972913436, guid: c4b261588946c3647915224fbbdb351c, type: 3}
