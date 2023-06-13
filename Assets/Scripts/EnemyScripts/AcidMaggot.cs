@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Anthell
 {
-    class TestEnemy : Enemy
+    class AcidMaggot : Enemy
     {
         [SerializeField] private GameObject queenAnt;
         protected override void Awake()
@@ -44,20 +44,35 @@ namespace Anthell
             // get all Ants within data.range
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, entityData.range);
             bool foundAnAnt = false;
-            foreach (Collider2D collider in hitColliders)
+            Ant nearestAnt = null;
+            // get ant that is closest to this object
+            float distance = Mathf.Infinity;
+            foreach (var collider in hitColliders)
             {
-                Ant ant = collider.gameObject.GetComponent<Ant>();
-                if (ant != null)
+                var ant = collider.GetComponent<Ant>();
+                if (ant != null && ant.health.getHealth() > 0)
                 {
-                    foundAnAnt = true;
-                    // attack the ant
-                    ant.health.TakeDamage(entityData.attackDamage);
-                    Debug.Log("Attacked an ant!");
+                    // if there is a line of sight to the ant from the beetle
+                    if (Physics2D.Linecast(transform.position, ant.transform.position))
+                    {
+                        foundAnAnt = true;
+                        float newDistance = Vector3.Distance(transform.position, collider.transform.position);
+                        if (newDistance < distance)
+                        {
+                            distance = newDistance;
+                            nearestAnt = ant;
+                        }
+                    }
                 }
             }
             if (!foundAnAnt)
             {
                 yield break;
+            }
+            else
+            {
+                Debug.Log("Attacking ant");
+                nearestAnt.health.TakeDamage(entityData.attackDamage);
             }
             //delay for animation
             yield return new WaitForSeconds(1f);

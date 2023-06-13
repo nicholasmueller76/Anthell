@@ -41,38 +41,12 @@ namespace Anthell
 
         /// <summary>
         /// Move towards the target object until within range,
-        /// attack enemies within range every data.attackCooldown seconds.
+        /// then attack the target object until it is dead.
+        /// Attacks ants on the way to the target object.
         /// </summary>
         /// <param name="targetObject"></param>
         /// <returns></returns>
-        protected IEnumerator AttackSequence(GameObject targetObject)
-        {
-            Ant queenAnt = targetObject.GetComponent<Ant>();
-            if (queenAnt == null)
-            {
-                Debug.Log("Could not execute attack task (target is not an enemy)");
-                yield break;
-            }
-            currentTaskFinished = false;
-            Debug.Log("Attacking.");
-            while (queenAnt.health.getHealth() > 0)
-            {
-                if (Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range)
-                {
-                    yield return this.Move(targetObject, true, entityData.attackCooldown);
-                }
-                else
-                {
-                    yield return new WaitForSeconds(entityData.attackCooldown);
-                }
-                yield return Attack();
-            }
-            Debug.Log("Finished attacking");
-
-            currentTaskFinished = true;
-        }
-
-        abstract protected IEnumerator Attack();
+        abstract protected IEnumerator AttackSequence(GameObject targetObject);
 
         public void OnTriggerEnter2D(Collider2D other)
         {
