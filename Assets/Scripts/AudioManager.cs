@@ -15,7 +15,12 @@ public class AudioManager : MonoBehaviour
         SoundManager.cs from Assignment1
 
         Play sfx with FindObjectOfType<AudioManager>().PlaySFX("name");
+            or for looping option: FindObjectOfType<AudioManager>().PlaySFX("name", bool loop);
+
         Play music with FindObjectOfType<AudioManager>().PlayMusic("name");
+
+        To stop SFX: FindObjectOfType<AudioManager>().StopSFX("name");
+        To stop Music: FindObjectOfType<AudioManager>().StopMusic();
     */
 
     public Sound[] sfxClips, musicClips; 
@@ -49,6 +54,7 @@ public class AudioManager : MonoBehaviour
 
             s.source.volume = this.sfxVolume * s.volume;
             s.source.loop = false;
+            s.source.pitch = s.pitch;
         }
 
         foreach(Sound s in musicClips)
@@ -77,6 +83,19 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
+    //Boolean indicates whether the sound should be looped
+    public void PlaySFX(string name, bool loop)
+    {
+        Sound s = Array.Find(sfxClips, x => x.name == name);
+        if(s == null)
+        {
+            Debug.LogWarning("SFX sound \"" + name + "\" not found");
+            return;
+        }
+        s.source.loop = loop;
+        s.source.Play();
+    }
+
     public void PlayMusic(string name)
     {
         Sound s = Array.Find(musicClips, x => x.name == name);
@@ -95,4 +114,24 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
         this.musicPlaying = s;
     } 
+
+    public void StopSFX(string name)
+    {
+        Sound s = Array.Find(sfxClips, x => x.name == name);
+
+        if(s == null)
+        {
+            Debug.LogWarning("Music sound \"" + name + "\" not found");
+            return;
+        }
+        s.source.Stop();
+    }
+
+    public void StopMusic()
+    {
+        if(this.musicPlaying != null)
+        {
+            this.musicPlaying.source.Stop();
+        }
+    }
 }

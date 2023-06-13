@@ -67,16 +67,19 @@ namespace Anthell
                 TileEntity tileEntity = targetObject.GetComponent<TileEntity>();
                 currentTaskFinished = false;
                 Debug.Log("Digging.");
+
+                FindObjectOfType<AudioManager>().PlaySFX("Break" + tileEntity.GetTileName(), true);
+
                 while (tileEntity.health > 0)
                 {
                     yield return new WaitForSeconds(1f);
                     tileEntity.Dig(data.mineSpeed[(int)tileEntity.GetTileType()]);
-
                 }
 
                 Debug.Log("Adding resource: " + tileEntity.GetTileType());
                 resourceManager.AddResource(tileEntity.GetTileType(), 1);
 
+                FindObjectOfType<AudioManager>().StopSFX("Break" + tileEntity.GetTileName());
                 tileEntity.DestroyTile();
                 Debug.Log("Finished digging");
             }
