@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Anthell
 {
-    class Enemy : MoveableEntity
+    abstract class Enemy : MoveableEntity
     {
         public Health health;
         private SpriteRenderer sprite;
@@ -12,8 +12,8 @@ namespace Anthell
         {
             base.Awake();
             health = gameObject.AddComponent<Health>();
-            health.SetHealth(data.maxHealth);
-            health.SetMaxHealth(data.maxHealth);
+            health.SetHealth(entityData.maxHealth);
+            health.SetMaxHealth(entityData.maxHealth);
             sprite = GetComponentInChildren<SpriteRenderer>();
         }
 
@@ -33,12 +33,24 @@ namespace Anthell
                 case EntityTaskTypes.Move:
                     yield return Move(task.target);
                     break;
+                case EntityTaskTypes.Attack:
+                    yield return AttackSequence(task.target);
+                    break;
             }
         }
 
+        /// <summary>
+        /// Move towards the target object until within range,
+        /// then attack the target object until it is dead.
+        /// Attacks ants on the way to the target object.
+        /// </summary>
+        /// <param name="targetObject"></param>
+        /// <returns></returns>
+        abstract protected IEnumerator AttackSequence(GameObject targetObject);
+
         public void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.CompareTag("Ant"))
+            if (other.CompareTag("Ant"))
             {
                 //Attack logic.
             }

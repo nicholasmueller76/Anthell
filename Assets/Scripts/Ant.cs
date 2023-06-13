@@ -6,7 +6,7 @@ namespace Anthell
 {
     class Ant : MoveableEntity
     {
-        [SerializeField] private Health health;
+        [SerializeField] public Health health;
         private Outline outline;
         private ResourceManager resourceManager;
         private TileEntity.TileTypes heldResource;
@@ -19,8 +19,8 @@ namespace Anthell
             sprite = GetComponentInChildren<SpriteRenderer>();
             outline.eraseRenderer = true;
             health = gameObject.AddComponent<Health>();
-            health.SetHealth(data.maxHealth);
-            health.SetMaxHealth(data.maxHealth);
+            health.SetHealth(entityData.maxHealth);
+            health.SetMaxHealth(entityData.maxHealth);
             resourceManager = Camera.main.gameObject.GetComponent<ResourceManager>();
         }
 
@@ -61,7 +61,7 @@ namespace Anthell
 
         protected IEnumerator Dig(GameObject targetObject)
         {
-            if (Vector3.Distance(transform.position, targetObject.transform.position) <= data.range)
+            if (Vector3.Distance(transform.position, targetObject.transform.position) <= entityData.range)
             {
 
                 TileEntity tileEntity = targetObject.GetComponent<TileEntity>();
@@ -73,7 +73,8 @@ namespace Anthell
                 while (tileEntity.health > 0)
                 {
                     yield return new WaitForSeconds(1f);
-                    tileEntity.Dig(data.mineSpeed[(int)tileEntity.GetTileType()]);
+                    tileEntity.Dig(entityData.mineSpeed[(int)tileEntity.GetTileType()]);
+
                 }
 
                 Debug.Log("Adding resource: " + tileEntity.GetTileType());
@@ -93,7 +94,7 @@ namespace Anthell
 
         protected IEnumerator Build(GameObject targetObject)
         {
-            if (Vector3.Distance(transform.position, targetObject.transform.position) <= data.range && heldResource != TileEntity.TileTypes.Empty)
+            if (Vector3.Distance(transform.position, targetObject.transform.position) <= entityData.range && heldResource != TileEntity.TileTypes.Empty)
             {
                 TileEntity tileEntity = targetObject.GetComponent<TileEntity>();
                 currentTaskFinished = false;
@@ -103,7 +104,7 @@ namespace Anthell
                 while (buildPercent < 100)
                 {
                     yield return new WaitForSeconds(1f);
-                    buildPercent += data.buildSpeed;
+                    buildPercent += entityData.buildSpeed;
                 }
 
                 Debug.Log(tileEntity);
@@ -133,12 +134,12 @@ namespace Anthell
             Debug.Log("Attacking.");
             while (enemy.health.getHealth() > 0)
             {
-                while (Vector3.Distance(transform.position, targetObject.transform.position) > data.range)
+                if (Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range)
                 {
                     yield return this.Move(targetObject, true);
                 }
-                yield return new WaitForSeconds(data.attackCooldown);
-                enemy.health.TakeDamage(data.attackDamage);
+                yield return new WaitForSeconds(entityData.attackCooldown);
+                enemy.health.TakeDamage(entityData.attackDamage);
             }
             Debug.Log("Finished attacking");
 

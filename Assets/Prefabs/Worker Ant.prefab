@@ -241,7 +241,7 @@ Transform:
   m_Children:
   - {fileID: 5282362281741135443}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!114 &8256172458156288714
 MonoBehaviour:
@@ -371,6 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2af498df26ec4408e83ed4a4491468a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: d16ed732a51c0c64580dd5c4c0936172, type: 2}
+  entityData: {fileID: 11400000, guid: d16ed732a51c0c64580dd5c4c0936172, type: 2}
   currentTaskFinished: 0
   moveTarget: {fileID: 0}
+  health: {fileID: 0}
