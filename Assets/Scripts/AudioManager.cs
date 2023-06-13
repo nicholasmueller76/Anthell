@@ -96,6 +96,7 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
+    //Picks a random sound from a list of names
     public void PlaySFX(string[] names)
     {
         PlaySFX(names[UnityEngine.Random.Range(0, names.Length)]);

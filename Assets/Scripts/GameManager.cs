@@ -31,11 +31,13 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Night");
                 currentEnemySpawnTime = 0;
                 StartCoroutine(ChangeToNight());
+                FindObjectOfType<AudioManager>().PlayMusic("UltimateAssault1");
             }
             else
             {
                 Debug.Log("Day");
                 StartCoroutine(ChangeToDay());
+                FindObjectOfType<AudioManager>().PlayMusic("BorderTown");
             }
             currentTime = 0;
         }
