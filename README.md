@@ -2,7 +2,7 @@
 
 ## Summary ##
 
-**A paragraph-length pitch for your game.**
+Anthell is primarily based on 2D colony management games like Oxygen Not Included and Dwarf Fortress, where the objective is to grow and expand your colony while surviving as long as you can. Anthell uses a similar “invasion” element from Dwarf Fortress where you defend your colony against enemies every night while gathering resources during the day. You start with a handful of ants that must protect the colony’s queen. The ants will gather resources, build structures, spawn more ants, and defend the queen from enemies. There are a few prebuilt waves of enemies, with random waves after that increase in difficulty. Hosting a variety of friendly ant types and enemy types.
 
 ## Gameplay Explanation ##
 
