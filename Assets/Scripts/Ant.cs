@@ -37,6 +37,39 @@ namespace Anthell
             {
                 sprite.gameObject.transform.localScale = new Vector3(1, 1, 1);
             }
+            if (taskQueue.Count == 0 && currentTaskFinished && entityData.autoAttack)
+            {
+                AttackEnemyIfNear();
+            }
+        }
+
+        protected void AttackEnemyIfNear()
+        {
+            // line cast for enemies within radius
+            LayerMask mask = LayerMask.GetMask("Enemy");
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, entityData.range, mask);
+            bool foundAnEnemy = false;
+            Enemy nearestEnemy = null;
+            // get enemy that is closest to this object
+            float distance = Mathf.Infinity;
+            foreach (var collider in hitColliders)
+            {
+                var enemy = collider.GetComponent<Enemy>();
+                if (enemy != null && enemy.health.getHealth() > 0)
+                {
+                    foundAnEnemy = true;
+                    float newDistance = Vector3.Distance(transform.position, collider.transform.position);
+                    if (newDistance < distance)
+                    {
+                        distance = newDistance;
+                        nearestEnemy = enemy;
+                    }
+                }
+            }
+            if (foundAnEnemy)
+            {
+                AddTask(new EntityTask(EntityTaskTypes.Attack, nearestEnemy.gameObject));
+            }
         }
 
         protected override IEnumerator PerformTask(EntityTask task)
@@ -145,7 +178,7 @@ namespace Anthell
                 }
                 yield return new WaitForSeconds(entityData.attackCooldown);
                 AudioManager.instance.PlaySFX(attackSfxName, false);
-                if(enemy != null) enemy.health.TakeDamage(entityData.attackDamage);
+                if (enemy != null) enemy.health.TakeDamage(entityData.attackDamage);
             }
             Debug.Log("Finished attacking");
 
