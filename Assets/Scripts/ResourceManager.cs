@@ -27,9 +27,9 @@ public class ResourceManager : MonoBehaviour
     {
         instance = this;
 
+
         // Initialize resource amount
-        CashAmount = 0;
-        //CashCounter.text = CashAmount.ToString();
+        CashCounter.text = CashAmount.ToString();
 
         resources[0] = 0;
         DirtCounter.text = resources[0].ToString();

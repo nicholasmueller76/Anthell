@@ -14,7 +14,6 @@ public class ShopMenu : MonoBehaviour
     [SerializeField]
     private EntityData bulletAntData;
 
-    private ResourceManager resourceManager;
     [SerializeField]
     private GameObject workerAnt;
     [SerializeField]
@@ -28,7 +27,7 @@ public class ShopMenu : MonoBehaviour
 
     public void Awake()
     {
-        resourceManager = ResourceManager.instance;
+
     }
 
     public void BuyWorker()
@@ -84,20 +83,20 @@ public class ShopMenu : MonoBehaviour
     
     public bool CanAfford(EntityData data)
     {
-        if (data.cashCost > resourceManager.GetCash()) return false;
-        if (data.dirtCost > resourceManager.GetResource(TileTypes.Dirt)) return false;
-        if (data.stoneCost > resourceManager.GetResource(TileTypes.Stone)) return false;
-        if (data.woodCost > resourceManager.GetResource(TileTypes.Wood)) return false;
-        if (data.sulfurCost > resourceManager.GetResource(TileTypes.Sulfur)) return false;
+        if (data.cashCost > ResourceManager.instance.GetCash()) return false;
+        if (data.dirtCost > ResourceManager.instance.GetResource(TileTypes.Dirt)) return false;
+        if (data.stoneCost > ResourceManager.instance.GetResource(TileTypes.Stone)) return false;
+        if (data.woodCost > ResourceManager.instance.GetResource(TileTypes.Wood)) return false;
+        if (data.sulfurCost > ResourceManager.instance.GetResource(TileTypes.Sulfur)) return false;
         return true;
     }
 
     public void Buy(EntityData data)
     {
-        resourceManager.AddCash(-data.cashCost);
-        resourceManager.AddResource(TileTypes.Dirt, -data.dirtCost);
-        resourceManager.AddResource(TileTypes.Stone, -data.stoneCost);
-        resourceManager.AddResource(TileTypes.Wood, -data.woodCost);
-        resourceManager.AddResource(TileTypes.Sulfur, -data.sulfurCost);
+        ResourceManager.instance.AddCash(-data.cashCost);
+        ResourceManager.instance.AddResource(TileTypes.Dirt, -data.dirtCost);
+        ResourceManager.instance.AddResource(TileTypes.Stone, -data.stoneCost);
+        ResourceManager.instance.AddResource(TileTypes.Wood, -data.woodCost);
+        ResourceManager.instance.AddResource(TileTypes.Sulfur, -data.sulfurCost);
     }
 }
