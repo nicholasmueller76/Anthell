@@ -37,6 +37,48 @@ namespace Anthell
             {
                 sprite.gameObject.transform.localScale = new Vector3(1, 1, 1);
             }
+            if (taskQueue.Count == 0 && currentTaskFinished && entityData.autoAttack)
+            {
+                AttackEnemyIfNear();
+            }
+        }
+
+        protected void AttackEnemyIfNear()
+        {
+            // line cast for enemies within radius
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, entityData.range);
+            bool foundAnEnemy = false;
+            Enemy nearestEnemy = null;
+            // get enemy that is closest to this object
+            float distance = Mathf.Infinity;
+            foreach (var collider in hitColliders)
+            {
+                if (collider.CompareTag("Enemy") == false)
+                {
+                    continue;
+                }
+                var enemy = collider.GetComponent<Enemy>();
+                if (enemy != null && enemy.health.getHealth() > 0)
+                {
+                    LayerMask mask = LayerMask.GetMask("Ground");
+                    // if there is a line of sight to the enemy from the ant
+                    if (!Physics2D.Linecast(transform.position, enemy.transform.position, mask))
+                    {
+                        foundAnEnemy = true;
+                        float newDistance = Vector3.Distance(transform.position, collider.transform.position);
+                        if (newDistance < distance)
+                        {
+                            distance = newDistance;
+                            nearestEnemy = enemy;
+                        }
+                    }
+
+                }
+            }
+            if (foundAnEnemy)
+            {
+                AddTask(new EntityTask(EntityTaskTypes.Attack, nearestEnemy.gameObject));
+            }
         }
 
         protected override IEnumerator PerformTask(EntityTask task)
@@ -136,13 +178,16 @@ namespace Anthell
             Debug.Log("Attacking.");
             while (enemy != null && enemy.health.getHealth() > 0)
             {
-                if (Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range)
+                LayerMask mask = LayerMask.GetMask("Ground");
+                if (Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range
+                || Physics2D.Linecast(transform.position, targetObject.transform.position, mask)
+                )
                 {
                     yield return this.Move(targetObject, true);
                 }
                 yield return new WaitForSeconds(entityData.attackCooldown);
                 AudioManager.instance.PlaySFX(attackSfxName, false);
-                if(enemy != null) enemy.health.TakeDamage(entityData.attackDamage);
+                if (enemy != null) enemy.health.TakeDamage(entityData.attackDamage);
             }
             Debug.Log("Finished attacking");
 

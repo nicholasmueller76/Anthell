@@ -31,6 +31,11 @@ public class EntityData : ScriptableObject
     public float buildSpeed;
 
     /// <summary>
+    /// Whether or not the ant should seek out enemies automatically.
+    /// </summary>
+    public bool autoAttack;
+
+    /// <summary>
     /// How much damage the ant does per attack.
     /// </summary>
     public float attackDamage;
