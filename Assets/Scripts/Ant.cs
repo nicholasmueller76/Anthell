@@ -136,7 +136,10 @@ namespace Anthell
             Debug.Log("Attacking.");
             while (enemy != null && enemy.health.getHealth() > 0)
             {
-                if (Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range)
+                LayerMask mask = LayerMask.GetMask("Ground");
+                if (Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range
+                || Physics2D.Linecast(transform.position, targetObject.transform.position, mask)
+                )
                 {
                     yield return this.Move(targetObject, true);
                 }

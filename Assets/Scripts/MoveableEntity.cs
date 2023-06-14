@@ -60,7 +60,11 @@ namespace Anthell
             destinationSetter.target = targetObject.transform;
             anim.SetBool("Walking", true);
             Debug.Log("Moving.");
-            while (Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range)
+            LayerMask mask = LayerMask.GetMask("Ground");
+            while (
+                Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range
+                || Physics2D.Linecast(transform.position, targetObject.transform.position, mask)
+                )
             {
                 if (targetObject == null) break;
 
