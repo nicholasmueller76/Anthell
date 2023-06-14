@@ -409,22 +409,50 @@ public class InputManager : MonoBehaviour
 
     private void SwitchToDirt()
     {
-        selectedResource = TileEntity.TileTypes.Dirt;
+        if (selectedResource == TileEntity.TileTypes.Dirt)
+        {
+            selectedResource = TileEntity.TileTypes.Empty;
+        }
+        else
+        {
+            selectedResource = TileEntity.TileTypes.Dirt;
+        }
     }
 
     private void SwitchToStone()
     {
-        selectedResource = TileEntity.TileTypes.Stone;
+        if (selectedResource == TileEntity.TileTypes.Stone)
+        {
+            selectedResource = TileEntity.TileTypes.Empty;
+        }
+        else
+        {
+            selectedResource = TileEntity.TileTypes.Stone;
+        }
     }
 
     private void SwitchToWood()
     {
-        selectedResource = TileEntity.TileTypes.Wood;
+        if (selectedResource == TileEntity.TileTypes.Wood)
+        {
+            selectedResource = TileEntity.TileTypes.Empty;
+        }
+        else
+        {
+            selectedResource = TileEntity.TileTypes.Wood;
+        }
     }
 
     private void SwitchToSulfur()
     {
-        selectedResource = TileEntity.TileTypes.Sulfur;
+        if (selectedResource == TileEntity.TileTypes.Sulfur)
+        {
+            selectedResource = TileEntity.TileTypes.Empty;
+        }
+        else
+        {
+            selectedResource = TileEntity.TileTypes.Sulfur;
+        }
     }
 
     private void DetectClickType()
