@@ -25,10 +25,6 @@ public class InputManager : MonoBehaviour
     //private bool isDoubleClick = false;
     private bool validSingleTouch = true;
 
-    private float previousClickTime;
-    private float currentClickTime;
-    private float clickDelay = 0.5f;
-
     private Vector2 initialTouchPosition = Vector2.zero;
     private Vector2 initialTouchPosition2 = Vector2.zero;
     private float previousTouchDistance = -1;
@@ -64,9 +60,6 @@ public class InputManager : MonoBehaviour
         stoneButton.onClick.AddListener(SwitchToStone);
         woodButton.onClick.AddListener(SwitchToWood);
         sulfurButton.onClick.AddListener(SwitchToSulfur);
-
-        previousClickTime = Time.time;
-        currentClickTime = Time.time;
     }
 
     private void Update()
@@ -103,7 +96,7 @@ public class InputManager : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            if (touch.phase != TouchPhase.Began || (touch.position.x < Screen.width / 3 && touch.position.y < Screen.height / 2))
+            if (touch.phase != TouchPhase.Began || (touch.position.x < Screen.width / 4 && touch.position.y < Screen.height / 2))
             {
                 validSingleTouch = false;
             }
@@ -313,7 +306,7 @@ public class InputManager : MonoBehaviour
                 initialTouchPosition = touch.position;
                 break;
             case TouchPhase.Moved:
-                if (initialTouchPosition.x < Screen.width / 2)
+                if (initialTouchPosition.x < Screen.width / 4 && initialTouchPosition.y < Screen.height / 2)
                 {
                     Vector2 initialTouchWorldPosition = Camera.main.ScreenToWorldPoint(initialTouchPosition);
                     Vector2 touchWorldPosition = Camera.main.ScreenToWorldPoint(touch.position);
@@ -326,7 +319,7 @@ public class InputManager : MonoBehaviour
                 }
                 break;
             case TouchPhase.Stationary:
-                if (initialTouchPosition.x < Screen.width / 2)
+                if (initialTouchPosition.x < Screen.width / 4 && initialTouchPosition.y < Screen.height / 2)
                 {
                     Vector2 initialTouchWorldPosition = Camera.main.ScreenToWorldPoint(initialTouchPosition);
                     Vector2 touchWorldPosition = Camera.main.ScreenToWorldPoint(touch.position);
