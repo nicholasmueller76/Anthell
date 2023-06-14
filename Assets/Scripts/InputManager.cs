@@ -20,6 +20,8 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Button woodButton;
     [SerializeField] private Button sulfurButton;
 
+    [SerializeField] private RectTransform selectedResourceHighlight;
+
     //private bool isDoubleClick = false;
     private bool validSingleTouch = true;
 
@@ -39,7 +41,7 @@ public class InputManager : MonoBehaviour
     private Vector3Int mouseTilePosition;
     private GameObject targetObj;
 
-    [SerializeField] private Ant selectedAnt;
+    private Ant selectedAnt;
 
     private bool menuOpen = true;
 
@@ -227,18 +229,26 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            selectedResourceHighlight.position = dirtButton.GetComponent<RectTransform>().position;
+            selectedResourceHighlight.gameObject.SetActive(true);
             selectedResource = TileEntity.TileTypes.Dirt;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            selectedResourceHighlight.position = stoneButton.GetComponent<RectTransform>().position;
+            selectedResourceHighlight.gameObject.SetActive(true);
             selectedResource = TileEntity.TileTypes.Stone;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
+            selectedResourceHighlight.position = woodButton.GetComponent<RectTransform>().position;
+            selectedResourceHighlight.gameObject.SetActive(true);
             selectedResource = TileEntity.TileTypes.Wood;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
+            selectedResourceHighlight.position = sulfurButton.GetComponent<RectTransform>().position;
+            selectedResourceHighlight.gameObject.SetActive(true);
             selectedResource = TileEntity.TileTypes.Sulfur;
         }
 
@@ -248,6 +258,7 @@ public class InputManager : MonoBehaviour
             if (selectedAnt != null) selectedAnt.SetSelected(false);
             selectedAnt = null;
             selectedResource = TileEntity.TileTypes.Empty;
+            selectedResourceHighlight.gameObject.SetActive(false);
         }
 
         // Open/Close Menu
@@ -427,10 +438,13 @@ public class InputManager : MonoBehaviour
         if (selectedResource == TileEntity.TileTypes.Dirt)
         {
             selectedResource = TileEntity.TileTypes.Empty;
+            selectedResourceHighlight.gameObject.SetActive(false);
         }
         else
         {
             selectedResource = TileEntity.TileTypes.Dirt;
+            selectedResourceHighlight.position = dirtButton.GetComponent<RectTransform>().position;
+            selectedResourceHighlight.gameObject.SetActive(true);
         }
     }
 
@@ -439,10 +453,13 @@ public class InputManager : MonoBehaviour
         if (selectedResource == TileEntity.TileTypes.Stone)
         {
             selectedResource = TileEntity.TileTypes.Empty;
+            selectedResourceHighlight.gameObject.SetActive(false);
         }
         else
         {
             selectedResource = TileEntity.TileTypes.Stone;
+            selectedResourceHighlight.position = stoneButton.GetComponent<RectTransform>().position;
+            selectedResourceHighlight.gameObject.SetActive(true);
         }
     }
 
@@ -451,10 +468,13 @@ public class InputManager : MonoBehaviour
         if (selectedResource == TileEntity.TileTypes.Wood)
         {
             selectedResource = TileEntity.TileTypes.Empty;
+            selectedResourceHighlight.gameObject.SetActive(false);
         }
         else
         {
             selectedResource = TileEntity.TileTypes.Wood;
+            selectedResourceHighlight.position = woodButton.GetComponent<RectTransform>().position;
+            selectedResourceHighlight.gameObject.SetActive(true);
         }
     }
 
@@ -463,10 +483,13 @@ public class InputManager : MonoBehaviour
         if (selectedResource == TileEntity.TileTypes.Sulfur)
         {
             selectedResource = TileEntity.TileTypes.Empty;
+            selectedResourceHighlight.gameObject.SetActive(false);
         }
         else
         {
             selectedResource = TileEntity.TileTypes.Sulfur;
+            selectedResourceHighlight.position = sulfurButton.GetComponent<RectTransform>().position;
+            selectedResourceHighlight.gameObject.SetActive(true);
         }
     }
 
