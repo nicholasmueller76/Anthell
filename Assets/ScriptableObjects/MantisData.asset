@@ -20,7 +20,7 @@ MonoBehaviour:
   autoAttack: 0
   attackDamage: 20
   attackCooldown: 2.5
-  cashCost: 25
+  cashCost: 50
   dirtCost: 0
   stoneCost: 0
   woodCost: 0

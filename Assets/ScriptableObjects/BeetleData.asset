@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c14c1c60c4e9141baabded21cdb642, type: 3}
   m_Name: BeetleData
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 50
   speed: 1
   range: 0.5
   mineSpeed: []
   buildSpeed: 25
   autoAttack: 0
-  attackDamage: 10
+  attackDamage: 5
   attackCooldown: 3
   cashCost: 10
   dirtCost: 0

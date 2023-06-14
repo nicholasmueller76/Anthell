@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - enemyType: 0
-    delay: 10
+    delay: 6
   - enemyType: 0
-    delay: 10
+    delay: 6
+  - enemyType: 0
+    delay: 6
   - enemyType: 0
     delay: 30
   - enemyType: 1
@@ -24,4 +26,16 @@ MonoBehaviour:
   - enemyType: 0
     delay: 6
   - enemyType: 0
+    delay: 6
+  - enemyType: 0
     delay: 30
+  - enemyType: 0
+    delay: 30
+  - enemyType: 0
+    delay: 3
+  - enemyType: 0
+    delay: 3
+  - enemyType: 0
+    delay: 3
+  - enemyType: 0
+    delay: 3

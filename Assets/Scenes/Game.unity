@@ -2850,8 +2850,6 @@ MonoBehaviour:
   woodButton: {fileID: 1868537873}
   sulfurButton: {fileID: 1622841697}
   selectedResourceHighlight: {fileID: 205739979}
-  cancelTaskButton: {fileID: 1791340864}
-  cancelTaskText: {fileID: 801046199}
   mouseTarget: 0
   selectedResource: 0
 --- !u!4 &1095762607
@@ -53801,7 +53799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1791340865
 RectTransform:
   m_ObjectHideFlags: 0
