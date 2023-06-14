@@ -57,8 +57,6 @@ There was a few obstacles at first when I was creating the game. The first obsta
 
 ## Animation and Visuals
 
-**Describe how your work intersects with game feel, graphic design, and world-building. Include your visual style guide if one exists.**
-
 For our Animations and Visuals, we used the following assets:
 
 [Insect Enemies](https://jeevo.itch.io/insect-enemies)
@@ -160,10 +158,10 @@ I couldn't find good references to my narrative descriptions because they are fo
 
 ## Press Kit and Trailer
 
-**Include links to your presskit materials and trailer.**
+[Press Kit](https://docs.google.com/document/d/19rNaiatObL4ZzlPjjtPrdOzDXSqwfz1nsnIY_UtPWxk/edit?usp=sharing)
+[Trailer](https://youtu.be/lgkBmZA2Po4)
 
-**Describe how you showcased your work. How did you choose what to show in the trailer? Why did you choose your screenshots?**
-
+For my press kit and trailer, I wanted to showcase how the game played and it's mechanics. So in the trailer I mostly highlighted the core mechanics of the game and mostly showed a real run of the game. For my screen shots in my press kit, we I didn't really think we needed that many screenshots of the game since the trailer was for the showcase. I added some pictures of the Ant sprites however.
 
 
 ## Game Feel
