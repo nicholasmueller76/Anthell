@@ -21,6 +21,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Button sulfurButton;
 
     //private bool isDoubleClick = false;
+    private bool validSingleTouch = true;
 
     private float previousClickTime;
     private float currentClickTime;
@@ -88,10 +89,30 @@ public class InputManager : MonoBehaviour
             uiClicked = false;
         }
 
+        // Get the coordinates of the tile that the cursor is currently hovering over.
+        // Will show a highlight on the tile that the cursor is on.
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseTilePosition = tiles.LocalToCell(mousePosition);
+        tileHighlight.transform.position = tiles.GetCellCenterLocal(mouseTilePosition);
+
         MoveCamera();
 
-        if (!uiClicked)
+        validSingleTouch = true;
+        if (Input.touchCount > 0)
         {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase != TouchPhase.Began || (touch.position.x < Screen.width / 3 && touch.position.y < Screen.height / 2))
+            {
+                validSingleTouch = false;
+            }
+            if (Input.touchCount > 1)
+            {
+                validSingleTouch = false;
+            }
+        }
+        if (!uiClicked && validSingleTouch)
+        {
+            
             RaycastHit2D mouseHit = Physics2D.Raycast(mousePosition, Vector2.zero);
 
             //Get tilemap information at the mouse position.
@@ -141,13 +162,6 @@ public class InputManager : MonoBehaviour
 
             entityHovered = false;
 
-
-            // Get the coordinates of the tile that the cursor is currently hovering over.
-            // Will show a highlight on the tile that the cursor is on.
-            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mouseTilePosition = tiles.LocalToCell(mousePosition);
-            tileHighlight.transform.position = tiles.GetCellCenterLocal(mouseTilePosition);
-
             // Reads the target clicked.
             if (Input.GetButtonDown("Fire1"))
             {
@@ -163,8 +177,16 @@ public class InputManager : MonoBehaviour
                         Debug.Log(mouseTarget);
 
                         if (selectedAnt != null) selectedAnt.SetSelected(false);
-                        selectedAnt = mouseHit.collider.gameObject.GetComponent<Ant>();
-                        selectedAnt.SetSelected(true);
+                        Ant newAnt = mouseHit.collider.gameObject.GetComponent<Ant>();
+                        if (newAnt != selectedAnt)
+                        {
+                            selectedAnt = newAnt;
+                            selectedAnt.SetSelected(true);
+                        }
+                        else
+                        {
+                            selectedAnt = null;
+                        }
                     }
                     else if (selectedAnt != null)
                     {
