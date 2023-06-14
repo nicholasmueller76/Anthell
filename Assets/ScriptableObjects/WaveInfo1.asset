@@ -16,4 +16,4 @@ MonoBehaviour:
   - enemyType: 0
     delay: 0
   - enemyType: 1
-    delay: 23.06
+    delay: 5

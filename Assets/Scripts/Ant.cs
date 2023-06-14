@@ -46,24 +46,33 @@ namespace Anthell
         protected void AttackEnemyIfNear()
         {
             // line cast for enemies within radius
-            LayerMask mask = LayerMask.GetMask("Enemy");
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, entityData.range, mask);
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, entityData.range);
             bool foundAnEnemy = false;
             Enemy nearestEnemy = null;
             // get enemy that is closest to this object
             float distance = Mathf.Infinity;
             foreach (var collider in hitColliders)
             {
+                if (collider.CompareTag("Enemy") == false)
+                {
+                    continue;
+                }
                 var enemy = collider.GetComponent<Enemy>();
                 if (enemy != null && enemy.health.getHealth() > 0)
                 {
-                    foundAnEnemy = true;
-                    float newDistance = Vector3.Distance(transform.position, collider.transform.position);
-                    if (newDistance < distance)
+                    LayerMask mask = LayerMask.GetMask("Ground");
+                    // if there is a line of sight to the enemy from the ant
+                    if (!Physics2D.Linecast(transform.position, enemy.transform.position, mask))
                     {
-                        distance = newDistance;
-                        nearestEnemy = enemy;
+                        foundAnEnemy = true;
+                        float newDistance = Vector3.Distance(transform.position, collider.transform.position);
+                        if (newDistance < distance)
+                        {
+                            distance = newDistance;
+                            nearestEnemy = enemy;
+                        }
                     }
+
                 }
             }
             if (foundAnEnemy)

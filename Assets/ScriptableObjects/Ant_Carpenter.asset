@@ -21,6 +21,7 @@ MonoBehaviour:
   - 50
   - 20
   buildSpeed: 50
+  autoAttack: 1
   attackDamage: 20
   attackCooldown: 1
   cashCost: 0
