@@ -155,11 +155,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1ad98a964b7440faf28a4840ae224f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: {fileID: 0}
   entityData: {fileID: 11400000, guid: a7cd9e09333e54b928fcdc45f8451880, type: 2}
   currentTaskFinished: 0
+  damageParticles: {fileID: 514911757379768643, guid: 0b5ca17c59260584ca58dc3cef4a8d3f, type: 3}
+  deathParticles: {fileID: 7165245171318714534, guid: a71cffc668cc1a3418791671e36ac3cc, type: 3}
+  deathSound: Death
+  damageSound: EnemyDamage3
   moveTarget: {fileID: 0}
   anim: {fileID: 0}
-  health: {fileID: 0}
   queenAnt: {fileID: 0}
 --- !u!1 &8571165964479950921
 GameObject:

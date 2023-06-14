@@ -5,16 +5,12 @@ namespace Anthell
 {
     abstract class Enemy : MoveableEntity
     {
-        [HideInInspector] public Health health;
         private SpriteRenderer sprite;
         public GameObject queenAnt;
 
         protected override void Awake()
         {
             base.Awake();
-            health = gameObject.AddComponent<Health>();
-            health.SetHealth(entityData.maxHealth);
-            health.SetMaxHealth(entityData.maxHealth);
             sprite = GetComponentInChildren<SpriteRenderer>();
         }
 

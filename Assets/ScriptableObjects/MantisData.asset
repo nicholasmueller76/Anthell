@@ -17,9 +17,10 @@ MonoBehaviour:
   range: 1
   mineSpeed: []
   buildSpeed: 0
+  autoAttack: 0
   attackDamage: 20
   attackCooldown: 2
-  cashCost: 0
+  cashCost: 20
   dirtCost: 0
   stoneCost: 0
   woodCost: 0

@@ -20,7 +20,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Button woodButton;
     [SerializeField] private Button sulfurButton;
 
-    private bool isDoubleClick = false;
+    //private bool isDoubleClick = false;
 
     private float previousClickTime;
     private float currentClickTime;
@@ -133,7 +133,7 @@ public class InputManager : MonoBehaviour
                 else
                 {
                     if (selectedAnt != null && selectedResource != TileEntity.TileTypes.Empty) TooltipScreenSpaceUI.ShowTooltip_Static("Build " + selectedResource);
-                    else if(selectedAnt != null && selectedResource == TileEntity.TileTypes.Empty) TooltipScreenSpaceUI.ShowTooltip_Static("Move "  + selectedAnt.gameObject.name + " here");
+                    else if(selectedAnt != null && selectedResource == TileEntity.TileTypes.Empty) TooltipScreenSpaceUI.ShowTooltip_Static("Move Here");
                     else TooltipScreenSpaceUI.HideTooltip_Static();
                     mouseTarget = MouseTargetTypes.emptyTile;
                 }
@@ -149,14 +149,14 @@ public class InputManager : MonoBehaviour
             tileHighlight.transform.position = tiles.GetCellCenterLocal(mouseTilePosition);
 
             // Reads the target clicked.
-            if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown("Fire1"))
             {
-                DetectClickType();
+                //DetectClickType();
 
                 //Debug.Log(mouseTarget);
 
-                // Left click selects an ant (make it the selectedAnt), tile (display tile info), or enemy (display enemy info)
-                if (Input.GetButtonDown("Fire1") && isDoubleClick == false)
+                // Left click selects an ant, if an ant is already selected, executes action on tile or enemy clicked.
+                if (Input.GetButtonDown("Fire1"))
                 {
                     if (mouseTarget == MouseTargetTypes.ant)
                     {
@@ -166,44 +166,36 @@ public class InputManager : MonoBehaviour
                         selectedAnt = mouseHit.collider.gameObject.GetComponent<Ant>();
                         selectedAnt.SetSelected(true);
                     }
-                    else if (mouseTarget == MouseTargetTypes.enemy)
+                    else if (selectedAnt != null)
                     {
-                        // Enemy info popup
-                    }
-                    else if (mouseTarget == MouseTargetTypes.tile)
-                    {
-                        // Tile info popup
-                    }
-                }
-                // If right click, then execute action on the clicked object
-                else if ((Input.GetButtonDown("Fire2") || isDoubleClick) && selectedAnt != null)
-                {
-                    if (mouseTarget == MouseTargetTypes.enemy)
-                    {
-                        // Attack task
-                        selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, mouseHit.collider.gameObject));
-                        selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Attack, mouseHit.collider.gameObject));
-                    }
-                    else if (mouseTarget == MouseTargetTypes.tile)
-                    {
-                        // Dig task
-                        selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
-                        selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Dig, tileEntity));
-                    }
-                    else if (mouseTarget == MouseTargetTypes.emptyTile)
-                    {
-                        if (selectedResource != TileEntity.TileTypes.Empty)
+                        if (mouseTarget == MouseTargetTypes.enemy)
                         {
-                            if (ResourceManager.instance.GetResource(selectedResource) > 0)
-                            {
-                                selectedAnt.SetHeldResource(selectedResource);
-                                selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
-                                selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Build, tileEntity));
-                            }
+                            // Attack task
+                            selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, mouseHit.collider.gameObject));
+                            selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Attack, mouseHit.collider.gameObject));
                         }
-                        else
+                        else if (mouseTarget == MouseTargetTypes.tile)
                         {
+                            tileEntity.GetComponent<TileEntity>().SetDigQueued(true);
+                            // Dig task
                             selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
+                            selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Dig, tileEntity));
+                        }
+                        else if (mouseTarget == MouseTargetTypes.emptyTile)
+                        {
+                            if (selectedResource != TileEntity.TileTypes.Empty)
+                            {
+                                if (ResourceManager.instance.GetResource(selectedResource) > 0)
+                                {
+                                    selectedAnt.SetHeldResource(selectedResource);
+                                    selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
+                                    selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Build, tileEntity));
+                                }
+                            }
+                            else
+                            {
+                                selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
+                            }
                         }
                     }
                 }
@@ -228,6 +220,7 @@ public class InputManager : MonoBehaviour
             selectedResource = TileEntity.TileTypes.Sulfur;
         }
 
+        //Deselect selected ant and selected resource.
         if (Input.GetKeyDown(KeyCode.X))
         {
             if (selectedAnt != null) selectedAnt.SetSelected(false);
@@ -427,6 +420,7 @@ public class InputManager : MonoBehaviour
         selectedResource = TileEntity.TileTypes.Sulfur;
     }
 
+    /*
     private void DetectClickType()
     {
         if (Input.touchCount < 2)
@@ -442,5 +436,5 @@ public class InputManager : MonoBehaviour
                 isDoubleClick = false;
             }
         }
-    }
+    }*/
 }

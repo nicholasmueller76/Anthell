@@ -9,8 +9,6 @@ public class TileEntity : MonoBehaviour
 
     public float health;
 
-    private TilemapManager tilemapManager;
-
     public enum TileTypes
     {
         Empty = -1,
@@ -22,14 +20,22 @@ public class TileEntity : MonoBehaviour
 
     public TileTypes tileType;
 
-    public GameObject destroyParticleEffect;
+    private GameObject digParticleEffect;
+    private GameObject destroyParticleEffect;
+    private SpriteRenderer diggingSprite;
 
-    public void ConstructTileEntity(TileBase thisTile, TileBase[] tileFiles)
+    public void ConstructTileEntity(TileBase thisTile, TileBase[] tileFiles, Sprite digSprite)
     {
         this.tileFiles = tileFiles;
         health = 100;
 
-        tilemapManager = GetComponentInParent<TilemapManager>();
+        diggingSprite = this.gameObject.AddComponent<SpriteRenderer>();
+
+        diggingSprite.sprite = digSprite;
+
+        diggingSprite.enabled = false;
+
+        diggingSprite.sortingOrder = 5;
 
         if (thisTile == null)
         {
@@ -45,25 +51,33 @@ public class TileEntity : MonoBehaviour
                     break;
                 }
             }
+
+            digParticleEffect = TilemapManager.instance.tileDigParticles[(int)tileType];
+            destroyParticleEffect = TilemapManager.instance.tileDestroyParticles[(int)tileType];
         }
     }
 
     public void PlaceTile(TileTypes type)
     {
-        tilemapManager.SetTileObject(transform.position, tileFiles[(int)type], type);
+        TilemapManager.instance.SetTileObject(transform.position, tileFiles[(int)type], type);
         tileType = type;
+        digParticleEffect = TilemapManager.instance.tileDigParticles[(int)type];
+        destroyParticleEffect = TilemapManager.instance.tileDestroyParticles[(int)type];
         health = 100;
     }
 
     public void DestroyTile()
     {
-        tilemapManager.SetTileObject(transform.position, null, TileTypes.Dirt);
+        TilemapManager.instance.SetTileObject(transform.position, null, TileTypes.Dirt);
         tileType = TileTypes.Empty;
+        SetDigQueued(false);
+        Instantiate(destroyParticleEffect, this.transform.position, Quaternion.identity);
     }
 
     public void Dig(float damage)
     {
         health -= damage;
+        Instantiate(digParticleEffect, this.transform.position, Quaternion.identity);
     }
 
     public TileTypes GetTileType()
@@ -86,5 +100,10 @@ public class TileEntity : MonoBehaviour
             default:
                 return "Empty";
         }
+    }
+
+    public void SetDigQueued(bool set)
+    {
+        diggingSprite.enabled = set;
     }
 }

@@ -10,6 +10,8 @@ namespace Anthell
     /// </summary>
     abstract public class Entity : MonoBehaviour
     {
+        [HideInInspector] public Health health;
+
         [SerializeField]
         protected EntityData entityData;
 
@@ -19,9 +21,24 @@ namespace Anthell
         [SerializeField]
         protected bool currentTaskFinished = false;
 
+        [SerializeField]
+        public GameObject damageParticles;
+
+        [SerializeField]
+        public GameObject deathParticles;
+
+        [SerializeField]
+        public string deathSound;
+
+        [SerializeField]
+        public string damageSound;
+
         protected virtual void Awake()
         {
             currentTaskFinished = true;
+            health = gameObject.AddComponent<Health>();
+            health.SetHealth(entityData.maxHealth);
+            health.SetMaxHealth(entityData.maxHealth);
         }
 
         protected virtual void Update()
@@ -69,6 +86,11 @@ namespace Anthell
 
         public void EndCurrentTask()
         {
+            if(currentTask.taskType == EntityTaskTypes.Dig)
+            {
+                currentTask.target.GetComponent<TileEntity>().SetDigQueued(false);
+            }
+
             StopAllCoroutines(); // name is a bit weird, but it only stops coroutines on this behaviour
             taskQueue.Dequeue();
             currentTaskFinished = true;

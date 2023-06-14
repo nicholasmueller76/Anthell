@@ -16,12 +16,13 @@ MonoBehaviour:
   speed: 2
   range: 1
   mineSpeed:
-  - 1
-  - 1
-  - 1
-  - 1
-  buildSpeed: 1
-  attackDamage: 1
+  - 8
+  - 5
+  - 4
+  - 5
+  buildSpeed: 10
+  autoAttack: 0
+  attackDamage: 6
   attackCooldown: 1
   cashCost: 0
   dirtCost: 0

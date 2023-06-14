@@ -57,7 +57,14 @@ namespace Anthell
                 {
                     ResourceManager.instance.AddCash(GetComponent<Enemy>().GetData().cashCost);
                 }
+                GameObject.Instantiate(GetComponent<Entity>().deathParticles, this.transform.position, Quaternion.identity);
+                AudioManager.instance.PlaySFX(GetComponent<Entity>().deathSound, false);
                 Destroy(gameObject);
+            }
+            else
+            {
+                GameObject.Instantiate(GetComponent<Entity>().damageParticles, this.transform.position, Quaternion.identity);
+                AudioManager.instance.PlaySFX(GetComponent<Entity>().damageSound, false);
             }
         }
 

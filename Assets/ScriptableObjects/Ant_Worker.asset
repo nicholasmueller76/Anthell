@@ -14,16 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   speed: 2
-  range: 1
+  range: 1.5
   mineSpeed:
-  - 50
-  - 20
-  - 20
-  - 20
-  buildSpeed: 20
+  - 17
+  - 6
+  - 4
+  - 6
+  buildSpeed: 17
+  autoAttack: 1
   attackDamage: 10
-  attackCooldown: 2
-  cashCost: 0
+  attackCooldown: 1
+  cashCost: 50
   dirtCost: 0
   stoneCost: 0
   woodCost: 0

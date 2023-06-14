@@ -6,13 +6,18 @@ namespace Anthell
 {
     class Ant : MoveableEntity
     {
-        [HideInInspector] public Health health;
         private Outline outline;
         private ResourceManager resourceManager;
         private TileEntity.TileTypes heldResource;
         private SpriteRenderer sprite;
 
+        [SerializeField] private Animator toolAnimator;
+
         [SerializeField] string attackSfxName;
+
+        private GameObject targetObject;
+
+        [SerializeField] private GameObject selectionOutline;
 
         protected override void Awake()
         {
@@ -20,9 +25,6 @@ namespace Anthell
             outline = GetComponentInChildren<Outline>();
             sprite = GetComponentInChildren<SpriteRenderer>();
             outline.eraseRenderer = true;
-            health = gameObject.AddComponent<Health>();
-            health.SetHealth(entityData.maxHealth);
-            health.SetMaxHealth(entityData.maxHealth);
             resourceManager = Camera.main.gameObject.GetComponent<ResourceManager>();
         }
 
@@ -41,6 +43,8 @@ namespace Anthell
             {
                 AttackEnemyIfNear();
             }
+
+            if(targetObject != null) this.transform.up = targetObject.transform.position - transform.position;
         }
 
         protected void AttackEnemyIfNear()
@@ -105,14 +109,13 @@ namespace Anthell
 
         protected IEnumerator Dig(GameObject targetObject)
         {
-            if (Vector3.Distance(transform.position, targetObject.transform.position) <= entityData.range)
-            {
-
                 TileEntity tileEntity = targetObject.GetComponent<TileEntity>();
                 currentTaskFinished = false;
                 Debug.Log("Digging.");
+                this.targetObject = targetObject;
 
                 FindObjectOfType<AudioManager>().PlaySFX("Break" + tileEntity.GetTileName(), true);
+                toolAnimator.SetBool("Action", true);
 
                 while (tileEntity.health > 0)
                 {
@@ -127,11 +130,8 @@ namespace Anthell
                 FindObjectOfType<AudioManager>().StopSFX("Break" + tileEntity.GetTileName());
                 tileEntity.DestroyTile();
                 Debug.Log("Finished digging");
-            }
-            else
-            {
-                Debug.Log("Could not execute dig task (out of range)");
-            }
+                toolAnimator.SetBool("Action", false);
+                this.targetObject = null;
 
             currentTaskFinished = true;
         }
@@ -143,11 +143,13 @@ namespace Anthell
                 TileEntity tileEntity = targetObject.GetComponent<TileEntity>();
                 currentTaskFinished = false;
                 Debug.Log("Building.");
+                this.targetObject = targetObject;
 
                 float buildPercent = 0;
                 while (buildPercent < 100)
                 {
                     yield return new WaitForSeconds(1f);
+                    toolAnimator.SetBool("Action", true);
                     buildPercent += entityData.buildSpeed;
                 }
 
@@ -157,6 +159,8 @@ namespace Anthell
                 resourceManager.AddResource(heldResource, -1);
                 heldResource = TileEntity.TileTypes.Empty;
                 Debug.Log("Finished building");
+                toolAnimator.SetBool("Action", false);
+                this.targetObject = null;
             }
             else
             {
@@ -175,7 +179,10 @@ namespace Anthell
                 yield break;
             }
             currentTaskFinished = false;
+            this.transform.right = targetObject.transform.position - transform.position;
             Debug.Log("Attacking.");
+            this.targetObject = targetObject;
+
             while (enemy != null && enemy.health.getHealth() > 0)
             {
                 LayerMask mask = LayerMask.GetMask("Ground");
@@ -186,17 +193,20 @@ namespace Anthell
                     yield return this.Move(targetObject, true);
                 }
                 yield return new WaitForSeconds(entityData.attackCooldown);
+                toolAnimator.SetTrigger("Attack");
                 AudioManager.instance.PlaySFX(attackSfxName, false);
                 if (enemy != null) enemy.health.TakeDamage(entityData.attackDamage);
             }
             Debug.Log("Finished attacking");
+            this.targetObject = null;
 
             currentTaskFinished = true;
         }
 
         public void SetSelected(bool selected)
         {
-            outline.eraseRenderer = !selected;
+            //outline.eraseRenderer = !selected;
+            selectionOutline.SetActive(selected);
         }
 
         public void SetHeldResource(TileEntity.TileTypes resource)

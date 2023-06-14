@@ -16,16 +16,16 @@ MonoBehaviour:
   speed: 3
   range: 1.5
   mineSpeed:
-  - 10
-  - 10
-  - 10
-  - 10
-  buildSpeed: 20
+  - 12
+  - 4
+  - 3
+  - 6
+  buildSpeed: 10
   autoAttack: 1
   attackDamage: 40
   attackCooldown: 1
-  cashCost: 0
+  cashCost: 400
   dirtCost: 0
-  stoneCost: 0
-  woodCost: 0
+  stoneCost: 8
+  woodCost: 10
   sulfurCost: 0

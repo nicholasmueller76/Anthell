@@ -15,9 +15,17 @@ public class TilemapManager : MonoBehaviour
 
     public TileBase[] tileFiles = new TileBase[4];
 
+    public GameObject[] tileDigParticles = new GameObject[4];
+    public GameObject[] tileDestroyParticles = new GameObject[4];
+
+    public Sprite digSprite;
+
+    public static TilemapManager instance;
+
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         map.CompressBounds();
         BoundsInt bounds = map.cellBounds;
         this.transform.position = new Vector2(bounds.xMin + 0.5f, bounds.yMin + 0.5f);
@@ -40,7 +48,7 @@ public class TilemapManager : MonoBehaviour
                 tileEntities[x, y] = newTileData;
                 tiles[x, y] = tile;
 
-                newTileData.AddComponent<TileEntity>().ConstructTileEntity(tiles[x, y], tileFiles);
+                newTileData.AddComponent<TileEntity>().ConstructTileEntity(tiles[x, y], tileFiles, digSprite);
             }
         }
     }
