@@ -531,12 +531,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 7f3709f9643bd4350a1b3b7d7902ce64, type: 2}
   beetlePrefab: {fileID: 6876815963979576182, guid: 1cc5bdad38d3d7c4096cbb843f243a53, type: 3}
   mantisPrefab: {fileID: 1159805651537994228, guid: 8ae054885891e504084926361b356ae0, type: 3}
   acidMaggotPrefab: {fileID: 1159805651537994228, guid: 8ae054885891e504084926361b356ae0, type: 3}
   spawnPoint: {fileID: 1403923062}
   queenAnt: {fileID: 3772335529053244777}
+  wave: {fileID: 0}
 --- !u!1 &347504388
 GameObject:
   m_ObjectHideFlags: 0

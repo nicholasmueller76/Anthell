@@ -12,11 +12,12 @@ namespace Anthell
         [SerializeField] private GameObject spawnPoint;
         // Target
         [SerializeField] private GameObject queenAnt;
+        [SerializeField] WaveInfo wave;
+
 
         public IEnumerator StartWave(int waveNumber)
         {
             Debug.Log("Starting wave " + waveNumber);
-            WaveInfo wave = null;
             if (waveNumber < waves.Length)
             {
                 wave = waves[waveNumber];

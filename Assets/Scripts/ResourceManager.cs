@@ -47,7 +47,8 @@ public class ResourceManager : MonoBehaviour
     // Adds or subtracts from a resource's amount
     public void AddResource(TileEntity.TileTypes resource, int amount)
     {
-        resources[(int)resource] += amount;
+        if (resource != TileEntity.TileTypes.Empty) resources[(int)resource] += amount;
+        else return;
 
         switch (resource)
         {
