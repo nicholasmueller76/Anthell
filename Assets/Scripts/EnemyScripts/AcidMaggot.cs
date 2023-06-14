@@ -5,13 +5,6 @@ namespace Anthell
 {
     class AcidMaggot : Enemy
     {
-        [SerializeField] private GameObject queenAnt;
-        protected override void Awake()
-        {
-            base.Awake();
-            taskQueue.Enqueue(new EntityTask(EntityTaskTypes.Attack, queenAnt));
-        }
-
         protected override IEnumerator AttackSequence(GameObject targetObject)
         {
             Ant queenAnt = targetObject.GetComponent<Ant>();

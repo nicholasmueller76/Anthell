@@ -7,7 +7,6 @@ namespace Anthell
     {
         [HideInInspector] public Health health;
         private SpriteRenderer sprite;
-
         public GameObject queenAnt;
 
         protected override void Awake()
@@ -17,6 +16,11 @@ namespace Anthell
             health.SetHealth(entityData.maxHealth);
             health.SetMaxHealth(entityData.maxHealth);
             sprite = GetComponentInChildren<SpriteRenderer>();
+        }
+
+        public void setQueenAnt(GameObject queenAnt)
+        {
+            this.queenAnt = queenAnt;
         }
 
         protected override void Update()
