@@ -60,9 +60,11 @@ namespace Anthell
             destinationSetter.target = targetObject.transform;
             anim.SetBool("Walking", true);
             Debug.Log("Moving.");
+
+            if (targetObject == null) yield break;
+
             while (Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range)
             {
-                if (targetObject == null) break;
 
                 if (aiLerp.reachedEndOfPath)
                 {
@@ -79,6 +81,8 @@ namespace Anthell
                     }
                 }
                 yield return null;
+
+                if (targetObject == null) yield break;
             }
 
             Debug.Log("Reached target.");
