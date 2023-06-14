@@ -61,12 +61,14 @@ namespace Anthell
             anim.SetBool("Walking", true);
             Debug.Log("Moving.");
             LayerMask mask = LayerMask.GetMask("Ground");
+
+            if (targetObject == null) yield break;
+
             while (
                 Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range
                 || Physics2D.Linecast(transform.position, targetObject.transform.position, mask)
                 )
             {
-                if (targetObject == null) break;
 
                 if (aiLerp.reachedEndOfPath)
                 {
@@ -83,6 +85,8 @@ namespace Anthell
                     }
                 }
                 yield return null;
+
+                if (targetObject == null) yield break;
             }
 
             Debug.Log("Reached target.");

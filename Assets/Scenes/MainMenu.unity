@@ -304,7 +304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000026703, y: -177.3}
+  m_AnchoredPosition: {x: 7.6, y: -183}
   m_SizeDelta: {x: 261.9902, y: 291.7303}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &43589118
@@ -327,19 +327,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Aphids - Small critters that are deadly in numbers.
-
-
-    Acid Termites
-    - Spit acid to damage wood and ants faster.
-
-
-    Yellowjackets - A flying menace
-    that drills the ground to make new attack paths
-
-
-    Doom Spider - Giant spider
-    that creates webs and spawns smaller spiders.'
+  m_text: "Mantis - Has a strong hunger fixation for ants. Will focus on attacking
+    all ants before finishing with the queen.\r\n\nBeetle - Has a fixation on the
+    colony\u2019s queen, and will focus on her unless another ant is in their path.\r\n\nMaggot
+    - Similarly to the beetle, it will focus on the queen but uses a ranged attack
+    on ants in their path.\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3465,7 +3457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &951728004
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5667,7 +5659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1573753981
 RectTransform:
   m_ObjectHideFlags: 0

@@ -33,8 +33,6 @@ public class InputManager : MonoBehaviour
 
     private bool uiClicked = false;
 
-    private ResourceManager resourceManager;
-
     //private TaskAssigner taskAssigner;
     private Vector3 mousePosition;
     private Vector3Int mouseTilePosition;
@@ -54,7 +52,6 @@ public class InputManager : MonoBehaviour
     private void Awake()
     {
         //taskAssigner = new TaskAssigner();
-        resourceManager = ResourceManager.instance;
         targetObj = new GameObject();
         targetObj.name = this.gameObject.name + " target";
         selectedResource = TileEntity.TileTypes.Dirt;
@@ -197,7 +194,7 @@ public class InputManager : MonoBehaviour
                     {
                         if (selectedResource != TileEntity.TileTypes.Empty)
                         {
-                            if (resourceManager.GetResource(selectedResource) > 0)
+                            if (ResourceManager.instance.GetResource(selectedResource) > 0)
                             {
                                 selectedAnt.SetHeldResource(selectedResource);
                                 selectedAnt.AddTask(new EntityTask(EntityTaskTypes.Move, tileEntity));
