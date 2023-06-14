@@ -116,8 +116,8 @@ namespace Anthell
 
                 while (tileEntity.health > 0)
                 {
-                    yield return new WaitForSeconds(1f);
                     tileEntity.Dig(entityData.mineSpeed[(int)tileEntity.GetTileType()]);
+                    yield return new WaitForSeconds(1f);
 
                 }
 

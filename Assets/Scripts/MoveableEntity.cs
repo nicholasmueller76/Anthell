@@ -62,7 +62,11 @@ namespace Anthell
             Debug.Log("Moving.");
             LayerMask mask = LayerMask.GetMask("Ground");
 
-            if (targetObject == null) yield break;
+            if (targetObject == null)
+            {
+                currentTaskFinished = true;
+                yield break;
+            }
 
             while (
                 Vector3.Distance(transform.position, targetObject.transform.position) > entityData.range
@@ -86,7 +90,11 @@ namespace Anthell
                 }
                 yield return null;
 
-                if (targetObject == null) yield break;
+                if (targetObject == null)
+                {
+                    currentTaskFinished = true;
+                    yield break;
+                }
             }
 
             Debug.Log("Reached target.");

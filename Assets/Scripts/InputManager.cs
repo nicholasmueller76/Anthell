@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
         //taskAssigner = new TaskAssigner();
         targetObj = new GameObject();
         targetObj.name = this.gameObject.name + " target";
-        selectedResource = TileEntity.TileTypes.Dirt;
+        selectedResource = TileEntity.TileTypes.Empty;
         mouseTarget = MouseTargetTypes.none;
 
         dirtButton.onClick.AddListener(SwitchToDirt);
@@ -228,12 +228,12 @@ public class InputManager : MonoBehaviour
             selectedResource = TileEntity.TileTypes.Sulfur;
         }
 
-        /*if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             if (selectedAnt != null) selectedAnt.SetSelected(false);
             selectedAnt = null;
             selectedResource = TileEntity.TileTypes.Empty;
-        }*/
+        }
 
         // Open/Close Menu
         if (Input.GetKeyDown(KeyCode.E))

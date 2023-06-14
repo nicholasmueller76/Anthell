@@ -63,7 +63,7 @@ public class TilemapManager : MonoBehaviour
 
     public GameObject getTileObject(int x, int y)
     {
-        if (x < tileEntities.GetLength(0) && y < tileEntities.GetLength(1)) return tileEntities[x, y];
+        if (x >= 0 && x < tileEntities.GetLength(0) && y >= 0 && y <= tileEntities.GetLength(1)) return tileEntities[x, y];
         else return null;
     }
 }
