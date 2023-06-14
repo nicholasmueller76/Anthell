@@ -66,6 +66,9 @@ namespace Anthell
             {
                 Debug.Log("Attacking ant");
                 nearestAnt.health.TakeDamage(entityData.attackDamage);
+                AudioManager.instance.PlaySFX("AcidSpit", false);
+                string[] antDamage = {"AntDamage1", "AntDamage2", "AntDamage3"};
+                AudioManager.instance.PlaySFX(antDamage);
             }
             //delay for animation
             yield return new WaitForSeconds(1f);

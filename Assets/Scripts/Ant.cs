@@ -195,7 +195,12 @@ namespace Anthell
                 yield return new WaitForSeconds(entityData.attackCooldown);
                 toolAnimator.SetTrigger("Attack");
                 AudioManager.instance.PlaySFX(attackSfxName, false);
-                if (enemy != null) enemy.health.TakeDamage(entityData.attackDamage);
+                if (enemy != null)
+                {
+                    enemy.health.TakeDamage(entityData.attackDamage);
+                    string[] antDamage = {"EnemyDamage1", "EnemyDamage2", "EnemyDamage3"};
+                    AudioManager.instance.PlaySFX(antDamage);
+                }
             }
             Debug.Log("Finished attacking");
             this.targetObject = null;
