@@ -57,9 +57,32 @@ There was a few obstacles at first when I was creating the game. The first obsta
 
 ## Animation and Visuals
 
-**List your assets including their sources and licenses.**
-
 **Describe how your work intersects with game feel, graphic design, and world-building. Include your visual style guide if one exists.**
+
+For our Animations and Visuals, we used the following assets:
+
+[Insect Enemies](https://jeevo.itch.io/insect-enemies)
+[Ants and Bugs](https://shandsparil.itch.io/ants-pixelart)
+[Rocky Grass Tileset](https://itch.io/queue/c/2720608/nick-burger-gamess-collection?game_id=478039)
+[Pixel Valley](https://kauzz.itch.io/pixel-valley-plataform-tiles)
+[Pixel Art Pack for UI](https://assetstore.unity.com/packages/2d/gui/icons/simple-free-pixel-art-styled-ui-pack-165012)
+[Tileset](https://ipixl.itch.io/pixel-art-16x16-nature-tiles)
+[Weapon Pack](https://vladpenn.itch.io/weapon)
+[Guns](https://arcadeisland.itch.io/guns-asset-pack-v1)
+
+Since spriting wasn't an option for us, we used these assets to bring our game world to life.
+
+*Environment* -
+For our environment which includes the ground and background we used a couple assets. The Rocky Grass Tileset and the Pixel art nature tiles were used for the underground area, making up most of the playable area. These tiles could be were not just for decoration, they also were also part of our gameplay mechanics. The ants could dig parts of the playable area to build and create new ants. The Pixel Valley Assets were mainly for the background making the playable area seem more like a place where ants would reside. It being an asset came with the added benefit of being able to cast light to it. This allowed for a changing Day and Night setting using the Universal RP package for 2D lights. The day/night cycle is important, as the day is where you are supposed to build up your resources and defenses while the night is where the enemies come out.
+
+*Ants*
+The ants sprites and animations are taken from a pack on itch.io. They serve as the primary player controlled entity that litters our game world. They also hold different types of tools and weapons and that pertains to what type of ant they are. These weapon and tool sprites come from both the Weapon asset pack and the Guorions asset packs. The ants are the primarily controlled player character in the game. Adding guns and tools to the ants was primarily due to the concept of the world as well as highlighting which ant did what.
+
+*Enemies*
+For our enemy sprites and animations, we ended up using a free pack we found on itch.io which fit our world. They were other bugs of varying types and they were going to be the main antagonists gunning for the ant queen. They don't have anything special regarding tools, but they can do much of the same as the ants can.
+
+*UI*
+Our UI although not really matching the nature-esque world that we have defined is made mostly from assets garnered from the Pixel Art Pack For UI. It was simple and free which allowed us to have a somewhat nice UI without having to make one ourselves.
 
 ## Input
 Two different input types are supported. The first input type is mouse and keyboard. The second input type is touch controls.
