@@ -183,3 +183,7 @@ For my press kit and trailer, I wanted to showcase how the game played and it's 
 **Document what you added to and how you tweaked your game to improve its game feel.**
 
 - Changing input controls: I suggested ideas on making the game feel better, such as having tooltips (i.e. show information on hover) instead of having to click on the ant/enemy to get info on it. Also, we were discussing on what the camera inputs should be, either WASD or hold right click and drag to move around the camera. We decided that WASD would be better since it allows for moving the cursor and moving the camera at the same time.
+
+## User Interface 2
+
+I made a Game Over menu, with options to retry and go to main menu. I also implemented the calling of the Game Over Scene when the Queen ant was killed.
