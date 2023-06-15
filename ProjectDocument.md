@@ -117,6 +117,26 @@ We wanted both ants and enemies to have a task queue and an accompanying manager
 
 For the enemy spawning, we followed a similar format to the assignments and had a [GameManager](https://github.com/nicholasmueller76/Anthell/blob/3726ec2bf7f068cac9a50d29d388b5d985e8cb8b/Assets/Scripts/GameManager.cs) object and a spawn point object to use as a reference point to instantiate prefabs of the ants or enemies. We have a [WaveManager](https://github.com/nicholasmueller76/Anthell/blob/20048910f02fe21c1fa78131c9b5d8344e1fd20b/Assets/Scripts/WaveManager.cs) and a [WaveInfo](https://github.com/nicholasmueller76/Anthell/blob/93f71bf4f3a7e1c7b851399232d4a9ada3a85067/Assets/Scripts/WaveInfo.cs) Scriptable Objects to allow the designers to create the waves they want. It includes a random wave generator which depends on the wave number (more difficult the higher the wave number) one it exceeds the staticly assigned list of waves. [public WaveInfo GenerateRandomWave(int waveNumber)](https://github.com/nicholasmueller76/Anthell/blob/32cc180daf9b3b4776de1362cc5d70d5e9e9fed6/Assets/Scripts/WaveManager.cs#L56-L96)
 
+## Audio
+All of my Music and SFX assets, were downloaded from itch.io with free-to-use liscenses.
+
+The primary packs I used were:
+[Infinity Crisis Core](https://sonatina.itch.io/infinity-crisis-core) - Day theme
+[Military Shooter Music Pack](https://augustomazzoli.itch.io/military-shooter-music-pack) - Main Menu theme, Night theme, and Game Over theme, Various SFX
+[Shapeforms Audio Free SFX](https://shapeforms.itch.io/shapeforms-audio-free-sfx) - Various SFX
+[Minifantasy Dungeon SFX Pack](https://leohpaz.itch.io/minifantasy-dungeon-sfx-pack) - Various SFX (Mostly Combat Noises)
+[Horror Sound Effects](https://yourpalrob.itch.io/must-have-horror-sound-effects) - Various SFX
+[Sound Effects Survival I](https://darkworldaudio.itch.io/sound-effects-survival-i) - Various SFX
+
+I spent a majority of my time searching and sifting through sound effects and looking for other assets for our project. I wanted a diverse set of music and sfx for each situation, since we had 4 different resources available to be mined, 3 different enemies, and 4 different classes of ants to find sounds for. I wanted to bring a military-esque feel to the game so when looking for music, I focused mostly on songs with prominent drums and sfx with trumpets, and any other sound that fit the feeling of an army.
+
+For my implementation, I created a centralized AudioManager to control all music and sfx for the project. I created a Sound class to store necessary variables for each sound, including: name, clip, volume, pitch, and source. My implementation was based on two Youtube videos:
+
+"Unity AUDIO MANAGER Tutorial" - Rehope Games
+"Introduction to AUDIO in Unity" - Brackeys
+
+However, I also used function overloading to allow for more control of sfx to be used in different scenarios. My PlaySFX function has three different options: one that takes in only a name, one that takes in a name and a boolean, and one that takes in an array of names. The first one is the basic one, it simply plays the sound effect desccribed by the name. The second, includes a way of looping the sound effect, which was helpful because the digging sounds needed to be looped until the digging task was done. The third played a random sound from the array provided. I wanted to try to avoid repeating sounds too much, especially on attack/taking damage sounds, so I implemented this function as a way of bringing variety. I also included methods to stop sfx and music when I ran into issues with sounds that wouldn't stop when they were supposed to. Finally, as we continued to develop the project, I implemented Music and SFX where appropriate, and found new sounds when the situation required.
+
 # Sub-Roles
 
 ## Cross-Platform
@@ -127,15 +147,7 @@ The platform that was our main focus for the game was PC. Then I decided to add 
 *Touch Controls* - A challenging part of this sub role was trying to manage the different controls used in the game. As the game progressed further in development, more controls were added which meant that I needed to figure out an equivalent way to perform the same action with touch controls. For example, players on PC can move the camera using WASD or the arrow keys. However, since players on mobile are most likely not going to have a keyboard connected to their phone, I needed to come up with a different way to move the camera. My solution was to implement something like a virtual thumbstick where the player can touch the bottom left corner of their screen and then move their finger in the direction they want the camera to move. Another control I needed to remap was opening and closing the shop menu. On PC players just press E, but mobile players don’t have keyboards so I implemented this action by having the players swipe left/right on the right side of the screen to open/close the shop menu. Another example is that on PC, players can deselect the ant by pressing X, so I implemented this with touch controls by letting the players touch the selected ant again to deselect it. Luckily, some of the controls were easy to port to mobile as they required little to no changes. For example, the action of left clicking with the mouse is interpreted the same as a tap on touch controls, so I only had to make very few changes to ensure that any action using left clicks works on mobile.
 https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L300
 https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L340
-https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L380
-
-## Audio
-
-**List your assets including their sources and licenses.**
-
-**Describe the implementation of your audio system.**
-
-**Document the sound style.** 
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L380 
 
 ## Gameplay Testing
 
