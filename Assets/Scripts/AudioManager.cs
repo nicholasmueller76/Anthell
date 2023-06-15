@@ -69,7 +69,7 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        this.PlayMusic("BorderTown");
+        //this.PlayMusic("BorderTown");
     }
 
     public void PlaySFX(string name)

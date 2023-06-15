@@ -55150,6 +55150,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Queen Ant
       objectReference: {fileID: 0}
+    - target: {fileID: 5131473970007554307, guid: 7d19343063dc2d94da53726e5ea1b12a, type: 3}
+      propertyPath: deathSound
+      value: GameOver
+      objectReference: {fileID: 0}
     - target: {fileID: 6537854898438911278, guid: 7d19343063dc2d94da53726e5ea1b12a, type: 3}
       propertyPath: m_RootOrder
       value: 14

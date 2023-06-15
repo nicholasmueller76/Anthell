@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 namespace Anthell
 {
     public class Health : MonoBehaviour
@@ -58,6 +59,11 @@ namespace Anthell
                     ResourceManager.instance.AddCash(GetComponent<Enemy>().GetData().cashCost);
                 }
                 GameObject.Instantiate(GetComponent<Entity>().deathParticles, this.transform.position, Quaternion.identity);
+                if(GetComponent<Entity>().deathSound == "GameOver")
+                {
+                    FindObjectOfType<AudioManager>().StopMusic();
+                    SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
+                }
                 AudioManager.instance.PlaySFX(GetComponent<Entity>().deathSound, false);
                 Destroy(gameObject);
             }

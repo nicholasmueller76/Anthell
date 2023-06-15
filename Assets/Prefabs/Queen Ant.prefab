@@ -259,7 +259,7 @@ MonoBehaviour:
   moveTarget: {fileID: 0}
   anim: {fileID: 5584006084961357612}
   toolAnimator: {fileID: 5584006084961357612}
-  attackSfxName: 
+  attackSfxName: Sword3
   selectionOutline: {fileID: 638557275521555741}
 --- !u!1 &3783516673244553142
 GameObject:

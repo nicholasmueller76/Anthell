@@ -24,6 +24,7 @@ namespace Anthell
             waveManager = GetComponent<WaveManager>();
             currentTime = 0;
             isDay = true;
+            FindObjectOfType<AudioManager>().PlayMusic("BorderTown");
         }
 
         // Update is called once per frame
