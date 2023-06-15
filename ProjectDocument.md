@@ -2,7 +2,7 @@
 
 ## Summary ##
 
-In the insect world, survival is a contest of brutality where only the strongest survive. For an ant colony to survive, it must defend itself against vicious invading insects who threaten its existence. And war is hell...Anthell. During the day, dig for resources and shape your anthill into the ultimate fortress. When night falls, command your combat-ants to victory and defend the queen. How long can you last?
+In the insect world, survival is a contest of brutality where only the strongest survive. For an ant colony to survive, it must defend itself against vicious invading insects who threaten its existence. And war is hell... Anthell. During the day, dig for resources and shape your anthill into the ultimate fortress. When night falls, command your combat-ants to victory and defend the queen. How long can you last?
 
 Anthell is primarily based on 2D colony management games like Oxygen Not Included and Dwarf Fortress, where the objective is to grow and expand your colony while surviving as long as you can. Anthell uses a similar “invasion” element from Dwarf Fortress where you defend your colony against enemies every night while gathering resources during the day.
 
@@ -17,10 +17,7 @@ During the day, your main priority should be to collect resources so you can aff
 (1234) Select resource
 (X) Deselect selected ant and resource
 
-**In this section, explain how the game should be played. Treat this as a manual within a game. It is encouraged to explain the button mappings and the most optimal gameplay strategy.**
-
-
-**If you did work that should be factored in to your grade that does not fit easily into the proscribed roles, add it here! Please include links to resources and descriptions of game-related material that does not fit into roles here.**
+Note: an exploit exists where you can make it unreachable to get to the queen via building, causing the enemies to not be able to attack her. A planned dig functionality for the enemies was planned to patch this.
 
 # Main Roles #
 
@@ -37,9 +34,7 @@ You should replay any **bold text** with your relevant information. Liberally us
 
 ## Producer
 
-
-
-**Describe the steps you took in your role as producer. Typical items include group scheduling mechanism, links to meeting notes, descriptions of team logistics problems with their resolution, project organization tools (e.g., timelines, depedency/task tracking, Gantt charts, etc.), and repository management methodology.**
+As producer, I focused a lot on trying to communicate what needs to get done for my vision to come true, and organizing and communicating that to the team. I had some difficulties with this since we didn't meet in person much, but I found technology really useful for this. I made a [Trello] (https://trello.com/invite/b/E3Ah5fS1/ATTI997f6243f679bfd1f3ced6899d87f8583320C8F1/anthell), which helped with assigning tasks, and multiple concept documents to try to get everybody on the same page: [Early design document](https://docs.google.com/document/d/1N7qNQeqybhoHWoEstpf8QLu3AIZwrbUOltSKUbGHoY8/edit#heading=h.ezzdxno2zh9c), [Early codebase plan](https://docs.google.com/document/d/1_OIUqSwkoT4HsPMcKx_qCvzqRNkZkuGh6Bk1TKIa9rY/edit#heading=h.54uhqqyo38an), and [Resources and costs](https://docs.google.com/document/d/1lgzJyZyU6TL8AHHPr3jbyEI9uaPQcsEvJ-oVdZVXC68/edit). I also scheduled meetings through Discord and messaged people to check up on their tasks and ask if they needed help or had any questions.
 
 ## User Interface
 
@@ -130,6 +125,10 @@ We wanted both ants and enemies to have a task queue and an accompanying manager
 
 For the enemy spawning, we followed a similar format to the assignments and had a [GameManager](https://github.com/nicholasmueller76/Anthell/blob/3726ec2bf7f068cac9a50d29d388b5d985e8cb8b/Assets/Scripts/GameManager.cs) object and a spawn point object to use as a reference point to instantiate prefabs of the ants or enemies. We have a [WaveManager](https://github.com/nicholasmueller76/Anthell/blob/20048910f02fe21c1fa78131c9b5d8344e1fd20b/Assets/Scripts/WaveManager.cs) and a [WaveInfo](https://github.com/nicholasmueller76/Anthell/blob/93f71bf4f3a7e1c7b851399232d4a9ada3a85067/Assets/Scripts/WaveInfo.cs) Scriptable Objects to allow the designers to create the waves they want. It includes a random wave generator which depends on the wave number (more difficult the higher the wave number) one it exceeds the staticly assigned list of waves. [public WaveInfo GenerateRandomWave(int waveNumber)](https://github.com/nicholasmueller76/Anthell/blob/32cc180daf9b3b4776de1362cc5d70d5e9e9fed6/Assets/Scripts/WaveManager.cs#L56-L96)
 
+For the sandbox elements of the game, such as the breakable and placeable tiles, I implemented the [TilemapManager] (https://github.com/nicholasmueller76/Anthell/blob/acb059705deabe8d1971e2e68678aaa47251afda/Assets/Scripts/TilemapManager.cs#L7) singleton class which constructs an array of GameObjects at start to store data about the tilemap, since tilemaps normally use ScriptableObjects to store tile data. This data is stored and modified in the [TileEntity](https://github.com/nicholasmueller76/Anthell/blob/3f21ca359055c4ab5c5f79b67bb0f335d78780e8/Assets/Scripts/TileEntity.cs#L6) GameObject, which communicates with the TilemapManager. This setup gives a lot of control over each individual tile while also gaining the benefits of the tilemap system.
+
+For the Input, I created the [InputManager](https://github.com/nicholasmueller76/Anthell/blob/3f21ca359055c4ab5c5f79b67bb0f335d78780e8/Assets/Scripts/InputManager.cs#L9) class, which handles all incoming input from the player. A significant portion of this is relatively simple logic, but the clicking and selecting was a design hurdle. We eventually settled that Left clicking could be used for selecting ants and assigning tasks, depending on what was clicked and having the only target with two tasks associated with it be empty tiles (which have different behavior depending on if you have a resource selected or not). I then simply coded each target type to assign the appropriate task and/or set the appropriate data.
+
 ## Audio
 All of my Music and SFX assets, were downloaded from itch.io with free-to-use liscenses.
 
@@ -196,6 +195,8 @@ For my press kit and trailer, I wanted to showcase how the game played and it's 
 **Document what you added to and how you tweaked your game to improve its game feel.**
 
 - Changing input controls: I suggested ideas on making the game feel better, such as having tooltips (i.e. show information on hover) instead of having to click on the ant/enemy to get info on it. Also, we were discussing on what the camera inputs should be, either WASD or hold right click and drag to move around the camera. We decided that WASD would be better since it allows for moving the cursor and moving the camera at the same time.
+
+- Adding particle effects: I added in the particle effects because I thought it looked weird if blocks and enemies just disappeared when they were destroyed, with particle effects these feel more weighty and responsive.
 
 ## User Interface 2
 
