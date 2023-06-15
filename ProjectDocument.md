@@ -2,11 +2,20 @@
 
 ## Summary ##
 
-In the insect world, survival is a contest of brutality where only the strongest survive. For an ant colony to survive, it must defend itself against vicious invading insects who threaten its existence. And war is hell...Anthell. During the day, dig for resources and shape your anthill into the ultimate fortress. When night falls, 
+In the insect world, survival is a contest of brutality where only the strongest survive. For an ant colony to survive, it must defend itself against vicious invading insects who threaten its existence. And war is hell...Anthell. During the day, dig for resources and shape your anthill into the ultimate fortress. When night falls, command your combat-ants to victory and defend the queen. How long can you last?
 
 Anthell is primarily based on 2D colony management games like Oxygen Not Included and Dwarf Fortress, where the objective is to grow and expand your colony while surviving as long as you can. Anthell uses a similar “invasion” element from Dwarf Fortress where you defend your colony against enemies every night while gathering resources during the day.
 
 ## Gameplay Explanation ##
+
+During the day, your main priority should be to collect resources so you can afford stronger ants to defend your queen from the first wave. Command your workers to dig some stone first, so you can use your starting cash to purchase a Carpenter Ant. Using the Carpenter, you can dig wood and other blocks faster. Make a longer path to the queen as well, and try to move her deeper to ensure better protection for her. When night falls, your ants will automatically attack nearby insects (and keep following and attacking them until they are dead) if they have no tasks assigned to them. Position them near areas where insects will pass through, or command them to attack directly, to ensure none are allowed to pass. Repeat this basic loop until you build up more and more resources and cash, so you can afford the stronger ants. Digging deeper and further to the left and right yields more valuable resources! Also, do make sure to remember ants can have multiple tasks assigned to them, and they will complete the sequentially.
+
+(Left mouse button) If clicking on an ant, this selects that ant. If an ant is selected, if you click a block this will tell that ant to dig that block and if you click an insect it will attack that insect; if you click an empty tile with a resource selected it will tell that ant to build that resoruce there and with no resource selected the ant will simply move there.
+(WASD) Move camera
+(Scroll wheel) Zoom camera in/out
+(E) Open/close buy menu
+(1234) Select resource
+(X) Deselect selected ant and resource
 
 **In this section, explain how the game should be played. Treat this as a manual within a game. It is encouraged to explain the button mappings and the most optimal gameplay strategy.**
 
