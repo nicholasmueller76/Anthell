@@ -2,7 +2,9 @@
 
 ## Summary ##
 
-Anthell is primarily based on 2D colony management games like Oxygen Not Included and Dwarf Fortress, where the objective is to grow and expand your colony while surviving as long as you can. Anthell uses a similar “invasion” element from Dwarf Fortress where you defend your colony against enemies every night while gathering resources during the day. You start with a handful of ants that must protect the colony’s queen. The ants will gather resources, build structures, spawn more ants, and defend the queen from enemies. There are a few prebuilt waves of enemies, with random waves after that increase in difficulty. Hosting a variety of friendly ant types and enemy types.
+In the insect world, survival is a contest of brutality where only the strongest survive. For an ant colony to survive, it must defend itself against vicious invading insects who threaten its existence. And war is hell...Anthell. During the day, dig for resources and shape your anthill into the ultimate fortress. When night falls, 
+
+Anthell is primarily based on 2D colony management games like Oxygen Not Included and Dwarf Fortress, where the objective is to grow and expand your colony while surviving as long as you can. Anthell uses a similar “invasion” element from Dwarf Fortress where you defend your colony against enemies every night while gathering resources during the day.
 
 ## Gameplay Explanation ##
 
@@ -25,6 +27,8 @@ Here is an example:
 You should replay any **bold text** with your relevant information. Liberally use the template when necessary and appropriate.
 
 ## Producer
+
+
 
 **Describe the steps you took in your role as producer. Typical items include group scheduling mechanism, links to meeting notes, descriptions of team logistics problems with their resolution, project organization tools (e.g., timelines, depedency/task tracking, Gantt charts, etc.), and repository management methodology.**
 
@@ -51,9 +55,9 @@ There was a few obstacles at first when I was creating the game. The first obsta
 
 
 
-## Movement/Physics
+## Movement/Pathfinding
 
-**Describe the basics of movement and physics in your game. Is it the standard physics model? What did you change or modify? Did you make your movement scripts that do not use the physics system?**
+Our game, given that ants can walk on walls, does not use gravity or Unity physics. Instead, our movement relies on the [A* Pathfinding Project Pro](https://assetstore.unity.com/packages/tools/ai/a-pathfinding-project-pro-87744) by Aaron Granberg, which I got on sale a while ago. This asset is very powerful and versatile, and supports a wide range of functions for pathfinding without much difficulty on the user end. The package all relies on the A* GameObject in the scene, which allows you to configure the type of navigation mesh to use. I used a Grid Graph since our game used a tilemap, and setting this up was not too difficult since it auto-generated based on the collision I specified. After that was set up, getting the ants to go where they needed to was as simple as adding a Seeker, AILerp, and Destination Setter, then setting the destination on the destination setter script and enabling movement. One difficulty was making sure the Grid Graph would update as the player placed and broke blocks, but this was handled in the TilemapManager by simply adding these lines, which force the Tilemap Collider to update and then rescans the graph: [TilemapManager](https://github.com/nicholasmueller76/Anthell/blob/acb059705deabe8d1971e2e68678aaa47251afda/Assets/Scripts/TilemapManager.cs#L67-L69)
 
 ## Animation and Visuals
 
