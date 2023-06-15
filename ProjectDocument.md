@@ -163,9 +163,17 @@ https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b
 
 ## Gameplay Testing
 
-**Add a link to the full results of your gameplay tests.**
+As we finished the gameplay systems relatively late, we didn't have much time for testing. However, we did end up getting a series of tests in to balance the first wave of enemies to ensure it was not too easy and not too hard. For the next build, we would've gotten much more testing in to add more waves and get more feedback.
 
-**Summarize the key findings from your gameplay tests.**
+First iteration: This wave was way too hard, as it had about as many beetles as the final iteration with double the health and additionally, a second mantis that comes in at the end. This wave was also way too hard without a carpenter ant because the player had no starting cash. Instead of nerfing the stats though, the next iteration spaced out the enemies more and got rid of the second mantis, and gave the player 100 starting cash.
+
+Second iteration: This wave was better, but the beetles still became overwhelming to the player. They were too fast and ants couldn't prevent them from reaching the queen. To try to fix this, the beetle speed was lowered.
+
+Third iteration: Beetles still end up killing ants faster than the player can replace them to defend the queen. Cash rewards for the mantis and beetle were rebalanced, and the beetle's attack was nerfed. Less beetles in the wave.
+
+Fourth iteration: Much more survivable than previous waves, but also shorter. To make the wave take up more of the 180 seconds of night, beetles had their health cut in half but there are now much more beetles in the wave.
+
+Fifth iteration: Now at a decent level of difficulty that should hopefully be manageable to the average player.
 
 ## Narrative Design
 
@@ -192,7 +200,6 @@ For my press kit and trailer, I wanted to showcase how the game played and it's 
 
 ## Game Feel
 
-**Document what you added to and how you tweaked your game to improve its game feel.**
 
 - Changing input controls: I suggested ideas on making the game feel better, such as having tooltips (i.e. show information on hover) instead of having to click on the ant/enemy to get info on it. Also, we were discussing on what the camera inputs should be, either WASD or hold right click and drag to move around the camera. We decided that WASD would be better since it allows for moving the cursor and moving the camera at the same time.
 
