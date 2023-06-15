@@ -32,53 +32,69 @@ public class ShopMenu : MonoBehaviour
 
     public void BuyWorker()
     {
+        FindObjectOfType<AudioManager>().PlaySFX("Button");
         if (CanAfford(workerAntData))
         {
             Instantiate(workerAnt, queenAnt.transform.position, Quaternion.Euler(0, 0, -90));
             Buy(workerAntData);
             Debug.Log("Buy Worker");
+            FindObjectOfType<AudioManager>().PlaySFX("Coin");
+            FindObjectOfType<AudioManager>().PlaySFX("SummonWorker");
         }
     }
 
     public void BuyCarpenter()
     {
+        FindObjectOfType<AudioManager>().PlaySFX("Button");
         if(CanAfford(carpenterAntData)) 
         {
             Instantiate(carpenterAnt, queenAnt.transform.position, Quaternion.Euler(0, 0, -90));
             Buy(carpenterAntData);
             Debug.Log("Buy Carpenter");
+            FindObjectOfType<AudioManager>().PlaySFX("Coin");
+            FindObjectOfType<AudioManager>().PlaySFX("SummonCarpenter");
         }
         
     }
 
     public void BuyWarrior()
     {
+        FindObjectOfType<AudioManager>().PlaySFX("Button");
         if (CanAfford(carpenterAntData))
         {
             Instantiate(warriorAnt, queenAnt.transform.position, Quaternion.Euler(0, 0, -90));
             Buy(warriorAntData);
             Debug.Log("Buy Warrior");
+            FindObjectOfType<AudioManager>().PlaySFX("Coin");
+            FindObjectOfType<AudioManager>().PlaySFX("SummonWarrior");
         }
     }
 
     public void BuyBullet()
     {
+        FindObjectOfType<AudioManager>().PlaySFX("Button");
         if (CanAfford(bulletAntData))
         {
             Instantiate(bulletAnt, queenAnt.transform.position, Quaternion.Euler(0, 0, -90));
             Buy(bulletAntData);
             Debug.Log("Buy Bullet");
+            FindObjectOfType<AudioManager>().PlaySFX("Coin");
+            FindObjectOfType<AudioManager>().PlaySFX("SummonBullet");
         }
     }
 
     public void BuySpike()
     {
+        FindObjectOfType<AudioManager>().PlaySFX("Button");
         Debug.Log("Buy Spike");
+        //FindObjectOfType<AudioManager>().PlaySFX("Coin");
     }
 
     public void BuyMine()
     {
+        FindObjectOfType<AudioManager>().PlaySFX("Button");
         Debug.Log("Buy Mine");
+        //FindObjectOfType<AudioManager>().PlaySFX("Coin");
     }
     
     public bool CanAfford(EntityData data)

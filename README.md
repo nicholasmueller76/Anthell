@@ -2,7 +2,7 @@
 
 ## Summary ##
 
-**A paragraph-length pitch for your game.**
+Anthell is primarily based on 2D colony management games like Oxygen Not Included and Dwarf Fortress, where the objective is to grow and expand your colony while surviving as long as you can. Anthell uses a similar “invasion” element from Dwarf Fortress where you defend your colony against enemies every night while gathering resources during the day. You start with a handful of ants that must protect the colony’s queen. The ants will gather resources, build structures, spawn more ants, and defend the queen from enemies. There are a few prebuilt waves of enemies, with random waves after that increase in difficulty. Hosting a variety of friendly ant types and enemy types.
 
 ## Gameplay Explanation ##
 
@@ -86,29 +86,30 @@ Our UI although not really matching the nature-esque world that we have defined 
 Two different input types are supported. The first input type is mouse and keyboard. The second input type is touch controls.
 
 *Camera Movement* - The camera can be moved using WASD or arrow keys if using mouse and keyboard. With touch controls, the camera is moved by touching the left side of the screen, then moving your finger in the direction you want the camera to move in. It basically works like a virtual thumbstick. The further you move your finger, the faster the camera moves. To prevent movement when the player is tapping the screen, there is a deadzone where the player must move their finger greater than that area to move the camera. Since there is no player character to follow, the camera is directly moved with player input. The camera’s position is limited to stay within the game’s map. 
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L293-L297
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L307
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/CameraController.cs#L16
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L284-L290
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L300
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/CameraController.cs#L16
 
 *Camera Zooming* - The player can zoom the camera in and out by using the mouse’s scroll wheel. Scrolling up zooms in the camera, scrolling down zooms out the camera. With touch controls, the camera can be zoomed in/out by pinching the screen. There is a maximum distance that the camera can zoom in/out.
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L299-L303
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L347
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/CameraController.cs#L22
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L292-L296
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L340
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/CameraController.cs#L22
 
 *Tile Highlighting* - To aid players in knowing which tile they are selecting, there is a highlight that shows up on the tile when the mouse hovers over it. With touch controls, this highlight shows up when the screen is tapped. This is implemented by converting the mouse’s position on the screen to the world position. Then converting the mouse’s world position to the cell position. Then the tile highlight is a sprite which is placed over the tile at the center of the cell position.
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L94-L98
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L87-L91
 
 *Gameobject Detection on Click* - When the player left clicks, a raycast is done at the mouse’s position. This can be used to detect which gameobject the player is clicking on. This functionality works the same with touch controls. Also the game will not detect gameobjects if the player is clicking on the UI so that players won’t do something like accidentally having an ant use up resources to build something when they’re actually trying to buy something in the shop.
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L118
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L74-L92
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L111
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L67-L85
 
 *Switch Item* - The player can switch the item that they have selected by clicking on the buttons at the bottom of the screen. Clicking a resource that is already selected will deselect it. This action is the same for touch controls. The observer pattern is used here as there is a listener that will call the callback function when the button is clicked.
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L436
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L63
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L429
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L59
 
 *Toggle Shop Menu* - The shop menu can be toggled by pressing E on the keyboard. With touch controls, the shop menu can be closed by swiping right on the right side of the screen. It can be opened by swiping left on the right side of the screen. This is implemented by getting the initial touch position, then getting the position when the player lifts their finger and seeing if that position is to the left or right of the initial position.
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L387
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L415
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L257-L265
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L380
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L408
 
 ## Game Logic
 
@@ -117,15 +118,14 @@ https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e3
 # Sub-Roles
 
 ## Cross-Platform
-The platform that was our main focus for the game was PC. Then I decided to add mobile support to the game.
+The platform that was our main focus for the game was PC. Then I decided to add mobile support to the game. This video is a demo of the touch controls with taps shown on screen: https://www.youtube.com/watch?v=JlXvbyrcs1w
 
 *Mobile Port* - Initially, I had problems trying to create a mobile port as I was getting errors in Unity regarding a part of the directory involving Gradle dependency-locks being missing when trying to export the game to Android. I tried multiple ways to troubleshoot this issue including reinstalling the editor with the Android module. However, I was still getting the same error message about the missing directory. While I wasn’t able to get an Android port working, I figured out another way to create a mobile port by exporting the project as a WebGL app then putting it on itch.io which then allows the game to be played on mobile. I found that it worked using Chrome for Android, though I was not able to test this on iOS devices. This may also work on tablets that run Windows, but I also was not able to test this. However, since I was unable to get an Android build working, this made debugging the touch controls difficult as I couldn’t see the console for any logs.
 
 *Touch Controls* - A challenging part of this sub role was trying to manage the different controls used in the game. As the game progressed further in development, more controls were added which meant that I needed to figure out an equivalent way to perform the same action with touch controls. For example, players on PC can move the camera using WASD or the arrow keys. However, since players on mobile are most likely not going to have a keyboard connected to their phone, I needed to come up with a different way to move the camera. My solution was to implement something like a virtual thumbstick where the player can touch the bottom left corner of their screen and then move their finger in the direction they want the camera to move. Another control I needed to remap was opening and closing the shop menu. On PC players just press E, but mobile players don’t have keyboards so I implemented this action by having the players swipe left/right on the right side of the screen to open/close the shop menu. Another example is that on PC, players can deselect the ant by pressing X, so I implemented this with touch controls by letting the players touch the selected ant again to deselect it. Luckily, some of the controls were easy to port to mobile as they required little to no changes. For example, the action of left clicking with the mouse is interpreted the same as a tap on touch controls, so I only had to make very few changes to ensure that any action using left clicks works on mobile.
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L307
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L347
-https://github.com/nicholasmueller76/Anthell/blob/12e506925bd00ee7f3420440e9e1e341b97abfaa/Assets/Scripts/InputManager.cs#L387
-
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L300
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L340
+https://github.com/nicholasmueller76/Anthell/blob/7ae74dd90c966d43471bb789fdf26b0c0da72a89/Assets/Scripts/InputManager.cs#L380
 
 ## Audio
 

@@ -52,6 +52,8 @@ namespace Anthell
                     nearestAnt.health.TakeDamage(entityData.attackDamage);
                     anim.SetTrigger("Attack");
                     AudioManager.instance.PlaySFX("Whoosh", false);
+                    string[] antDamage = {"AntDamage1", "AntDamage2", "AntDamage3"};
+                    AudioManager.instance.PlaySFX(antDamage);
                     //delay for animation
                     yield return new WaitForSeconds(1f);
                 }
